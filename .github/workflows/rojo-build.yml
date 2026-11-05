@@ -11,8 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install Rokit
-        uses: rojo-rbx/setup-rokit@v1
+      - name: Setup Rokit
+        uses: CompeyDev/setup-rokit@v0.1.2
+        with:
+          version: 'v1.1.0'
       - name: Install pinned tools
         run: rokit install
       - name: Build HUB place
