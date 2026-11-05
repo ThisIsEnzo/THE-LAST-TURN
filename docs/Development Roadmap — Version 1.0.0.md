@@ -32,14 +32,21 @@
 ## Task Registry
 
 ### Phase 0 — Pre-production
-- Repository and project setup.
-- Documentation.
-- Rojo setup.
-- Roblox Experience and Places.
-- Development workflow.
+See [Phase 0 Checklist](./PHASE_0_CHECKLIST.md) for P0-01–P0-10, exit criteria and owner-dependent tasks.
+
+- P0-01 Product baseline — DONE
+- P0-02 Technical baseline — DONE
+- P0-03 Repository workflow — DONE
+- P0-04 Rojo project bootstrap — IN REVIEW
+- P0-05 Toolchain reproducibility — READY
+- P0-06 Roblox Experience — BLOCKED (owner action)
+- P0-07 HUB Place — BLOCKED (owner action)
+- P0-08 MISSION Place — BLOCKED (owner action)
+- P0-09 Studio smoke test — BLOCKED (owner action)
+- P0-10 Workflow validation — BLOCKED (owner action)
 
 ### Phase 1 — Core Foundation
-- TTL-01 Project Bootstrap
+- TTL-01 Project Bootstrap — IN REVIEW (HUB/MISSION Rojo mappings and server entry points)
 - TTL-02 Networking Foundation
 - TTL-03 Player State
 - TTL-04 Party System
