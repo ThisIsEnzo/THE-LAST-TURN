@@ -47,7 +47,7 @@ See [Phase 0 Checklist](./PHASE_0_CHECKLIST.md) for P0-01–P0-10, exit criteria
 
 ### Phase 1 — Core Foundation
 - TTL-01 Project Bootstrap — IN REVIEW (HUB/MISSION Rojo mappings and server entry points)
-- TTL-02 Networking Foundation
+- TTL-02 Networking Foundation — IN REVIEW (code-level implementation; Roblox Studio validation NOT performed)
 - TTL-03 Player State
 - TTL-04 Party System
 - TTL-05 Mission Teleport

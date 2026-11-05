@@ -18,6 +18,12 @@
         "$className": "StarterPlayerScripts",
         "$path": "src/hub/client"
       }
+    },
+    "ServerStorage": {
+      "$className": "ServerStorage",
+      "ServerShared": {
+        "$path": "src/server_shared"
+      }
     }
   }
 }

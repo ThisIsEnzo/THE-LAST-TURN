@@ -103,3 +103,23 @@ Explicitly handle:
 - Result payload is missing, stale or delivered twice.
 
 Each feature PR must cover the failure cases relevant to its scope. Do not attempt to solve every future failure mode with speculative framework code.
+
+## 8. Network boundaries (TTL-02)
+
+HUB and MISSION use identical networking conventions.
+
+| Location | Contents | Visible to client |
+|---|---|---|
+| `ReplicatedStorage.Shared.Network` | `NetworkContract` (remote names, protocol version), `ClientNetwork`, diagnostic client | Yes (names only; not secrets, not authorization) |
+| `ReplicatedStorage.Network.Requests` | Client -> server RemoteEvents, created by the server at startup | Yes |
+| `ReplicatedStorage.Network.Notifications` | Server -> client RemoteEvents, created by the server at startup | Yes |
+| `ServerStorage.ServerShared.Network` | `NetworkService`, `Validator`, `RateLimiter`, `NetworkConfig`, `DiagnosticHandshake` | No (server-only) |
+
+Request pipeline (all client requests are untrusted):
+
+1. Roblox supplies the `Player`; payloads never carry identity. Requests from players already leaving are dropped.
+2. Per-player, per-request token-bucket rate limit (`NetworkConfig.RateLimits`). Rejected requests never reach the handler.
+3. Schema validation (types, required/optional fields, string length, numeric bounds, no unexpected fields, no extra arguments). Failure is logged on the server and nothing is sent back.
+4. A handler registered by server code for a name declared in `NetworkContract.Requests` runs in `pcall`.
+
+Rules: one purpose-specific remote per request or notification; no generic dispatch; clients cannot create or register endpoints; `NetworkService.init()` is idempotent and runs in each server bootstrap before dependent systems; per-player limiter state is removed on `PlayerRemoving`. The `ClientReady` / `HandshakeAck` pair is a removable diagnostic and grants no authority.

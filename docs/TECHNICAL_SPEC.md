@@ -100,6 +100,7 @@ Keep AI decisions on the server. Clients may receive presentation cues, never au
 - Never accept client-provided reward amounts, evidence conclusions, entity health/state or objective completion.
 - Keep remotes narrow and purpose-specific; do not expose arbitrary server method dispatch.
 - Rate-limit interaction and communication requests.
+- TTL-02 foundation: remotes are declared in `src/shared/Network/NetworkContract.lua`, created only by the server through the server-only `NetworkService` (`src/server_shared`, mapped to `ServerStorage.ServerShared` in both Rojo projects), rate limited per player and per request, and validated by a fail-closed schema validator. See ARCHITECTURE section 8.
 - Client UI is a projection of server state, not the source of truth.
 - Avoid broadcasting hidden information to all clients and attempting to hide it only in UI.
 
@@ -135,6 +136,7 @@ src/
     config/
     types/
     utilities/
+  server_shared/   (server-only modules, mapped to ServerStorage.ServerShared)
   hub/
     server/
     client/
