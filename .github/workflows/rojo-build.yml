@@ -1,0 +1,21 @@
+name: Rojo build validation
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-places:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Rokit and install pinned tools
+        uses: CompeyDev/setup-rokit@v0.1.2
+        with:
+          version: 'v1.1.0'
+      - name: Build HUB place
+        run: rojo build hub.project.json --output /tmp/the-last-turn-hub.rbxlx
+      - name: Build MISSION place
+        run: rojo build mission.project.json --output /tmp/the-last-turn-mission.rbxlx
