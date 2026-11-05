@@ -50,3 +50,14 @@ Before public release:
 - Verify server authority for objectives, evidence, death, rewards and purchases.
 - Verify persistence failure/retry and duplicate reward handling if progression is enabled.
 - Resolve all critical and high-severity blockers affecting mission completion, security or data integrity.
+
+## 6. Networking tests (TTL-02)
+
+Pure Luau tests live in `tests/server_shared/` and run with Lune (`lune run tests/run`, pinned in `rokit.toml`, executed in the Rojo build workflow). A small in-repo harness (`tests/Harness.lua`) is used instead of a framework.
+
+| Spec | Covers |
+|---|---|
+| `Validator.spec.lua` | Valid payloads, missing required fields, unexpected fields (including client-supplied identity), wrong types, nil/malformed arguments, extra arguments, numeric boundaries, NaN/infinity/fractions, string length boundaries, invalid UTF-8, enums, nested objects, schema construction errors |
+| `RateLimiter.spec.lua` | Accept/reject at capacity, refill and capacity cap, independent players, independent actions, unknown actions, cleanup on player removal, no accumulation across join/leave, clock regression, invalid configuration |
+
+Not covered by automated tests (require Roblox runtime/Studio): `NetworkService` remote creation, idempotent init, `OnServerEvent` wiring, `PlayerRemoving` cleanup and the end-to-end handshake. These need Studio single-client and multi-client validation.

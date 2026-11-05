@@ -19,3 +19,5 @@ jobs:
         run: rojo build hub.project.json --output /tmp/the-last-turn-hub.rbxlx
       - name: Build MISSION place
         run: rojo build mission.project.json --output /tmp/the-last-turn-mission.rbxlx
+      - name: Run pure Luau tests
+        run: lune run tests/run
