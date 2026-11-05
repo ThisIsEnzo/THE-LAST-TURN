@@ -123,3 +123,33 @@ Request pipeline (all client requests are untrusted):
 4. A handler registered by server code for a name declared in `NetworkContract.Requests` runs in `pcall`.
 
 Rules: one purpose-specific remote per request or notification; no generic dispatch; clients cannot create or register endpoints; `NetworkService.init()` is idempotent and runs in each server bootstrap before dependent systems; per-player limiter state is removed on `PlayerRemoving`. The `ClientReady` / `HandshakeAck` pair is a removable diagnostic and grants no authority.
+
+## 9. Player lifecycle (TTL-03)
+
+`PlayerStateService` (server-only, `ServerStorage.ServerShared.Player`) is shared by HUB and MISSION. Rules and storage live in the pure `PlayerStateCore`; the service only adds Roblox event handling. It initializes after `NetworkService.init()` in both bootstraps.
+
+| State | Meaning |
+|---|---|
+| ALIVE | Alive and actively participating (initial state of every registered player) |
+| DEAD | Died; post-death flow pending or being resolved |
+| GHOST | In the ghost participation state |
+| SPECTATING | Observing other players; not participating |
+| RETURNING | Leaving the mission / returning to the HUB; terminal for the current lifecycle |
+
+Allowed transitions (all others rejected; repeating the current state is an idempotent no-op):
+
+```
+ALIVE      -> DEAD, RETURNING
+DEAD       -> GHOST, SPECTATING, RETURNING
+GHOST      -> SPECTATING, RETURNING
+SPECTATING -> RETURNING
+RETURNING  -> (none)
+```
+
+There is intentionally no transition back to ALIVE; a future mission/respawn design decides how a new participation lifecycle begins.
+
+- **Authority:** only server code calls `transition`. There is no remote and no client-supplied state. Transition reasons stay on the server (`onStateChanged` listeners).
+- **Replication:** the server sets the Player attribute `LifecycleState` (name in `PlayerLifecycle.StateAttribute`). Clients read it with `player:GetAttribute` / `GetAttributeChangedSignal`; client-side writes do not replicate to the server and never affect authority. Trade-off: Player attributes replicate to all clients, so other players can see each player's state. Move to a per-player remote if a design requires hiding it.
+- **Character handling:** lifecycle state is independent of the character. `CharacterAdded`/`CharacterRemoving` only (re)bind `Humanoid.Died`; they never change or reset state. Each character gets a token; callbacks from replaced characters are ignored. A missing Humanoid is awaited via `ChildAdded` (no wait loop) and the connection ends with the character. `Humanoid.Died` moves ALIVE -> DEAD only; death events in other states are ignored.
+- **Cleanup:** `PlayerRemoving` disconnects all player/character connections and removes the state. `shutdown()` clears everything, including attributes; `init()` and `shutdown()` are idempotent.
+- **Not included:** Ghost abilities, spectator camera/UI, respawn/revive, party, mission lifecycle, teleport, persistence.

@@ -6,6 +6,7 @@ local process = require("@lune/process")
 local Harness = require("./Harness")
 require("./server_shared/Validator.spec")
 require("./server_shared/RateLimiter.spec")
+require("./server_shared/PlayerStateCore.spec")
 
 local results = Harness.results()
 for _, failure in ipairs(results.failures) do
