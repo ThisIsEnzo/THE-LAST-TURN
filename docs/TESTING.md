@@ -61,3 +61,14 @@ Pure Luau tests live in `tests/server_shared/` and run with Lune (`lune run test
 | `RateLimiter.spec.lua` | Accept/reject at capacity, refill and capacity cap, independent players, independent actions, unknown actions, cleanup on player removal, no accumulation across join/leave, clock regression, invalid configuration |
 
 Not covered by automated tests (require Roblox runtime/Studio): `NetworkService` remote creation, idempotent init, `OnServerEvent` wiring, `PlayerRemoving` cleanup and the end-to-end handshake. These need Studio single-client and multi-client validation.
+
+## 7. Player state tests (TTL-03)
+
+`tests/server_shared/PlayerStateCore.spec.lua` covers the pure module: every allowed and forbidden transition (full 5x5 matrix), no return to ALIVE, RETURNING terminal, same-state idempotency, invalid state values, unknown player, registration/unregistration, independent players, clear/reinitialization, immutability of returned results, and consistency between the shared vocabulary and the core.
+
+Requires Roblox Studio (not covered by Lune; not yet run):
+- Players already present at `init()`, players joining and leaving, `PlayerRemoving` cleanup of connections.
+- `CharacterAdded`/`CharacterRemoving`, respawn not resetting state, spawn with a delayed or missing Humanoid.
+- `Humanoid.Died` -> DEAD, duplicate death events, stale callbacks after character replacement, disconnect during character loading.
+- `LifecycleState` attribute visible to the owning client after join and respawn; client-side attribute edits not affecting server state.
+- HUB and MISSION server bootstraps initializing in the required order.

@@ -110,6 +110,8 @@ Model lifecycle explicitly: ALIVE, DEAD, GHOST, SPECTATING, RETURNING. Define le
 
 Ghosts may observe and use carefully limited ghost-only perception/signals. They cannot collect physical items, complete physical objectives, damage the entity or disclose unrestricted hidden information. Ghost rules must be enforced server-side. Spectating is a presentation mode and is not synonymous with being dead.
 
+TTL-03 implements the lifecycle foundation only: `PlayerStateService` (`src/server_shared/Player`, server-only) with an explicit transition table, Humanoid death detection and a server-owned `LifecycleState` Player attribute. See ARCHITECTURE section 9. Ghost abilities, spectator behavior and respawn remain with their own tasks.
+
 ## 9. Persistence and rewards
 
 Do not add persistent data until the profile schema and failure strategy are specified. When introduced:
