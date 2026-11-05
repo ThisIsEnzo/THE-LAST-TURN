@@ -1,0 +1,22 @@
+# Build artifacts
+build/
+sourcemap.json
+
+# Roblox Studio files (commit intentionally selected model JSON files instead)
+*.rbxl
+*.rbxlx
+*.rbxm
+*.rbxmx
+
+# Temporary files
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Luau / tool caches
+.rojo/
