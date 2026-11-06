@@ -48,6 +48,20 @@ test("environment check requires the expected place and a reserved server", func
     expectEqual(reason({ privateServerOwnerId = 7 }), "not_reserved_server")
 end)
 
+test("join source must be the configured HUB place in the same Experience", function()
+    expectTrue((ArrivalCore.checkJoinSource(10, 99, 10, 99)))
+    local function reason(sourcePlaceId: number?, sourceGameId: number?, hubPlaceId: number, gameId: number): string?
+        local _, why = ArrivalCore.checkJoinSource(sourcePlaceId, sourceGameId, hubPlaceId, gameId)
+        return why
+    end
+    expectEqual(reason(nil, nil, 10, 99), "unexpected_source_place")
+    expectEqual(reason(11, 99, 10, 99), "unexpected_source_place")
+    expectEqual(reason(10, nil, 10, 99), "unexpected_source_game")
+    expectEqual(reason(10, 100, 10, 99), "unexpected_source_game")
+    expectEqual(reason(10, 99, 0, 99), "hub_place_not_configured")
+    expectEqual(reason(10, 99, 10, 0), "experience_not_configured")
+end)
+
 test("no context until a valid arrival", function()
     local core = newCore()
     expectEqual(core:getState(), States.NO_CONTEXT)
