@@ -69,7 +69,19 @@ local function sendSnapshot(userId: number)
     end
     local snapshot = store:getPartyOf(userId)
     if snapshot then
-        send(userId, NetworkContract.Notifications.PartySnapshot, snapshotPayload(snapshot))
+        local payload = snapshotPayload(snapshot)
+        -- Invitations are recipient-private and must survive a missed push (e.g. listener setup race).
+        -- Include them only in this player's snapshot response, never in party-wide broadcasts.
+        payload.pendingInvites = {}
+        for _, invite in ipairs(store:getInvitesFor(userId)) do
+            local inviter = Players:GetPlayerByUserId(invite.inviter)
+            table.insert(payload.pendingInvites, {
+                inviterUserId = invite.inviter,
+                inviterDisplayName = if inviter then inviter.DisplayName else "",
+                expiresAt = invite.expiresAt,
+            })
+        end
+        send(userId, NetworkContract.Notifications.PartySnapshot, payload)
     end
 end
 
