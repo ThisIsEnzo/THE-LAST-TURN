@@ -17,6 +17,7 @@ The client never supplies PlaceId, reserved server id, party, members, mission t
 
 `MissionContextService` (server-only) runs for every player on `PlayerAdded` (and existing players at init):
 - Environment check (`ArrivalCore.checkEnvironment`): `game.PlaceId` equals the configured MISSION PlaceId, `game.PrivateServerId` is non-empty and `game.PrivateServerOwnerId == 0` (reserved server). Otherwise every arrival is rejected.
+- Per-player origin check (`ArrivalCore.checkJoinSource`): `GetJoinData().SourcePlaceId` must equal the configured HUB PlaceId and `SourceGameId` must equal `game.GameId`. `GetJoinData()` is used server-side to reject valid-shaped launch data from an unrelated place/experience.
 - `player:GetJoinData().TeleportData` is validated with `TeleportPayload.validate` (fail closed).
 - `ArrivalCore.arrive`: the first valid arrival creates the context; later arrivals must match mission id, party id, leader, mission type and member set exactly, and be listed members. Duplicates are idempotent; unexpected or conflicting players are never added.
 - Rejected players are logged (code only, never payload or ids) and kicked, except in Studio (where no teleport data exists, so playtests are not kicked).
@@ -55,14 +56,14 @@ Request: `MissionLaunch` (no payload; rate limit capacity 2, refill 0.2/s). Noti
 
 ## 7. Configuration (owner action required)
 
-- `src/server_shared/MissionTeleport/MissionPlaces.lua`: set `MissionPlaceId` to the real MISSION PlaceId (same Experience as the HUB). `0` = disabled: the HUB logs a warning and answers `preparation_failed`/`mission_not_configured`; MISSION rejects arrivals. No id was invented.
+- `src/server_shared/MissionTeleport/MissionPlaces.lua`: set both `HubPlaceId` and `MissionPlaceId` to the real PlaceIds in the same Experience. `0` = not configured: HUB launches remain disabled; MISSION rejects arrivals/source validation. No ids were invented.
 - `src/hub/server/MissionTeleport/MissionTeleportConfig.lua`: mission type, retries, delay, launch timeout. `src/mission/server/MissionContext/MissionContextConfig.lua`: arrival timeout.
 - Both Places must be published in the same Experience and API/teleport access enabled for the Experience.
 - Note: `docs/PHASE_0_CHECKLIST.md` says teleport work should wait for known PlaceIds (P0-07/P0-08 still BLOCKED). This task was explicitly requested with a safe disabled state; those checklist items remain unchanged.
 
 ## 8. Security boundaries
 
-Client chooses nothing; every remote is rate limited and validated; handlers run server-side only; party data comes from `PartyService`'s public API (PartyCore is never touched); reserved ids are not logged, replicated or put in teleport data; MISSION fails closed on bad data and never adds players to a mismatching context.
+Client chooses nothing; every remote is rate limited and validated; handlers run server-side only; party data comes from `PartyService`'s public API (PartyCore is never touched); reserved ids are not logged, replicated or put in teleport data; MISSION verifies the reserved-server environment plus `GetJoinData()` source place/experience and fails closed on bad data or mismatching contexts.
 
 ## 9. Automated vs manual validation
 
