@@ -12,9 +12,11 @@ print("[THE LAST TURN][HUB] Server bootstrap started.")
 local NetworkService = require(ServerStorage.ServerShared.Network.NetworkService)
 local DiagnosticHandshake = require(ServerStorage.ServerShared.Network.DiagnosticHandshake)
 local PlayerStateService = require(ServerStorage.ServerShared.Player.PlayerStateService)
+local PartyService = require(script.Parent.Party.PartyService)
 
 NetworkService.init()
 PlayerStateService.init() -- TTL-03: must run after networking; other systems start after this.
+PartyService.init() -- TTL-04: HUB only; after NetworkService and PlayerStateService.
 DiagnosticHandshake.register("HUB") -- TTL-02 diagnostic only; removable.
 
 print("[THE LAST TURN][HUB] Networking initialized.")

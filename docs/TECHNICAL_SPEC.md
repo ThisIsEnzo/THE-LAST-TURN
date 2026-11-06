@@ -49,7 +49,7 @@ A mission server must never share mutable mission state with another match. Use 
 
 Suggested server modules (introduce incrementally, not as empty scaffolding):
 
-- **PartyService (HUB):** party membership, leader, capacity and leave/disconnect handling.
+- **PartyService (HUB, TTL-04):** server-authoritative party membership, leadership, invitations and replication, built on the pure `PartyCore`. See ARCHITECTURE section 10.
 - **MatchmakingService (HUB):** validates party and allocates mission server.
 - **TeleportServiceAdapter:** isolates Roblox teleport calls and failure handling.
 - **PlayerDataService (HUB):** profile schema, load/save, retries and session locking strategy.

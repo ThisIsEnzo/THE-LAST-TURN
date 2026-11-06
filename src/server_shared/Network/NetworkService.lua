@@ -138,6 +138,17 @@ function NetworkService.registerRequest(name: string, definition: RequestDefinit
     end)
 end
 
+-- Disconnects one request handler so its owner can shut down and register again. Idempotent.
+function NetworkService.unregisterRequest(name: string): boolean
+    local connection = requestConnections[name]
+    if connection == nil then
+        return false
+    end
+    connection:Disconnect()
+    requestConnections[name] = nil
+    return true
+end
+
 -- Server -> client notification. Name must be declared in NetworkContract.Notifications.
 function NetworkService.fireNotification(name: string, player: Player, payload: any)
     assert(initialized, "NetworkService.init() must run before fireNotification")

@@ -20,11 +20,20 @@ local NetworkContract = {
     -- Client -> server. Each entry must also have a rate limit in the server-only NetworkConfig.
     Requests = table.freeze({
         ClientReady = "ClientReady", -- TTL-02 diagnostic handshake (removable)
+        -- TTL-04 Party System (HUB handlers only; the contract is shared, MISSION registers none).
+        PartyInvite = "PartyInvite",
+        PartyRespondInvite = "PartyRespondInvite",
+        PartyLeave = "PartyLeave",
+        PartyKick = "PartyKick",
+        PartyRequestSnapshot = "PartyRequestSnapshot", -- client pulls its snapshot once its listener is connected
     }),
 
     -- Server -> client.
     Notifications = table.freeze({
         HandshakeAck = "HandshakeAck", -- TTL-02 diagnostic handshake (removable)
+        PartySnapshot = "PartySnapshot", -- party state, sent only to members of that party
+        PartyInviteReceived = "PartyInviteReceived", -- sent only to the invited player
+        PartyInviteEnded = "PartyInviteEnded", -- sent only to the invite's inviter and target
     }),
 }
 
