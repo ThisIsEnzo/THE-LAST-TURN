@@ -72,3 +72,13 @@ Requires Roblox Studio (not covered by Lune; not yet run):
 - `Humanoid.Died` -> DEAD, duplicate death events, stale callbacks after character replacement, disconnect during character loading.
 - `LifecycleState` attribute visible to the owning client after join and respawn; client-side attribute edits not affecting server state.
 - HUB and MISSION server bootstraps initializing in the required order.
+
+## 8. Party tests (TTL-04)
+
+`tests/server_shared/PartyCore.spec.lua` (Lune) covers the pure party rules: config validation, solo party creation, unique/never-reused ids, lookup and join order, snapshot immutability, capacity of 8 at invite and acceptance time, leader-only invites, accept/decline, expiry (lazy and timer-style), duplicate and capped invitations, refusal to move multi-member party members, superseded invitations, leave (member, leader with deterministic transfer, solo, last member), kick (authorized and every unauthorized variant), disconnect cleanup of membership and invitations, idempotent repeats, independent parties, and a deterministic 3000-step randomized sequence that asserts `validateInvariants` (no orphaned parties, memberships or invites; every registered player in exactly one party) after every operation.
+
+Requires Roblox Studio (not covered by Lune; not yet run):
+- `PartyService` init in the HUB bootstrap after `NetworkService` and `PlayerStateService`; players already connected at init; join/leave.
+- Remote handlers with real clients: invite, accept/decline, leave, kick, snapshot pull; forged or malformed payloads, other players' UserIds, disconnected targets, rate limiting.
+- Delivery of `PartySnapshot`, `PartyInviteReceived` and `PartyInviteEnded` only to the intended players; invitation timer expiry in real time.
+- Simultaneous leave/kick/invite/disconnect with multiple clients; `shutdown()` followed by `init()`.
