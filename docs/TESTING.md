@@ -82,3 +82,9 @@ Requires Roblox Studio (not covered by Lune; not yet run):
 - Remote handlers with real clients: invite, accept/decline, leave, kick, snapshot pull; forged or malformed payloads, other players' UserIds, disconnected targets, rate limiting.
 - Delivery of `PartySnapshot`, `PartyInviteReceived` and `PartyInviteEnded` only to the intended players; invitation timer expiry in real time.
 - Simultaneous leave/kick/invite/disconnect with multiple clients; `shutdown()` followed by `init()`.
+
+## 9. Mission Teleport tests (TTL-05)
+
+Lune specs in `tests/server_shared/`: `TeleportPayload.spec.lua` (schema, bounds, duplicates, unexpected fields), `ArrivalCore.spec.lua` (environment checks, arrival coordination, mismatches, duplicates, timeout, leave/rejoin), `LaunchCoordinator.spec.lua` (validation, party changes during preparation, duplicate and concurrent launches, unique ids, invalid PlaceId, synchronous and asynchronous failures, same-destination retry, retry limit, disconnects, timeouts, no stale locks) using injected fake adapters; no Roblox teleport is simulated.
+
+Cannot be automated and is NOT yet validated: real `TeleportAsync`, `TeleportInitFailed`, `GetJoinData`, reserved-server environment, remotes and timers. Requires a published Experience; see the checklist in `docs/TTL-05_MISSION_TELEPORT.md`.

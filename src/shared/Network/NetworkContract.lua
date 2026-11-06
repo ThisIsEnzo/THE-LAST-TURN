@@ -26,6 +26,8 @@ local NetworkContract = {
         PartyLeave = "PartyLeave",
         PartyKick = "PartyKick",
         PartyRequestSnapshot = "PartyRequestSnapshot", -- client pulls its snapshot once its listener is connected
+        -- TTL-05 Mission Teleport (HUB handler only). No payload: the server decides party, place and mission.
+        MissionLaunch = "MissionLaunch",
     }),
 
     -- Server -> client.
@@ -34,6 +36,7 @@ local NetworkContract = {
         PartySnapshot = "PartySnapshot", -- party state, sent only to members of that party
         PartyInviteReceived = "PartyInviteReceived", -- sent only to the invited player
         PartyInviteEnded = "PartyInviteEnded", -- sent only to the invite's inviter and target
+        MissionLaunchStatus = "MissionLaunchStatus", -- launch progress/failure for the affected party members only
     }),
 }
 

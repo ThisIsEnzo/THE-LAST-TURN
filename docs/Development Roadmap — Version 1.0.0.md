@@ -50,7 +50,7 @@ See [Phase 0 Checklist](./PHASE_0_CHECKLIST.md) for P0-01–P0-10, exit criteria
 - TTL-02 Networking Foundation — DONE (merged; Roblox Studio runtime validation NOT performed)
 - TTL-03 Player State — DONE (merged; Roblox Studio validation NOT performed)
 - TTL-04 Party System — IN REVIEW (server-authoritative implementation; Studio validation NOT performed)
-- TTL-05 Mission Teleport
+- TTL-05 Mission Teleport — IN REVIEW (server-authoritative HUB → reserved MISSION transport; automated tests/builds pass; live teleport validation NOT performed)
 
 ### Phase 2 — Playable Mission
 - TTL-06 Mission Lifecycle
