@@ -18,6 +18,22 @@ ArrivalCore.States = table.freeze({
     INCOMPLETE = "INCOMPLETE",
 })
 
+function ArrivalCore.checkJoinSource(sourcePlaceId: number?, sourceGameId: number?, expectedHubPlaceId: number, expectedGameId: number): (boolean, string?)
+    if type(expectedHubPlaceId) ~= "number" or expectedHubPlaceId <= 0 or expectedHubPlaceId % 1 ~= 0 then
+        return false, "hub_place_not_configured"
+    end
+    if type(expectedGameId) ~= "number" or expectedGameId <= 0 or expectedGameId % 1 ~= 0 then
+        return false, "experience_not_configured"
+    end
+    if sourcePlaceId ~= expectedHubPlaceId then
+        return false, "unexpected_source_place"
+    end
+    if sourceGameId ~= expectedGameId then
+        return false, "unexpected_source_game"
+    end
+    return true, nil
+end
+
 -- env: placeId, expectedPlaceId, privateServerId, privateServerOwnerId (Roblox values passed in by the service).
 function ArrivalCore.checkEnvironment(env: {
     placeId: number,
