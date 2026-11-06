@@ -84,6 +84,16 @@ local function processPlayer(player: Player)
         return
     end
     local joinData = player:GetJoinData()
+    local sourceOk, sourceProblem = ArrivalCore.checkJoinSource(
+        joinData.SourcePlaceId,
+        joinData.SourceGameId,
+        MissionPlaces.HubPlaceId,
+        game.GameId
+    )
+    if not sourceOk then
+        rejectPlayer(player, sourceProblem or "invalid_join_source")
+        return
+    end
     local ok, payload = TeleportPayload.validate(joinData.TeleportData)
     if not ok then
         rejectPlayer(player, "invalid_payload")
