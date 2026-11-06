@@ -48,8 +48,8 @@ See [Phase 0 Checklist](./PHASE_0_CHECKLIST.md) for P0-01–P0-10, exit criteria
 ### Phase 1 — Core Foundation
 - TTL-01 Project Bootstrap — DONE (merged; Roblox Studio runtime validation remains an owner task)
 - TTL-02 Networking Foundation — DONE (merged; Roblox Studio runtime validation NOT performed)
-- TTL-03 Player State — IN REVIEW (code-level implementation; Roblox Studio validation NOT performed)
-- TTL-04 Party System
+- TTL-03 Player State — DONE (merged; Roblox Studio validation NOT performed)
+- TTL-04 Party System — IN REVIEW (server-authoritative implementation; Studio validation NOT performed)
 - TTL-05 Mission Teleport
 
 ### Phase 2 — Playable Mission
