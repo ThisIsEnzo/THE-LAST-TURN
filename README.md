@@ -7,7 +7,7 @@ A Roblox cooperative paranormal investigation / survival horror experience.
 
 ## Project status
 
-The repository contains the approved product baseline, HUB/MISSION Rojo projects, and merged foundation systems TTL-01 through TTL-06 (networking, player state, parties, mission teleport and mission lifecycle). The core playable mission loop is not implemented yet. Merged infrastructure is not equivalent to a Studio-validated or playable experience.
+The repository contains the approved product baseline, HUB/MISSION Rojo projects, and merged foundation systems TTL-01 through TTL-07: networking, player state, parties, mission teleport, mission lifecycle and deterministic mission configuration. The core playable mission loop is not implemented yet. Merged infrastructure and passing automated checks are not equivalent to a Studio-validated or playable experience.
 
 ## Core product decisions
 
@@ -51,4 +51,4 @@ Versions are pinned in `rokit.toml` where known. Do not upgrade tools as part of
 
 ## Current stage
 
-**Phase 2 — Playable Mission (TTL-07 Mission Configuration is in review).** Phase 0's P0-09 Studio smoke test and P0-10 workflow validation remain open. See the roadmap and release plan for exit criteria.
+**Phase 2 — Playable Mission.** TTL-07 Mission Configuration is merged; its automated validation passed (both Rojo builds and 200 Lune tests). Roblox Studio / published-Experience runtime validation remains pending. The next task is TTL-08 Basic Interaction, beginning with a design-only pass. Phase 0's P0-09 Studio smoke test and P0-10 workflow validation also remain open. See the roadmap and release plan for exit criteria.

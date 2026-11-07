@@ -53,9 +53,9 @@ See [Phase 0 Checklist](./PHASE_0_CHECKLIST.md) for P0-01–P0-10, exit criteria
 - TTL-05 Mission Teleport — DONE (merged; automated checks passed on PR head; live reserved-server teleport validation remains pending)
 
 ### Phase 2 — Playable Mission
-- TTL-06 Mission Lifecycle — DONE (merged; Lune coverage exists, but the final review-hardening head had no reported CI run; Roblox runtime and return-teleport validation remain pending; PlaceIds are configured)
-- TTL-07 Mission Configuration — IN REVIEW (pure seeded configuration core, MISSION service and Lune specs implemented; `lune run tests/run` and Rojo builds must pass in CI before merge; Roblox runtime/published-Experience validation pending)
-- TTL-08 Basic Interaction
+- TTL-06 Mission Lifecycle — DONE (merged; Lune coverage exists, but final review-hardening head had no reported CI run; Roblox runtime and return-teleport validation remain pending; PlaceIds are configured)
+- TTL-07 Mission Configuration — DONE (PR #9 merged; CI passed both Rojo builds and `lune run tests/run` with 200 passed, 0 failed; Studio/published-Experience runtime validation remains pending)
+- TTL-08 Basic Interaction — DESIGN IN PROGRESS (TTL-08A technical design; implementation must wait for design review/approval)
 - TTL-09 Objectives
 - TTL-10 First Mission Map
 
