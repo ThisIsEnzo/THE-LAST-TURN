@@ -1,7 +1,7 @@
 # TTL-05 — Mission Teleport
 
 Server-authoritative transport of a whole HUB party into one private (reserved) MISSION server.
-Status: **IN REVIEW** — pure logic and Rojo mappings only; real teleportation has **not** been tested (see section 9).
+Status: **MERGED** — implementation and automated checks were merged. Real reserved-server teleportation has **not** been validated yet (see section 9).
 
 ## 1. HUB launch flow
 
@@ -56,10 +56,13 @@ Request: `MissionLaunch` (no payload; rate limit capacity 2, refill 0.2/s). Noti
 
 ## 7. Configuration (owner action required)
 
-- `src/server_shared/MissionTeleport/MissionPlaces.lua`: set both `HubPlaceId` and `MissionPlaceId` to the real PlaceIds in the same Experience. `0` = not configured: HUB launches remain disabled; MISSION rejects arrivals/source validation. No ids were invented.
+- `src/server_shared/MissionTeleport/MissionPlaces.lua`: both PlaceIds are now configured for Experience `10775098544`:
+  - `HubPlaceId = 121295396016500` — THE LAST TURN (HUB).
+  - `MissionPlaceId = 117948903725370` — de1orean457's Place: 11072026_2 (MISSION).
+  - `0` remains the safe disabled value if configuration is ever reset.
 - `src/hub/server/MissionTeleport/MissionTeleportConfig.lua`: mission type, retries, delay, launch timeout. `src/mission/server/MissionContext/MissionContextConfig.lua`: arrival timeout.
 - Both Places must be published in the same Experience and API/teleport access enabled for the Experience.
-- Note: `docs/PHASE_0_CHECKLIST.md` says teleport work should wait for known PlaceIds (P0-07/P0-08 still BLOCKED). This task was explicitly requested with a safe disabled state; those checklist items remain unchanged.
+- P0-06 through P0-08 are complete: the owner confirmed the Experience and both Places in Creator Dashboard, and the IDs above are present in server-only configuration. P0-09/P0-10 and the live teleport checklist below remain pending.
 
 ## 8. Security boundaries
 
@@ -71,7 +74,7 @@ Automated (Lune, pure): payload schema, arrival coordination and environment rul
 
 ### Manual checklist (published Experience, Roblox client) — NOT yet performed
 
-1. Set the real HUB and MISSION PlaceIds (`MissionPlaces.lua`); publish both places to the same Experience.
+1. Confirm both configured Places are published under Experience `10775098544`; the PlaceIds are already set in `MissionPlaces.lua`.
 2. Join the HUB from the Roblox client; confirm the log shows no "not configured" warning.
 3. Solo launch: arrives in a reserved MISSION server; `MissionContextService.getState()` is `READY`.
 4. Party of 2: both arrive in the **same** server; same `missionId`/`partyId`; state `READY`.
