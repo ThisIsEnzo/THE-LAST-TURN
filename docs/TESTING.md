@@ -88,3 +88,9 @@ Requires Roblox Studio (not covered by Lune; not yet run):
 Lune specs in `tests/server_shared/`: `TeleportPayload.spec.lua` (schema, bounds, duplicates, unexpected fields), `ArrivalCore.spec.lua` (environment checks, arrival coordination, mismatches, duplicates, timeout, leave/rejoin), `LaunchCoordinator.spec.lua` (validation, party changes during preparation, duplicate and concurrent launches, unique ids, invalid PlaceId, synchronous and asynchronous failures, same-destination retry, retry limit, disconnects, timeouts, no stale locks) using injected fake adapters; no Roblox teleport is simulated.
 
 Cannot be automated and is NOT yet validated: real `TeleportAsync`, `TeleportInitFailed`, `GetJoinData`, reserved-server environment, remotes and timers. Requires a published Experience; see the checklist in `docs/TTL-05_MISSION_TELEPORT.md`.
+
+## 10. Mission Lifecycle tests (TTL-06)
+
+`tests/server_shared/MissionLifecycleCore.spec.lua` (Lune) covers the pure core: initial state, the full 8x8 transition matrix against an independent restatement, invalid/skipped transitions, idempotent repeats, READY-only startup, member and arrival validation (including holes, duplicates, over 8 members), duplicate initialization, COMPLETED/FAILED/ABORTED termination, abort while waiting and initializing, preserved original result across later states, terminal CLOSED, snapshot copies, invariants, shutdown semantics and config validation.
+
+Requires Roblox Studio / a published Experience (not covered, not yet run): `MissionLifecycleService` event wiring, timers and stale-callback guards, `PlayerStateService` integration, return teleports (`TeleportAsync`, `TeleportInitFailed`), `BindToClose`. Checklist: `docs/TTL-06_MISSION_LIFECYCLE.md`.

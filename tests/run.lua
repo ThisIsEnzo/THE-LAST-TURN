@@ -11,6 +11,7 @@ require("./server_shared/PartyCore.spec")
 require("./server_shared/TeleportPayload.spec")
 require("./server_shared/ArrivalCore.spec")
 require("./server_shared/LaunchCoordinator.spec")
+require("./server_shared/MissionLifecycleCore.spec")
 
 local results = Harness.results()
 for _, failure in ipairs(results.failures) do

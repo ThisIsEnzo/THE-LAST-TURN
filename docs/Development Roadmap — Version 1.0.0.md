@@ -53,7 +53,7 @@ See [Phase 0 Checklist](./PHASE_0_CHECKLIST.md) for P0-01–P0-10, exit criteria
 - TTL-05 Mission Teleport — IN REVIEW (server-authoritative HUB → reserved MISSION transport; automated tests/builds pass; live teleport validation NOT performed)
 
 ### Phase 2 — Playable Mission
-- TTL-06 Mission Lifecycle
+- TTL-06 Mission Lifecycle — IN REVIEW (implementation added; automated validation pending; Roblox runtime and return-teleport validation NOT performed; HubPlaceId owner configuration required)
 - TTL-07 Mission Configuration
 - TTL-08 Basic Interaction
 - TTL-09 Objectives

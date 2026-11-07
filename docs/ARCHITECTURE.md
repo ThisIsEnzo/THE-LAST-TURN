@@ -176,3 +176,10 @@ TTL-05 boundary: Mission Teleport reads parties through `getParty`, `getMembers`
 MISSION `MissionContextService` validates the destination place and reserved-server environment, then validates each player's server-side `GetJoinData()` origin (`SourcePlaceId` must be the configured HUB PlaceId and `SourceGameId` must match the current Experience) before accepting the versioned teleport payload. `ArrivalCore` coordinates staggered arrivals and exposes `NO_CONTEXT / WAITING / READY / INCOMPLETE` state; it does not start gameplay.
 
 Configuration lives in server-only `MissionPlaces.lua`: owner must set both `HubPlaceId` and `MissionPlaceId` to real places in the same published Experience. Zero keeps launch/arrival disabled. Real teleport validation requires a published Experience and Roblox client; Lune tests and Rojo builds do not validate Roblox teleport runtime.
+## 12. Mission Lifecycle (TTL-06, MISSION only)
+
+MissionLifecycleService (ServerScriptService.MissionLifecycle) owns the mission lifecycle on top of the pure MissionLifecycleCore (ServerStorage.ServerShared.MissionLifecycle). It initializes after MissionContextService, starts a mission only from a validated READY arrival context, and ends it through the server-side endMission(outcome, reason) (idempotent; first result wins). Ending freezes progression, moves participants to RETURNING through PlayerStateService, returns them to MissionPlaces.HubPlaceId with bounded retries and cleans up with generation-guarded callbacks.
+
+States: BOOTSTRAPPING -> WAITING_FOR_PLAYERS -> INITIALIZING -> ACTIVE -> ENDING -> RETURNING -> SHUTTING_DOWN -> CLOSED.
+
+No remotes, no client authority. Details, diagram, API and manual checklist: docs/TTL-06_MISSION_LIFECYCLE.md.
