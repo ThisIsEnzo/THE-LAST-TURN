@@ -54,7 +54,7 @@ See [Phase 0 Checklist](./PHASE_0_CHECKLIST.md) for P0-01–P0-10, exit criteria
 
 ### Phase 2 — Playable Mission
 - TTL-06 Mission Lifecycle — DONE (merged; Lune coverage exists, but the final review-hardening head had no reported CI run; Roblox runtime and return-teleport validation remain pending; PlaceIds are configured)
-- TTL-07 Mission Configuration
+- TTL-07 Mission Configuration — IN REVIEW (pure seeded configuration core, MISSION service and Lune specs implemented; `lune run tests/run` and Rojo builds must pass in CI before merge; Roblox runtime/published-Experience validation pending)
 - TTL-08 Basic Interaction
 - TTL-09 Objectives
 - TTL-10 First Mission Map

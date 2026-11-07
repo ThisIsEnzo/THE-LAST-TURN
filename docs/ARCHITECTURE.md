@@ -183,3 +183,9 @@ MissionLifecycleService (ServerScriptService.MissionLifecycle) owns the mission 
 States: BOOTSTRAPPING -> WAITING_FOR_PLAYERS -> INITIALIZING -> ACTIVE -> ENDING -> RETURNING -> SHUTTING_DOWN -> CLOSED.
 
 No remotes, no client authority. Details, diagram, API and manual checklist: docs/TTL-06_MISSION_LIFECYCLE.md.
+
+## 13. Mission Configuration (TTL-07, MISSION only)
+
+MissionConfigService (ServerScriptService.MissionConfig) registers as the first mission system of MissionLifecycleService; `MissionConfigService.init()` runs immediately before `MissionLifecycleService.init()`. During INITIALIZING it generates the session seed (the HUB never does and `TeleportPayload` v1 is unchanged) and builds one frozen `MissionConfig` through the pure MissionConfigCore and SeededRandom (ServerStorage.ServerShared.MissionConfig) from the static, deeply frozen MissionContent. Selections are deterministic (isolated xorshift32 streams per stage label, ids sorted before selection). Failure aborts the mission through the lifecycle (`initialization_failed`). `getConfig()` is `nil` before start and after stop; dependent systems register later, so they start after and stop before it.
+
+No remotes and no client access: seed and content must never be replicated. Details, algorithm, schema, consumer contract and manual checklist: docs/TTL-07_MISSION_CONFIGURATION.md.

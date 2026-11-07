@@ -54,7 +54,7 @@ Suggested server modules (introduce incrementally, not as empty scaffolding):
 - **TeleportServiceAdapter:** isolates Roblox teleport calls and failure handling.
 - **PlayerDataService (HUB):** profile schema, load/save, retries and session locking strategy.
 - **MissionService (MISSION):** mission lifecycle and authoritative phase.
-- **MissionConfigService (MISSION):** validated, seeded mission configuration.
+- **MissionConfigService (MISSION):** validated, seeded mission configuration. The MISSION server generates the seed after a validated context; the first lifecycle system creates one frozen `MissionConfig` (TTL-07; pure `MissionConfigCore` and `SeededRandom`; see docs/TTL-07_MISSION_CONFIGURATION.md).
 - **ObjectiveService (MISSION):** objective requirements, progress and completion.
 - **InteractionService (MISSION):** server-validated interaction requests.
 - **InvestigationService (MISSION):** evidence discovery and evidence ledger.

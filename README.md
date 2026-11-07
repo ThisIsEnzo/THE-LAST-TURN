@@ -51,4 +51,4 @@ Versions are pinned in `rokit.toml` where known. Do not upgrade tools as part of
 
 ## Current stage
 
-**Phase 2 — Playable Mission (TTL-07 Mission Configuration is next).** Phase 0's P0-09 Studio smoke test and P0-10 workflow validation remain open. See the roadmap and release plan for exit criteria.
+**Phase 2 — Playable Mission (TTL-07 Mission Configuration is in review).** Phase 0's P0-09 Studio smoke test and P0-10 workflow validation remain open. See the roadmap and release plan for exit criteria.
