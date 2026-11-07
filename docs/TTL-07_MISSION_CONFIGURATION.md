@@ -2,7 +2,7 @@
 
 Authoritative, deterministic configuration of one MISSION session: the MISSION server generates a seed and derives every configuration choice from it.
 
-Status: **IN REVIEW** — pure-logic Lune specs are implemented, but the authoring environment could not run Lune or Rojo. Both builds and tests must pass before merge; Roblox runtime behavior has not been validated.
+Status: **MERGED** — PR #9 merged as `5285885981c6aab23ff5f0df332cd1b002ef6969`. CI validated both Rojo builds and the Lune suite (200 passed, 0 failed). Roblox Studio / published-Experience runtime validation remains pending.
 
 ## 1. Ownership
 
@@ -70,9 +70,9 @@ MissionConfigService.init(), getConfig(): MissionConfig?, isReady(): boolean.
 
 ## 8. Validation
 
-Lune specs cover hash and finalizer known-answer vectors, golden xorshift32 outputs across seeds/labels (including a forced zero initial state), nextInteger results including rejection sampling and maximum range, range validation, stream isolation, global RNG independence, content/input validation, order independence, selection vectors, input immutability, deep freezing, injected-random contract and shipped content validity.
+CI on the merged PR ran both Rojo builds and `lune run tests/run`: **200 passed, 0 failed**.
 
-The authoring environment could not run Lune or either Rojo build. Pure logic was additionally exercised through an ad-hoc Lua 5.4 translation with annotations stripped and bit32/table.freeze shims; this is not Luau and does not replace required Lune tests, both Rojo builds or type checking.
+The Lune suite covers hash and finalizer known-answer vectors, golden xorshift32 outputs across seeds/labels (including a forced zero initial state), nextInteger results including rejection sampling and maximum range, range validation, stream isolation, global RNG independence, content/input validation, order independence, selection vectors, input immutability, deep freezing, injected-random contract and shipped content validity.
 
 Requires Roblox Studio / a published Experience (not validated):
 1. Open both Rojo projects and verify MissionConfig folders map correctly.
