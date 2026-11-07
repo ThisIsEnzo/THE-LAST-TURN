@@ -39,9 +39,9 @@ See [Phase 0 Checklist](./PHASE_0_CHECKLIST.md) for P0-01–P0-10, exit criteria
 - P0-03 Repository workflow — DONE
 - P0-04 Rojo project bootstrap — DONE (HUB/MISSION mappings and entry points merged)
 - P0-05 Toolchain reproducibility — DONE (pinned toolchain and CI builds validated)
-- P0-06 Roblox Experience — BLOCKED (owner action)
-- P0-07 HUB Place — BLOCKED (owner action)
-- P0-08 MISSION Place — BLOCKED (owner action)
+- P0-06 Roblox Experience — DONE (owner-confirmed Creator Dashboard Experience)
+- P0-07 HUB Place — DONE (owner-confirmed PlaceId `121295396016500`; configured)
+- P0-08 MISSION Place — DONE (owner-confirmed PlaceId `117948903725370`; configured)
 - P0-09 Studio smoke test — BLOCKED (owner action)
 - P0-10 Workflow validation — BLOCKED (owner action)
 
@@ -49,11 +49,11 @@ See [Phase 0 Checklist](./PHASE_0_CHECKLIST.md) for P0-01–P0-10, exit criteria
 - TTL-01 Project Bootstrap — DONE (merged; Roblox Studio runtime validation remains an owner task)
 - TTL-02 Networking Foundation — DONE (merged; Roblox Studio runtime validation NOT performed)
 - TTL-03 Player State — DONE (merged; Roblox Studio validation NOT performed)
-- TTL-04 Party System — IN REVIEW (server-authoritative implementation; Studio validation NOT performed)
-- TTL-05 Mission Teleport — IN REVIEW (server-authoritative HUB → reserved MISSION transport; automated tests/builds pass; live teleport validation NOT performed)
+- TTL-04 Party System — DONE (merged; Roblox Studio multiplayer/runtime validation remains pending)
+- TTL-05 Mission Teleport — DONE (merged; automated checks passed on PR head; live reserved-server teleport validation remains pending)
 
 ### Phase 2 — Playable Mission
-- TTL-06 Mission Lifecycle — IN REVIEW (implementation added; automated validation pending; Roblox runtime and return-teleport validation NOT performed; HubPlaceId owner configuration required)
+- TTL-06 Mission Lifecycle — DONE (merged; Lune coverage exists, but the final review-hardening head had no reported CI run; Roblox runtime and return-teleport validation remain pending; PlaceIds are configured)
 - TTL-07 Mission Configuration
 - TTL-08 Basic Interaction
 - TTL-09 Objectives
@@ -154,6 +154,6 @@ Every task must have one status:
 - BLOCKED
 - DONE
 
-Phase completion is determined by acceptance criteria, not the number of merged PRs.
+A task may be marked DONE when its implementation is merged; keep automated, Roblox Studio and playtest validation evidence explicit in the task notes. A phase is complete only when its exit criteria have evidence, not merely because its PRs are merged.
 
 **End of Development Roadmap v1.0.**
