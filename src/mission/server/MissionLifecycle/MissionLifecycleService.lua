@@ -375,6 +375,11 @@ local function beginTermination()
     end
     local terminationGeneration = generation
     stopSystems() -- progression is frozen (state is ENDING) before anyone is returned
+    if startingSystem then
+        -- A start callback may be yielding or may have called endMission itself. Defer player
+        -- transitions and teleports until that callback unwinds; startSystems() resumes this flow.
+        return
+    end
     if core ~= active or generation ~= terminationGeneration or active:getState() ~= States.ENDING then
         return
     end
@@ -460,6 +465,11 @@ local function startSystems(session: any): boolean
 
         if stopRequested or active:getState() ~= States.INITIALIZING then
             stopSystems()
+            -- If endMission() was called from inside (or while awaiting) this start callback,
+            -- finish teardown only after the callback has returned and its stop() can run.
+            if core == active and active:getState() == States.ENDING then
+                beginTermination()
+            end
             return false
         end
         if not ok then
