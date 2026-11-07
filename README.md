@@ -7,7 +7,7 @@ A Roblox cooperative paranormal investigation / survival horror experience.
 
 ## Project status
 
-The repository currently contains the approved product baseline and planning documents. Gameplay implementation and the Rojo project layout have not started yet. Do not treat documentation completion as playable progress.
+The repository contains the approved product baseline, HUB/MISSION Rojo projects, and merged foundation systems TTL-01 through TTL-06 (networking, player state, parties, mission teleport and mission lifecycle). The core playable mission loop is not implemented yet. Merged infrastructure is not equivalent to a Studio-validated or playable experience.
 
 ## Core product decisions
 
@@ -38,7 +38,7 @@ The repository currently contains the approved product baseline and planning doc
 - Rojo 7.6.1
 - Rokit as the toolchain manager
 
-Versions are pinned in `rokit.toml` where known. Do not upgrade tools as part of an unrelated gameplay task. The Rojo place mappings will be added with the first project-bootstrap task after the HUB/MISSION place structure is created in Roblox.
+Versions are pinned in `rokit.toml` where known. Do not upgrade tools as part of an unrelated gameplay task. HUB and MISSION Rojo project mappings are present. The owner-confirmed Experience and PlaceIds are configured; Studio smoke testing and live teleport validation remain outstanding.
 
 ## Development principles
 
@@ -51,4 +51,4 @@ Versions are pinned in `rokit.toml` where known. Do not upgrade tools as part of
 
 ## Current stage
 
-**Phase 0 — Pre-production / repository foundation.** See the roadmap and release plan for exit criteria.
+**Phase 2 — Playable Mission (TTL-07 Mission Configuration is next).** Phase 0's P0-09 Studio smoke test and P0-10 workflow validation remain open. See the roadmap and release plan for exit criteria.
