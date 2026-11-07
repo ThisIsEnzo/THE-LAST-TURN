@@ -176,12 +176,17 @@ test("invalid or incomplete contexts are rejected", function()
         { "invalid_members", { expectedUserIds = { 10, 0 } } },
         { "invalid_members", { expectedUserIds = "10" } },
         { "invalid_members", { expectedUserIds = { [1] = 10, [3] = 12 } } },
+        { "invalid_members", { expectedUserIds = { first = 10, second = 11, third = 12 } } },
+        { "invalid_members", { expectedUserIds = { [1.5] = 10, [2] = 11, [3] = 12 } } },
         { "invalid_leader", { leaderUserId = 99 } },
         { "invalid_leader", { leaderUserId = "10" } },
         { "incomplete_arrivals", { missingUserIds = { 12 } } },
         { "incomplete_arrivals", { arrivedUserIds = { 10, 11 } } },
         { "incomplete_arrivals", { arrivedUserIds = { 10, 11, 99 } } },
         { "incomplete_arrivals", { arrivedUserIds = { 10, 11, 11 } } },
+        { "incomplete_arrivals", { arrivedUserIds = { first = 10, second = 11, third = 12 } } },
+        { "incomplete_arrivals", { arrivedUserIds = { [1] = 10, [3] = 11, [4] = 12 } } },
+        { "incomplete_arrivals", { arrivedUserIds = { [1.5] = 10, [2] = 11, [3] = 12 } } },
         { "incomplete_arrivals", { arrivedUserIds = "__nil__" } },
         { "incomplete_arrivals", { missingUserIds = "__nil__" } },
     }
@@ -206,6 +211,19 @@ test("arrival order does not affect acceptance; 1 and 8 members are valid", func
     local eight = waiting()
     local ids = { 1, 2, 3, 4, 5, 6, 7, 8 }
     expectTrue(eight:submitContext(context({ leaderUserId = 1, expectedUserIds = ids, arrivedUserIds = { 8, 7, 6, 5, 4, 3, 2, 1 } }), "DEFAULT", 5).ok)
+end)
+
+test("startedAt must be a finite number", function()
+    for _, invalid in ipairs({ "1000", math.huge, -math.huge, 0 / 0 }) do
+        local store = waiting()
+        local result = store:submitContext(context(), "DEFAULT", invalid)
+        expectFalse(result.ok, tostring(invalid))
+        expectEqual(result.rejection, "invalid_context")
+        expectEqual(result.detail, "invalid_started_at")
+        expectEqual(store:getState(), S.WAITING_FOR_PLAYERS)
+        expectEqual(store:getSession(), nil)
+    end
+    expectTrue(waiting():submitContext(context(), "DEFAULT", 1000).ok)
 end)
 
 test("duplicate initialization is prevented", function()

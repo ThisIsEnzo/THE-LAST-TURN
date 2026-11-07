@@ -67,6 +67,28 @@ local function isToken(value: any, maxLength: number, pattern: string): boolean
     return type(value) == "string" and #value >= 1 and #value <= maxLength and string.match(value, pattern) ~= nil
 end
 
+local function isDenseArray(value: any, maxCount: number): (boolean, number)
+    if type(value) ~= "table" then
+        return false, 0
+    end
+    local count = 0
+    for key in pairs(value) do
+        if not isInteger(key, 1, maxCount) then
+            return false, 0
+        end
+        count += 1
+        if count > maxCount then
+            return false, 0
+        end
+    end
+    for index = 1, count do
+        if rawget(value, index) == nil then
+            return false, 0
+        end
+    end
+    return true, count
+end
+
 -- Validates the MissionContextService context snapshot. Returns (true, nil) or (false, code).
 function MissionLifecycleCore.validateContext(context: any, expectedMissionType: string): (boolean, string?)
     if type(context) ~= "table" then
@@ -86,20 +108,16 @@ function MissionLifecycleCore.validateContext(context: any, expectedMissionType:
     end
 
     local expected = context.expectedUserIds
-    if type(expected) ~= "table" then
+    local expectedArrayOk, count = isDenseArray(expected, MissionLifecycleCore.MaxMembers)
+    if not expectedArrayOk or count < 1 then
         return false, "invalid_members"
     end
     local expectedSet: { [number]: boolean } = {}
-    local count = 0
-    for key, userId in pairs(expected) do
-        if type(key) ~= "number" or not isInteger(userId, 1, MAX_USER_ID) or expectedSet[userId] then
+    for _, userId in ipairs(expected) do
+        if not isInteger(userId, 1, MAX_USER_ID) or expectedSet[userId] then
             return false, "invalid_members"
         end
         expectedSet[userId] = true
-        count += 1
-    end
-    if count < 1 or count > MissionLifecycleCore.MaxMembers or #expected ~= count then
-        return false, "invalid_members"
     end
     if not isInteger(context.leaderUserId, 1, MAX_USER_ID) or not expectedSet[context.leaderUserId] then
         return false, "invalid_leader"
@@ -109,20 +127,16 @@ function MissionLifecycleCore.validateContext(context: any, expectedMissionType:
         return false, "incomplete_arrivals"
     end
     local arrived = context.arrivedUserIds
-    if type(arrived) ~= "table" then
+    local arrivedArrayOk, arrivedCount = isDenseArray(arrived, MissionLifecycleCore.MaxMembers)
+    if not arrivedArrayOk or arrivedCount ~= count then
         return false, "incomplete_arrivals"
     end
     local arrivedSet: { [number]: boolean } = {}
-    local arrivedCount = 0
-    for _, userId in pairs(arrived) do
+    for _, userId in ipairs(arrived) do
         if not expectedSet[userId] or arrivedSet[userId] then
             return false, "incomplete_arrivals"
         end
         arrivedSet[userId] = true
-        arrivedCount += 1
-    end
-    if arrivedCount ~= count then
-        return false, "incomplete_arrivals"
     end
     return true, nil
 end
@@ -220,6 +234,9 @@ function Store.submitContext(self: Store, context: any, expectedMissionType: str
     end
     if from ~= States.WAITING_FOR_PLAYERS then
         return result(self, false, false, from, "invalid_transition", nil)
+    end
+    if type(startedAt) ~= "number" or startedAt ~= startedAt or startedAt == math.huge or startedAt == -math.huge then
+        return result(self, false, false, from, "invalid_context", "invalid_started_at")
     end
     local ok, code = MissionLifecycleCore.validateContext(context, expectedMissionType)
     if not ok then

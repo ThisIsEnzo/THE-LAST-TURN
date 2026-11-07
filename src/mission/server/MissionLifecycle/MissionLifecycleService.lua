@@ -22,14 +22,16 @@ local Outcomes = MissionLifecycleCore.Outcomes
 
 export type Result = MissionLifecycleCore.Result
 export type StateListener = (state: string) -> ()
--- A mission-level system (future TTL tasks). `start` runs once when the mission becomes ACTIVE; `stop` runs when
--- the mission ends or the server shuts down (only for systems that started successfully).
+-- A mission-level system (future TTL tasks). `start` runs during INITIALIZING before the mission becomes ACTIVE;
+-- `stop` runs on termination/shutdown for every system whose start callback was entered (including a failed start).
 export type MissionSystem = { name: string, start: (session: any) -> (), stop: (() -> ())? }
 
 type ReturnState = {
     pending: { [number]: boolean },
     attempts: { [number]: number },
     retryScheduled: { [number]: boolean },
+    attemptTokens: { [number]: string },
+    nextAttemptId: number,
     finished: boolean,
 }
 
@@ -44,6 +46,8 @@ local listeners: { [number]: StateListener } = {}
 local nextListenerId = 0
 local systems: { MissionSystem } = {}
 local startedSystems: { MissionSystem } = {}
+local startingSystem = false
+local stopRequested = false
 local returnState: ReturnState? = nil
 local boundToClose = false
 
@@ -127,8 +131,8 @@ function MissionLifecycleService.onStateChanged(listener: StateListener): () -> 
     end
 end
 
--- Registers a mission-level system started when the mission becomes ACTIVE. Only possible before the mission
--- reaches INITIALIZING; returns false otherwise (or for duplicate names).
+-- Registers a mission-level system started during INITIALIZING, before the mission becomes ACTIVE.
+-- Only possible before INITIALIZING; returns false otherwise (or for duplicate names).
 function MissionLifecycleService.registerSystem(system: MissionSystem): boolean
     local state = MissionLifecycleService.getState()
     if state ~= States.BOOTSTRAPPING and state ~= States.WAITING_FOR_PLAYERS then
@@ -146,6 +150,13 @@ end
 -- Cleanup ---------------------------------------------------------------------------------------------------------
 
 local function stopSystems()
+    -- endMission() may be called synchronously from system.start(). Do not stop a system
+    -- while its start callback is still executing; startSystems() drains the stack first.
+    if startingSystem then
+        stopRequested = true
+        return
+    end
+    stopRequested = false
     for index = #startedSystems, 1, -1 do
         local system = startedSystems[index]
         startedSystems[index] = nil
@@ -215,7 +226,31 @@ checkReturnComplete = function()
     end
 end
 
-local function teleportToHub(players: { Player }, options: any): boolean
+local function newReturnAttemptOptions(state: ReturnState, userIds: { number }): TeleportOptions
+    state.nextAttemptId += 1
+    local token = tostring(generation) .. ":" .. tostring(state.nextAttemptId)
+    for _, userId in ipairs(userIds) do
+        state.attemptTokens[userId] = token
+    end
+    local options = Instance.new("TeleportOptions")
+    options:SetTeleportData({ _ttl06ReturnAttemptId = token })
+    return options
+end
+
+local function getReturnAttemptToken(options: TeleportOptions?): string?
+    if options == nil then
+        return nil
+    end
+    local ok, data = pcall(function()
+        return options:GetTeleportData()
+    end)
+    if not ok or type(data) ~= "table" or type(data._ttl06ReturnAttemptId) ~= "string" then
+        return nil
+    end
+    return data._ttl06ReturnAttemptId
+end
+
+local function teleportToHub(players: { Player }, options: TeleportOptions): boolean
     local ok, err = pcall(function()
         TeleportService:TeleportAsync(MissionPlaces.HubPlaceId, players, options)
     end)
@@ -225,9 +260,15 @@ local function teleportToHub(players: { Player }, options: any): boolean
     return ok
 end
 
-handleReturnFailure = function(userId: number, options: any)
+handleReturnFailure = function(userId: number, options: TeleportOptions?)
     local state = returnState
     if state == nil or state.finished or not state.pending[userId] or state.retryScheduled[userId] then
+        return
+    end
+    -- TeleportInitFailed does not expose a numeric attempt id. Correlate it using the
+    -- per-attempt marker echoed in the event's TeleportOptions; ignore late failures.
+    local eventToken = getReturnAttemptToken(options)
+    if eventToken == nil or eventToken ~= state.attemptTokens[userId] then
         return
     end
     local attempts = (state.attempts[userId] or 0) + 1
@@ -245,8 +286,9 @@ handleReturnFailure = function(userId: number, options: any)
             if player == nil or not state.pending[userId] then
                 return -- left the server: resolved by PlayerRemoving; never retry disconnected players
             end
-            if not teleportToHub({ player }, options) then
-                handleReturnFailure(userId, options)
+            local retryOptions = newReturnAttemptOptions(state, { userId })
+            if not teleportToHub({ player }, retryOptions) then
+                handleReturnFailure(userId, retryOptions)
             end
         end)
         return
@@ -258,7 +300,14 @@ end
 
 local function startReturn(userIds: { number })
     local scheduledGeneration = generation
-    local state: ReturnState = { pending = {}, attempts = {}, retryScheduled = {}, finished = false }
+    local state: ReturnState = {
+        pending = {},
+        attempts = {},
+        retryScheduled = {},
+        attemptTokens = {},
+        nextAttemptId = 0,
+        finished = false,
+    }
     returnState = state
 
     local players: { Player } = {}
@@ -296,9 +345,10 @@ local function startReturn(userIds: { number })
         end
     end)
 
-    if not teleportToHub(players, nil) then
+    local initialOptions = newReturnAttemptOptions(state, userIds)
+    if not teleportToHub(players, initialOptions) then
         for _, userId in ipairs(userIds) do
-            handleReturnFailure(userId, nil) -- counts one attempt per player; bounded retries follow
+            handleReturnFailure(userId, initialOptions) -- counts one attempt per player; bounded retries follow
         end
     end
 end
@@ -309,17 +359,22 @@ local function beginTermination()
     local active = core :: MissionLifecycleCore.Store
     stopSystems() -- progression is frozen (state is ENDING) before anyone is returned
     local participants = connectedParticipants()
+    local returnableParticipants: { number } = {}
     for _, userId in ipairs(participants) do
         local player = Players:GetPlayerByUserId(userId)
         if player then
             local result = PlayerStateService.transition(player, "RETURNING", "mission_ended")
-            if not result.ok then
-                warn(string.format("[THE LAST TURN][MissionLifecycle] Could not mark %d RETURNING (%s).", userId, tostring(result.rejection)))
+            if result.ok then
+                table.insert(returnableParticipants, userId)
+            else
+                -- Fail closed: never teleport a player unless the authoritative player state
+                -- confirms RETURNING. They remain in this server for diagnosis/recovery.
+                warn(string.format("[THE LAST TURN][MissionLifecycle] Keeping %d in this server; RETURNING transition rejected (%s).", userId, tostring(result.rejection)))
             end
         end
     end
     publish(active:beginReturning())
-    startReturn(participants)
+    startReturn(returnableParticipants)
 end
 
 -- Ends the mission. Server systems only. Idempotent: the first valid call wins and later calls report the
@@ -349,13 +404,28 @@ end
 -- Startup ---------------------------------------------------------------------------------------------------------
 
 local function startSystems(session: any): boolean
+    local active = core
     for _, system in ipairs(systems) do
-        local ok, err = pcall(system.start, session)
-        if not ok then
-            warn(string.format("[THE LAST TURN][MissionLifecycle] System '%s' failed to start: %s", system.name, tostring(err)))
+        if active == nil or active:getState() ~= States.INITIALIZING then
+            stopSystems()
             return false
         end
+
+        -- Register before invoking start(): it may synchronously terminate the mission or throw
+        -- after partially allocating resources. stopSystems() is deferred until start() returns.
         table.insert(startedSystems, system)
+        startingSystem = true
+        local ok, err = pcall(system.start, session)
+        startingSystem = false
+
+        if stopRequested or active:getState() ~= States.INITIALIZING then
+            stopSystems()
+            return false
+        end
+        if not ok then
+            warn(string.format("[THE LAST TURN][MissionLifecycle] System '%s' failed to start: %s", system.name, tostring(err)))
+            return false -- the failing system remains registered for best-effort stop during termination
+        end
     end
     return true
 end
@@ -406,6 +476,8 @@ function MissionLifecycleService.init()
     generation += 1
     local startGeneration = generation
     table.clear(startedSystems)
+    startingSystem = false
+    stopRequested = false
     returnState = nil
 
     if not boundToClose then
