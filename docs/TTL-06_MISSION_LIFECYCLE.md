@@ -1,7 +1,7 @@
 # TTL-06 — Mission Lifecycle
 
 Server-authoritative lifecycle of a MISSION server: from a fully assembled party to an active session, then termination, return to the HUB and cleanup.
-Status: **IN REVIEW** — pure logic is covered by Lune tests; Roblox runtime behavior has **not** been validated (section 8).
+Status: **MERGED** — implementation is merged in PR #7. Pure logic has Lune test coverage; CI run #25 passed on an earlier head, but the final review-hardening head had no reported CI run. Roblox runtime behavior has **not** been validated (section 8).
 
 ## 1. Ownership
 
@@ -53,7 +53,7 @@ Cleanup is idempotent: connections and the context subscription are dropped, sys
 
 ## 6. Configuration
 
-`MissionLifecycleConfig.lua`: `expectedMissionType` ("DEFAULT"; must match HUB `MissionTeleportConfig.missionType`), `contextWaitTimeoutSeconds` (120), `returnMaxRetriesPerPlayer` (2), `returnRetryDelaySeconds` (2), `returnTimeoutSeconds` (30). `MissionPlaces.lua` is the single server-only source for place ids; configure its existing `HubPlaceId` and `MissionPlaceId` values before real teleports can work.
+`MissionLifecycleConfig.lua`: `expectedMissionType` ("DEFAULT"; must match HUB `MissionTeleportConfig.missionType`), `contextWaitTimeoutSeconds` (120), `returnMaxRetriesPerPlayer` (2), `returnRetryDelaySeconds` (2), `returnTimeoutSeconds` (30). `MissionPlaces.lua` is the single server-only source for place ids. The owner-confirmed HUB (`121295396016500`) and MISSION (`117948903725370`) PlaceIds are configured for Experience `10775098544`; live teleport behavior still requires published-Experience validation.
 
 ## 7. Failure behavior (summary)
 
