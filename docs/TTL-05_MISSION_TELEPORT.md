@@ -54,7 +54,7 @@ Unexpected fields, wrong types, oversize arrays and duplicates are rejected. The
 
 Request: `MissionLaunch` (no payload; rate limit capacity 2, refill 0.2/s). Notification: `MissionLaunchStatus { status, code?, attempt?, maxAttempts?, failedUserId? }`, sent only to the requester (rejections) or the launching party members. `status`: `accepted`, `already_in_progress`, `not_leader`, `invalid_party`, `preparation_failed`, `teleport_failed`, `retrying`, `launch_initiated`, `partial_failure`. `code` is a short internal reason for diagnostics/UI (never an id). MISSION shares the contract but registers no `MissionLaunch` handler.
 
-## 7. Configuration (owner action required)
+## 7. Configuration
 
 - `src/server_shared/MissionTeleport/MissionPlaces.lua`: both PlaceIds are now configured for Experience `10775098544`:
   - `HubPlaceId = 121295396016500` — THE LAST TURN (HUB).
