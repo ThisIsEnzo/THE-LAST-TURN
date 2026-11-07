@@ -134,6 +134,17 @@ end
 -- Registers a mission-level system started during INITIALIZING, before the mission becomes ACTIVE.
 -- Only possible before INITIALIZING; returns false otherwise (or for duplicate names).
 function MissionLifecycleService.registerSystem(system: MissionSystem): boolean
+    if
+        type(system) ~= "table"
+        or type(system.name) ~= "string"
+        or #system.name < 1
+        or #system.name > 64
+        or string.match(system.name, "^[%w_%-]+$") == nil
+        or type(system.start) ~= "function"
+        or (system.stop ~= nil and type(system.stop) ~= "function")
+    then
+        return false
+    end
     local state = MissionLifecycleService.getState()
     if state ~= States.BOOTSTRAPPING and state ~= States.WAITING_FOR_PLAYERS then
         return false
@@ -192,8 +203,10 @@ local function finishShutdown()
     if active == nil then
         return
     end
-    stopSystems()
+    -- Publish the terminal intent before invoking system stop callbacks. A stopping system
+    -- must never observe the mission as ACTIVE while the server is shutting down.
     publish(active:beginShutdown())
+    stopSystems()
     cleanup()
     publish(active:close())
 end
@@ -356,14 +369,28 @@ end
 -- Termination -----------------------------------------------------------------------------------------------------
 
 local function beginTermination()
-    local active = core :: MissionLifecycleCore.Store
+    local active = core
+    if active == nil or active:getState() ~= States.ENDING then
+        return
+    end
+    local terminationGeneration = generation
     stopSystems() -- progression is frozen (state is ENDING) before anyone is returned
+    if core ~= active or generation ~= terminationGeneration or active:getState() ~= States.ENDING then
+        return
+    end
+
     local participants = connectedParticipants()
     local returnableParticipants: { number } = {}
     for _, userId in ipairs(participants) do
+        if core ~= active or generation ~= terminationGeneration or active:getState() ~= States.ENDING then
+            return -- a synchronous listener may have shut the lifecycle down
+        end
         local player = Players:GetPlayerByUserId(userId)
         if player then
             local result = PlayerStateService.transition(player, "RETURNING", "mission_ended")
+            if core ~= active or generation ~= terminationGeneration or active:getState() ~= States.ENDING then
+                return -- PlayerStateService listeners may synchronously shut the lifecycle down
+            end
             if result.ok then
                 table.insert(returnableParticipants, userId)
             else
@@ -373,7 +400,16 @@ local function beginTermination()
             end
         end
     end
-    publish(active:beginReturning())
+    local returning = active:beginReturning()
+    publish(returning)
+    if
+        not returning.ok
+        or core ~= active
+        or generation ~= terminationGeneration
+        or active:getState() ~= States.RETURNING
+    then
+        return
+    end
     startReturn(returnableParticipants)
 end
 
@@ -396,7 +432,11 @@ function MissionLifecycleService.endMission(outcome: string, reason: string): Re
     local result = active:requestEnd(outcome, reason)
     if result.ok and result.changed then
         publish(result)
-        beginTermination()
+        -- State listeners are synchronous and may shut the service down. Do not continue
+        -- into player transitions or teleports after a reentrant shutdown.
+        if core == active and active:getState() == States.ENDING then
+            beginTermination()
+        end
     end
     return result
 end
@@ -440,6 +480,9 @@ local function evaluateContext()
     end
     local submitted = active:submitContext(MissionContextService.getContext(), Config.expectedMissionType, os.time())
     publish(submitted)
+    if active:getState() ~= States.INITIALIZING then
+        return -- a synchronous state listener may have aborted or shut down the lifecycle
+    end
     if not submitted.ok then
         if submitted.rejection == "invalid_context" then
             warn("[THE LAST TURN][MissionLifecycle] Rejected mission context: " .. tostring(submitted.detail))
