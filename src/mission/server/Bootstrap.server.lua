@@ -15,11 +15,13 @@ local PlayerStateService = require(ServerStorage.ServerShared.Player.PlayerState
 local MissionContextService = require(script.Parent.MissionContext.MissionContextService)
 local MissionLifecycleService = require(script.Parent.MissionLifecycle.MissionLifecycleService)
 local MissionConfigService = require(script.Parent.MissionConfig.MissionConfigService)
+local InteractionService = require(script.Parent.Interaction.InteractionService)
 
 NetworkService.init()
 PlayerStateService.init() -- TTL-03: must run after networking; other systems start after this.
 MissionContextService.init() -- TTL-05: validates teleport data of arriving players; starts no gameplay.
 MissionConfigService.init() -- TTL-07: registers the first lifecycle system; MUST run before MissionLifecycleService.init().
+InteractionService.init() -- TTL-08B-B: registers the Interaction lifecycle system; after MissionConfigService, BEFORE MissionLifecycleService.init().
 MissionLifecycleService.init() -- TTL-06: owns the mission lifecycle; after MissionContextService.
 DiagnosticHandshake.register("MISSION") -- TTL-02 diagnostic only; removable.
 
