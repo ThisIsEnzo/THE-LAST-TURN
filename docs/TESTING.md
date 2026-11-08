@@ -106,3 +106,10 @@ Requires Roblox Studio / a published Experience (not covered, not yet run): `Mis
 ## 12. Interaction core tests (TTL-08B-A)
 
 `tests/server_shared/InteractionCore.spec.lua` (Lune) covers the pure interaction core: registration validation and limits, atomic failed registrations, target uniqueness by identity, frozen identity-validated handles (forged, copied, foreign and stale handles), strictly increasing serials, the fixed eligibility precedence, distance boundary and invalid-distance handling, the activation pipeline order (evaluate, token, evaluate, reserve, handler, complete), token rejections that never leave a registration busy, handler success/false/throw, reentrancy (unregister, disable, clear and re-registration while a handler runs), cleanup, and clock behaviour (boundary, backward, invalid values). Roblox runtime behaviour (prompts, `Triggered`, `PlayerRemoving`, timers) belongs to TTL-08B-B and is not covered or validated here. See `docs/TTL-08B-A_INTERACTION_CORE.md`.
+
+
+## 13. Interaction service tests (TTL-08B-B)
+
+`tests/server_shared/InteractionConfig.spec.lua` (Lune) covers the pure parts of the interaction adapter: validation of the server-only configuration, the distance-tolerance helpers checked against the real `InteractionCore` (prompt radius equals server-accepted radius; invalid raw distances are never made valid), and the rate-limit policy exercised through the real `RateLimiter` (burst, refill, one shared bucket across interactions, independent players, immediate plus deferred cleanup, `Interact` kept out of `NetworkConfig.RateLimits`). The `InteractionCore` specs are unchanged.
+
+Requires Roblox Studio / a published Experience (not covered, not yet run): `InteractionService` prompt creation and cleanup, `Triggered` handling, character and target facts, `PlayerRemoving` timing, mission-lifecycle ordering and shutdown, touch behaviour. The 20-item checklist is in `docs/TTL-08B-B_INTERACTION_SERVICE.md`; every item is pending.
