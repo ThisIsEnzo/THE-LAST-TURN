@@ -1,0 +1,656 @@
+{
+  "ClassName": "Model",
+  "Children": [
+    {
+      "Name": "Furniture",
+      "ClassName": "Folder",
+      "Children": [
+        {
+          "Name": "Locker1_Body",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2, 7, 2.8],
+            "CFrame": [-60.5, 4.5, 5.5, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.36, 0.4, 0.45]
+          }
+        },
+        {
+          "Name": "Locker1_Door",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.15, 6, 2.2],
+            "CFrame": [-59.425, 4.5, 5.5, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.28, 0.32, 0.37],
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "Locker2_Body",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2, 7, 2.8],
+            "CFrame": [-60.5, 4.5, 8.7, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.36, 0.4, 0.45]
+          }
+        },
+        {
+          "Name": "Locker2_Door",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.15, 6, 2.2],
+            "CFrame": [-59.425, 4.5, 8.7, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.28, 0.32, 0.37],
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "Locker3_Body",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2, 7, 2.8],
+            "CFrame": [-60.5, 4.5, 11.9, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.36, 0.4, 0.45]
+          }
+        },
+        {
+          "Name": "Locker3_Door",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.15, 6, 2.2],
+            "CFrame": [-59.425, 4.5, 11.9, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.28, 0.32, 0.37],
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "Locker4_Body",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2, 7, 2.8],
+            "CFrame": [-60.5, 4.5, 15.1, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.36, 0.4, 0.45]
+          }
+        },
+        {
+          "Name": "Locker4_Door",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.15, 6, 2.2],
+            "CFrame": [-59.425, 4.5, 15.1, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.28, 0.32, 0.37],
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "Locker5_Body",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2, 7, 2.8],
+            "CFrame": [-60.5, 4.5, 18.3, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.36, 0.4, 0.45]
+          }
+        },
+        {
+          "Name": "Locker5_Door",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.15, 6, 2.2],
+            "CFrame": [-59.425, 4.5, 18.3, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.28, 0.32, 0.37],
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "Locker6_Body",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2, 7, 2.8],
+            "CFrame": [-60.5, 4.5, 21.5, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.36, 0.4, 0.45]
+          }
+        },
+        {
+          "Name": "Locker6_Door",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.15, 6, 2.2],
+            "CFrame": [-59.425, 4.5, 21.5, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.28, 0.32, 0.37],
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "Locker7_Body",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2, 7, 2.8],
+            "CFrame": [-60.5, 4.5, 24.7, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.36, 0.4, 0.45]
+          }
+        },
+        {
+          "Name": "Locker7_Door",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.15, 6, 2.2],
+            "CFrame": [-59.425, 4.5, 24.7, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.28, 0.32, 0.37],
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "Shelf1_PostA",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.3, 7, 1.2],
+            "CFrame": [-56.85, 4.5, 3.1, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Shelf1_PostB",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.3, 7, 1.2],
+            "CFrame": [-51.15, 4.5, 3.1, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Shelf1_Board1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [5.4, 0.3, 1.2],
+            "CFrame": [-54, 1.65, 3.1, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.36, 0.4, 0.45]
+          }
+        },
+        {
+          "Name": "Shelf1_Board2",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [5.4, 0.3, 1.2],
+            "CFrame": [-54, 3.75, 3.1, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.36, 0.4, 0.45]
+          }
+        },
+        {
+          "Name": "Shelf1_Board3",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [5.4, 0.3, 1.2],
+            "CFrame": [-54, 5.85, 3.1, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.36, 0.4, 0.45]
+          }
+        },
+        {
+          "Name": "Shelf1_Board4",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [5.4, 0.3, 1.2],
+            "CFrame": [-54, 7.95, 3.1, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.36, 0.4, 0.45]
+          }
+        },
+        {
+          "Name": "Shelf1_Crate1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.2, 1.2, 0.8],
+            "CFrame": [-54.5, 2.4, 3.2, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "CorrodedMetal",
+            "Color": [0.36, 0.33, 0.3]
+          }
+        },
+        {
+          "Name": "Shelf1_Crate2",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.2, 1.2, 0.8],
+            "CFrame": [-54.1, 4.5, 3.2, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "CorrodedMetal",
+            "Color": [0.36, 0.33, 0.3]
+          }
+        },
+        {
+          "Name": "Shelf1_Crate3",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.2, 1.2, 0.8],
+            "CFrame": [-53.7, 6.6, 3.2, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "CorrodedMetal",
+            "Color": [0.36, 0.33, 0.3]
+          }
+        },
+        {
+          "Name": "Shelf2_PostA",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.3, 7, 1.2],
+            "CFrame": [-49.85, 4.5, 3.1, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Shelf2_PostB",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.3, 7, 1.2],
+            "CFrame": [-44.15, 4.5, 3.1, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Shelf2_Board1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [5.4, 0.3, 1.2],
+            "CFrame": [-47, 1.65, 3.1, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.36, 0.4, 0.45]
+          }
+        },
+        {
+          "Name": "Shelf2_Board2",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [5.4, 0.3, 1.2],
+            "CFrame": [-47, 3.75, 3.1, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.36, 0.4, 0.45]
+          }
+        },
+        {
+          "Name": "Shelf2_Board3",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [5.4, 0.3, 1.2],
+            "CFrame": [-47, 5.85, 3.1, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.36, 0.4, 0.45]
+          }
+        },
+        {
+          "Name": "Shelf2_Board4",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [5.4, 0.3, 1.2],
+            "CFrame": [-47, 7.95, 3.1, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.36, 0.4, 0.45]
+          }
+        },
+        {
+          "Name": "Shelf2_Crate1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.2, 1.2, 0.8],
+            "CFrame": [-47.5, 2.4, 3.2, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "CorrodedMetal",
+            "Color": [0.36, 0.33, 0.3]
+          }
+        },
+        {
+          "Name": "Shelf2_Crate2",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.2, 1.2, 0.8],
+            "CFrame": [-47.1, 4.5, 3.2, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "CorrodedMetal",
+            "Color": [0.36, 0.33, 0.3]
+          }
+        },
+        {
+          "Name": "Shelf2_Crate3",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.2, 1.2, 0.8],
+            "CFrame": [-46.7, 6.6, 3.2, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "CorrodedMetal",
+            "Color": [0.36, 0.33, 0.3]
+          }
+        },
+        {
+          "Name": "Shelf3_PostA",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.3, 7, 1.2],
+            "CFrame": [-42.85, 4.5, 3.1, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Shelf3_PostB",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.3, 7, 1.2],
+            "CFrame": [-37.15, 4.5, 3.1, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Shelf3_Board1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [5.4, 0.3, 1.2],
+            "CFrame": [-40, 1.65, 3.1, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.36, 0.4, 0.45]
+          }
+        },
+        {
+          "Name": "Shelf3_Board2",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [5.4, 0.3, 1.2],
+            "CFrame": [-40, 3.75, 3.1, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.36, 0.4, 0.45]
+          }
+        },
+        {
+          "Name": "Shelf3_Board3",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [5.4, 0.3, 1.2],
+            "CFrame": [-40, 5.85, 3.1, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.36, 0.4, 0.45]
+          }
+        },
+        {
+          "Name": "Shelf3_Board4",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [5.4, 0.3, 1.2],
+            "CFrame": [-40, 7.95, 3.1, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.36, 0.4, 0.45]
+          }
+        },
+        {
+          "Name": "Shelf3_Crate1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.2, 1.2, 0.8],
+            "CFrame": [-40.5, 2.4, 3.2, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "CorrodedMetal",
+            "Color": [0.36, 0.33, 0.3]
+          }
+        },
+        {
+          "Name": "Shelf3_Crate2",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.2, 1.2, 0.8],
+            "CFrame": [-40.1, 4.5, 3.2, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "CorrodedMetal",
+            "Color": [0.36, 0.33, 0.3]
+          }
+        },
+        {
+          "Name": "Shelf3_Crate3",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.2, 1.2, 0.8],
+            "CFrame": [-39.7, 6.6, 3.2, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "CorrodedMetal",
+            "Color": [0.36, 0.33, 0.3]
+          }
+        },
+        {
+          "Name": "Workbench_Top",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [8, 0.4, 3.5],
+            "CFrame": [-50, 4.4, 15, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.36, 0.4, 0.45]
+          }
+        },
+        {
+          "Name": "Workbench_Leg1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 3.2, 0.4],
+            "CFrame": [-53.6, 2.6, 13.6, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Workbench_Leg2",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 3.2, 0.4],
+            "CFrame": [-46.4, 2.6, 13.6, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Workbench_Leg3",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 3.2, 0.4],
+            "CFrame": [-53.6, 2.6, 16.4, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Workbench_Leg4",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 3.2, 0.4],
+            "CFrame": [-46.4, 2.6, 16.4, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "LoadoutTerminal_Housing",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [11, 8, 0.6],
+            "CFrame": [-45.5, 5, 27.2, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "LoadoutTerminal_Screen",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [10, 4.5, 0.2],
+            "CFrame": [-45.5, 6, 26.8, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.08, 0.09, 0.1],
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Display",
+              "ClassName": "SurfaceGui",
+              "Properties": {
+                "Face": "Front",
+                "SizingMode": "PixelsPerStud",
+                "PixelsPerStud": 50,
+                "LightInfluence": 0
+              },
+              "Children": [
+                {
+                  "Name": "Text",
+                  "ClassName": "TextLabel",
+                  "Properties": {
+                    "Size": {
+                      "UDim2": [
+                        [1, 0],
+                        [1, 0]
+                      ]
+                    },
+                    "BackgroundTransparency": 1,
+                    "Text": "LOADOUT\nTERMINAL OFFLINE",
+                    "TextColor3": [0.84, 0.88, 0.9],
+                    "TextScaled": true,
+                    "TextWrapped": true,
+                    "FontFace": {
+                      "family": "rbxasset://fonts/families/GothamSSm.json",
+                      "weight": "Bold",
+                      "style": "Normal"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Markings",
+      "ClassName": "Folder",
+      "Children": [
+        {
+          "Name": "GuideLine_FromLobby",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [13.5, 0.06, 0.5],
+            "CFrame": [-37.25, 1.03, 15, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.35, 0.52, 0.68],
+            "CanCollide": false,
+            "CastShadow": false
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Signage",
+      "ClassName": "Folder",
+      "Children": [
+        {
+          "Name": "Sign_ToLobby",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.2, 2, 10],
+            "CFrame": [-30.6, 13, 15, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.08, 0.09, 0.1],
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Display",
+              "ClassName": "SurfaceGui",
+              "Properties": {
+                "Face": "Left",
+                "SizingMode": "PixelsPerStud",
+                "PixelsPerStud": 50,
+                "LightInfluence": 0
+              },
+              "Children": [
+                {
+                  "Name": "Text",
+                  "ClassName": "TextLabel",
+                  "Properties": {
+                    "Size": {
+                      "UDim2": [
+                        [1, 0],
+                        [1, 0]
+                      ]
+                    },
+                    "BackgroundTransparency": 1,
+                    "Text": "MAIN LOBBY",
+                    "TextColor3": [0.84, 0.88, 0.9],
+                    "TextScaled": true,
+                    "TextWrapped": true,
+                    "FontFace": {
+                      "family": "rbxasset://fonts/families/GothamSSm.json",
+                      "weight": "Bold",
+                      "style": "Normal"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,761 @@
+{
+  "ClassName": "Model",
+  "Children": [
+    {
+      "Name": "Floors",
+      "ClassName": "Folder",
+      "Children": [
+        {
+          "Name": "Floor_Reception",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [40, 1, 26],
+            "CFrame": [0, 0.5, 43, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Slate",
+            "Color": [0.3, 0.32, 0.34]
+          }
+        },
+        {
+          "Name": "Floor_MainLobby",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [60, 1, 38],
+            "CFrame": [0, 0.5, 11, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.36, 0.38, 0.4]
+          }
+        },
+        {
+          "Name": "Floor_MissionPreparation",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [40, 1, 32],
+            "CFrame": [0, 0.5, -24, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.3, 0.32, 0.35]
+          }
+        },
+        {
+          "Name": "Floor_EquipmentRoom",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [32, 1, 26],
+            "CFrame": [-46, 0.5, 15, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "DiamondPlate",
+            "Color": [0.3, 0.32, 0.35]
+          }
+        },
+        {
+          "Name": "Floor_BriefingRoom",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [22, 1, 20],
+            "CFrame": [41, 0.5, 16, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [0.18, 0.22, 0.27]
+          }
+        },
+        {
+          "Name": "Floor_RestrictedArea",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [30, 1, 12],
+            "CFrame": [35, 0.5, -28, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "CorrodedMetal",
+            "Color": [0.28, 0.27, 0.26]
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Walls",
+      "ClassName": "Folder",
+      "Children": [
+        {
+          "Name": "Reception_South_Segment1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [14.5, 14, 1],
+            "CFrame": [-13.25, 8, 56, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Reception_South_Segment2",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [14.5, 14, 1],
+            "CFrame": [13.25, 8, 56, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Reception_South_Lintel1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [12, 4, 1],
+            "CFrame": [0, 13, 56, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Reception_South_FrameLeft1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.5, 10, 1.3],
+            "CFrame": [-6.25, 6, 56, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Reception_South_FrameRight1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.5, 10, 1.3],
+            "CFrame": [6.25, 6, 56, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Reception_South_FrameTop1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [12, 0.4, 1.3],
+            "CFrame": [0, 10.8, 56, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Reception_South_Mullion1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.8, 10, 0.5],
+            "CFrame": [0, 6, 56, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Reception_South_PaneLeft1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [5.6, 9.6, 0.3],
+            "CFrame": [-3.2, 5.8, 56, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Glass",
+            "Color": [0.62, 0.74, 0.8],
+            "Transparency": 0.55,
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "Reception_South_PaneRight1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [5.6, 9.6, 0.3],
+            "CFrame": [3.2, 5.8, 56, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Glass",
+            "Color": [0.62, 0.74, 0.8],
+            "Transparency": 0.55,
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "Reception_West_Segment1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1, 14, 27],
+            "CFrame": [-20, 8, 43, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Reception_East_Segment1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1, 14, 27],
+            "CFrame": [20, 8, 43, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Lobby_South_Segment1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [20.5, 14, 1],
+            "CFrame": [-20.25, 8, 30, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Lobby_South_Segment2",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [20.5, 14, 1],
+            "CFrame": [20.25, 8, 30, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Lobby_South_Lintel1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [20, 4, 1],
+            "CFrame": [0, 13, 30, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Lobby_South_FrameLeft1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.5, 10, 1.3],
+            "CFrame": [-10.25, 6, 30, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Lobby_South_FrameRight1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.5, 10, 1.3],
+            "CFrame": [10.25, 6, 30, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Lobby_South_FrameTop1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [20, 0.4, 1.3],
+            "CFrame": [0, 10.8, 30, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Lobby_West_Segment1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1, 14, 17.5],
+            "CFrame": [-30, 8, 0.25, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Lobby_West_Segment2",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1, 14, 9.5],
+            "CFrame": [-30, 8, 25.75, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Lobby_West_Lintel1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1, 4, 12],
+            "CFrame": [-30, 13, 15, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Lobby_West_FrameLeft1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.3, 10, 0.5],
+            "CFrame": [-30, 6, 8.75, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Lobby_West_FrameRight1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.3, 10, 0.5],
+            "CFrame": [-30, 6, 21.25, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Lobby_West_FrameTop1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.3, 0.4, 12],
+            "CFrame": [-30, 10.8, 15, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Lobby_East_Segment1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1, 14, 18.5],
+            "CFrame": [30, 8, 0.75, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Lobby_East_Segment2",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1, 14, 8.5],
+            "CFrame": [30, 8, 26.25, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Lobby_East_Lintel1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1, 4, 12],
+            "CFrame": [30, 13, 16, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Lobby_East_FrameLeft1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.3, 10, 0.5],
+            "CFrame": [30, 6, 9.75, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Lobby_East_FrameRight1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.3, 10, 0.5],
+            "CFrame": [30, 6, 22.25, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Lobby_East_FrameTop1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.3, 0.4, 12],
+            "CFrame": [30, 10.8, 16, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Lobby_North_Segment1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [18.5, 14, 1],
+            "CFrame": [-21.25, 8, -8, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Lobby_North_Segment2",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [18.5, 14, 1],
+            "CFrame": [21.25, 8, -8, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Lobby_North_Lintel1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [24, 4, 1],
+            "CFrame": [0, 13, -8, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Lobby_North_FrameLeft1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.5, 10, 1.3],
+            "CFrame": [-12.25, 6, -8, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Lobby_North_FrameRight1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.5, 10, 1.3],
+            "CFrame": [12.25, 6, -8, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Lobby_North_FrameTop1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [24, 0.4, 1.3],
+            "CFrame": [0, 10.8, -8, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Mission_West_Segment1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1, 14, 33],
+            "CFrame": [-20, 8, -24, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Mission_East_Segment1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1, 14, 7],
+            "CFrame": [20, 8, -37, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Mission_East_Segment2",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1, 14, 21],
+            "CFrame": [20, 8, -18, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Mission_East_Sill1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1, 3, 5],
+            "CFrame": [20, 2.5, -31, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Mission_East_Header1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1, 4, 5],
+            "CFrame": [20, 13, -31, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Mission_East_Glass1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.3, 7, 5],
+            "CFrame": [20, 7.5, -31, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Glass",
+            "Color": [0.62, 0.74, 0.8],
+            "Transparency": 0.55,
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "Mission_East_WindowFrameTop1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.3, 0.3, 5],
+            "CFrame": [20, 10.85, -31, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Mission_East_WindowFrameBottom1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.3, 0.3, 5],
+            "CFrame": [20, 4.15, -31, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Mission_North_Segment1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [41, 14, 1],
+            "CFrame": [0, 8, -40, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Equipment_West_Segment1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1, 14, 27],
+            "CFrame": [-62, 8, 15, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Equipment_North_Segment1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [33, 14, 1],
+            "CFrame": [-46, 8, 2, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Equipment_South_Segment1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [33, 14, 1],
+            "CFrame": [-46, 8, 28, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Briefing_East_Segment1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1, 14, 21],
+            "CFrame": [52, 8, 16, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Briefing_North_Segment1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [23, 14, 1],
+            "CFrame": [41, 8, 6, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Briefing_South_Segment1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [23, 14, 1],
+            "CFrame": [41, 8, 26, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Restricted_North_Segment1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [31, 14, 1],
+            "CFrame": [35, 8, -34, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Restricted_South_Segment1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [31, 14, 1],
+            "CFrame": [35, 8, -22, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        },
+        {
+          "Name": "Restricted_East_Segment1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1, 14, 13],
+            "CFrame": [50, 8, -28, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.5, 0.52, 0.55]
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Ceilings",
+      "ClassName": "Folder",
+      "Children": [
+        {
+          "Name": "Ceiling_Reception",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [40, 1, 26],
+            "CFrame": [0, 15.5, 43, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.22, 0.24, 0.26]
+          }
+        },
+        {
+          "Name": "Ceiling_MainLobby",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [60, 1, 38],
+            "CFrame": [0, 15.5, 11, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.22, 0.24, 0.26]
+          }
+        },
+        {
+          "Name": "Ceiling_MissionPreparation",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [40, 1, 32],
+            "CFrame": [0, 15.5, -24, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.22, 0.24, 0.26]
+          }
+        },
+        {
+          "Name": "Ceiling_EquipmentRoom",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [32, 1, 26],
+            "CFrame": [-46, 15.5, 15, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.22, 0.24, 0.26]
+          }
+        },
+        {
+          "Name": "Ceiling_BriefingRoom",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [22, 1, 20],
+            "CFrame": [41, 15.5, 16, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.22, 0.24, 0.26]
+          }
+        },
+        {
+          "Name": "Ceiling_RestrictedArea",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [30, 1, 12],
+            "CFrame": [35, 15.5, -28, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [0.22, 0.24, 0.26]
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Exterior",
+      "ClassName": "Folder",
+      "Children": [
+        {
+          "Name": "Ground",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [400, 2, 400],
+            "CFrame": [0, -1.05, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Slate",
+            "Color": [0.1, 0.11, 0.12]
+          }
+        }
+      ]
+    }
+  ]
+}

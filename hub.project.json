@@ -24,6 +24,20 @@
       "ServerShared": {
         "$path": "src/server_shared"
       }
+    },
+    "Workspace": {
+      "$className": "Workspace",
+      "$ignoreUnknownInstances": true,
+      "$path": "src/hub/world"
+    },
+    "Lighting": {
+      "$className": "Lighting",
+      "$properties": {
+        "Ambient": [0.3, 0.33, 0.38],
+        "OutdoorAmbient": [0.3, 0.33, 0.38],
+        "Brightness": 1.5,
+        "ClockTime": 12
+      }
     }
   }
 }

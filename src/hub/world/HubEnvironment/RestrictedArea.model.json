@@ -1,0 +1,378 @@
+{
+  "ClassName": "Model",
+  "Children": [
+    {
+      "Name": "Furniture",
+      "ClassName": "Folder",
+      "Children": [
+        {
+          "Name": "SealedDoor",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.3, 9, 4],
+            "CFrame": [19.35, 5.5, -24.5, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.2, 0.21, 0.23]
+          }
+        },
+        {
+          "Name": "SealedDoor_Lock",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.2, 1, 1],
+            "CFrame": [19.1, 5.5, -25, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.62, 0.16, 0.14]
+          }
+        },
+        {
+          "Name": "Crate1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [3, 3, 3],
+            "CFrame": [44, 2.5, -31.5, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "CorrodedMetal",
+            "Color": [0.34, 0.31, 0.28]
+          }
+        },
+        {
+          "Name": "Crate2",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [3, 3, 3],
+            "CFrame": [45.5, 2.5, -25, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "CorrodedMetal",
+            "Color": [0.32, 0.3, 0.27]
+          }
+        },
+        {
+          "Name": "Crate3",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2.4, 2.4, 2.2],
+            "CFrame": [44, 5.2, -31.5, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "CorrodedMetal",
+            "Color": [0.3, 0.28, 0.26]
+          }
+        },
+        {
+          "Name": "Barricade",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.6, 4, 11],
+            "CFrame": [31.8, 3, -28, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "CautionTape_High",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.1, 0.5, 11],
+            "CFrame": [28.95, 5.65, -28, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.78, 0.66, 0.16],
+            "CanCollide": false,
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "CautionTape_Low",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.1, 0.5, 11],
+            "CFrame": [28.95, 3.85, -28, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.78, 0.66, 0.16],
+            "CanCollide": false,
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "ToppledChair_Seat",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.6, 0.3, 1.6],
+            "CFrame": [36.8, 1.55, -30.2, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [0.2, 0.25, 0.3]
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Markings",
+      "ClassName": "Folder",
+      "Children": [
+        {
+          "Name": "HazardStripe1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2, 0.06, 3],
+            "CFrame": [24, 1.03, -28, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.78, 0.66, 0.16],
+            "CanCollide": false,
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "HazardStripe2",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2, 0.06, 3],
+            "CFrame": [26, 1.03, -28, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.1, 0.1, 0.1],
+            "CanCollide": false,
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "HazardStripe3",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2, 0.06, 3],
+            "CFrame": [28, 1.03, -28, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.78, 0.66, 0.16],
+            "CanCollide": false,
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "HazardStripe4",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2, 0.06, 3],
+            "CFrame": [30, 1.03, -28, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.1, 0.1, 0.1],
+            "CanCollide": false,
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "HazardStripe5",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2, 0.06, 3],
+            "CFrame": [32, 1.03, -28, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.78, 0.66, 0.16],
+            "CanCollide": false,
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "HazardStripe6",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2, 0.06, 3],
+            "CFrame": [34, 1.03, -28, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.1, 0.1, 0.1],
+            "CanCollide": false,
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "HazardStripe7",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2, 0.06, 3],
+            "CFrame": [36, 1.03, -28, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.78, 0.66, 0.16],
+            "CanCollide": false,
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "HazardStripe8",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2, 0.06, 3],
+            "CFrame": [38, 1.03, -28, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.1, 0.1, 0.1],
+            "CanCollide": false,
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "HazardStripe9",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2, 0.06, 3],
+            "CFrame": [40, 1.03, -28, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.78, 0.66, 0.16],
+            "CanCollide": false,
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "HazardStripe10",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2, 0.06, 3],
+            "CFrame": [42, 1.03, -28, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.1, 0.1, 0.1],
+            "CanCollide": false,
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "HazardStripe11",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2, 0.06, 3],
+            "CFrame": [44, 1.03, -28, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.78, 0.66, 0.16],
+            "CanCollide": false,
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "HazardStripe12",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2, 0.06, 3],
+            "CFrame": [46, 1.03, -28, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.1, 0.1, 0.1],
+            "CanCollide": false,
+            "CastShadow": false
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Signage",
+      "ClassName": "Folder",
+      "Children": [
+        {
+          "Name": "Sign_Restricted",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.2, 1.6, 6],
+            "CFrame": [19.3, 12.2, -24.5, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.08, 0.09, 0.1],
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Display",
+              "ClassName": "SurfaceGui",
+              "Properties": {
+                "Face": "Left",
+                "SizingMode": "PixelsPerStud",
+                "PixelsPerStud": 50,
+                "LightInfluence": 0
+              },
+              "Children": [
+                {
+                  "Name": "Text",
+                  "ClassName": "TextLabel",
+                  "Properties": {
+                    "Size": {
+                      "UDim2": [
+                        [1, 0],
+                        [1, 0]
+                      ]
+                    },
+                    "BackgroundTransparency": 1,
+                    "Text": "RESTRICTED ACCESS",
+                    "TextColor3": [0.88, 0.45, 0.4],
+                    "TextScaled": true,
+                    "TextWrapped": true,
+                    "FontFace": {
+                      "family": "rbxasset://fonts/families/GothamSSm.json",
+                      "weight": "Bold",
+                      "style": "Normal"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Name": "Sign_Sealed",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.2, 3, 8],
+            "CFrame": [49.3, 7, -28, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.08, 0.09, 0.1],
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Display",
+              "ClassName": "SurfaceGui",
+              "Properties": {
+                "Face": "Left",
+                "SizingMode": "PixelsPerStud",
+                "PixelsPerStud": 50,
+                "LightInfluence": 0
+              },
+              "Children": [
+                {
+                  "Name": "Text",
+                  "ClassName": "TextLabel",
+                  "Properties": {
+                    "Size": {
+                      "UDim2": [
+                        [1, 0],
+                        [1, 0]
+                      ]
+                    },
+                    "BackgroundTransparency": 1,
+                    "Text": "SECTOR 4\nSEALED",
+                    "TextColor3": [0.88, 0.45, 0.4],
+                    "TextScaled": true,
+                    "TextWrapped": true,
+                    "FontFace": {
+                      "family": "rbxasset://fonts/families/GothamSSm.json",
+                      "weight": "Bold",
+                      "style": "Normal"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,283 @@
+{
+  "ClassName": "Model",
+  "Children": [
+    {
+      "Name": "Furniture",
+      "ClassName": "Folder",
+      "Children": [
+        {
+          "Name": "BoardFrame",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [26, 11, 0.6],
+            "CFrame": [0, 8.5, -39.2, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "BoardScreen",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [24, 9, 0.2],
+            "CFrame": [0, 8.5, -38.8, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.08, 0.09, 0.1],
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Display",
+              "ClassName": "SurfaceGui",
+              "Properties": {
+                "Face": "Back",
+                "SizingMode": "PixelsPerStud",
+                "PixelsPerStud": 50,
+                "LightInfluence": 0
+              },
+              "Children": [
+                {
+                  "Name": "Text",
+                  "ClassName": "TextLabel",
+                  "Properties": {
+                    "Size": {
+                      "UDim2": [
+                        [1, 0],
+                        [1, 0]
+                      ]
+                    },
+                    "BackgroundTransparency": 1,
+                    "Text": "MISSION BOARD\nNO ACTIVE ASSIGNMENTS",
+                    "TextColor3": [0.84, 0.88, 0.9],
+                    "TextScaled": true,
+                    "TextWrapped": true,
+                    "FontFace": {
+                      "family": "rbxasset://fonts/families/GothamSSm.json",
+                      "weight": "Bold",
+                      "style": "Normal"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Name": "BoardLedge",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [26, 2, 1.5],
+            "CFrame": [0, 2, -38.75, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "PlanningTable_Top",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [6, 0.4, 4],
+            "CFrame": [-14.5, 4, -16, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.36, 0.4, 0.45]
+          }
+        },
+        {
+          "Name": "PlanningTable_Leg1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 2.8, 0.4],
+            "CFrame": [-17.2, 2.4, -17.7, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "PlanningTable_Leg2",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 2.8, 0.4],
+            "CFrame": [-11.8, 2.4, -17.7, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "PlanningTable_Leg3",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 2.8, 0.4],
+            "CFrame": [-17.2, 2.4, -14.3, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "PlanningTable_Leg4",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 2.8, 0.4],
+            "CFrame": [-11.8, 2.4, -14.3, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "WallBench1_Seat",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2, 1.2, 8],
+            "CFrame": [-18.5, 1.6, -30, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [0.2, 0.25, 0.3]
+          }
+        },
+        {
+          "Name": "WallBench2_Seat",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [2, 1.2, 8],
+            "CFrame": [-18.5, 1.6, -22, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [0.2, 0.25, 0.3]
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Markings",
+      "ClassName": "Folder",
+      "Children": [
+        {
+          "Name": "GatherZone_North",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [28, 0.06, 0.4],
+            "CFrame": [0, 1.03, -36, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.78, 0.6, 0.28],
+            "CanCollide": false,
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "GatherZone_South",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [28, 0.06, 0.4],
+            "CFrame": [0, 1.03, -25, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.78, 0.6, 0.28],
+            "CanCollide": false,
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "GatherZone_West",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 0.06, 11],
+            "CFrame": [-14, 1.03, -30.5, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.78, 0.6, 0.28],
+            "CanCollide": false,
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "GatherZone_East",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 0.06, 11],
+            "CFrame": [14, 1.03, -30.5, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.78, 0.6, 0.28],
+            "CanCollide": false,
+            "CastShadow": false
+          }
+        },
+        {
+          "Name": "GuideLine_FromLobby",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.5, 0.06, 16.3],
+            "CFrame": [0, 1.03, -16.65, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.78, 0.6, 0.28],
+            "CanCollide": false,
+            "CastShadow": false
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Signage",
+      "ClassName": "Folder",
+      "Children": [
+        {
+          "Name": "Sign_ToLobby",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [12, 2, 0.2],
+            "CFrame": [0, 13, -8.6, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.08, 0.09, 0.1],
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Display",
+              "ClassName": "SurfaceGui",
+              "Properties": {
+                "Face": "Front",
+                "SizingMode": "PixelsPerStud",
+                "PixelsPerStud": 50,
+                "LightInfluence": 0
+              },
+              "Children": [
+                {
+                  "Name": "Text",
+                  "ClassName": "TextLabel",
+                  "Properties": {
+                    "Size": {
+                      "UDim2": [
+                        [1, 0],
+                        [1, 0]
+                      ]
+                    },
+                    "BackgroundTransparency": 1,
+                    "Text": "MAIN LOBBY",
+                    "TextColor3": [0.84, 0.88, 0.9],
+                    "TextScaled": true,
+                    "TextWrapped": true,
+                    "FontFace": {
+                      "family": "rbxasset://fonts/families/GothamSSm.json",
+                      "weight": "Bold",
+                      "style": "Normal"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,451 @@
+{
+  "ClassName": "Model",
+  "Children": [
+    {
+      "Name": "Furniture",
+      "ClassName": "Folder",
+      "Children": [
+        {
+          "Name": "Table_Top",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [10, 0.4, 4],
+            "CFrame": [45, 4.1, 16, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Wood",
+            "Color": [0.34, 0.3, 0.26]
+          }
+        },
+        {
+          "Name": "Table_Leg1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 2.9, 0.4],
+            "CFrame": [40.4, 2.45, 14.4, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Table_Leg2",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 2.9, 0.4],
+            "CFrame": [49.6, 2.45, 14.4, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Table_Leg3",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 2.9, 0.4],
+            "CFrame": [40.4, 2.45, 17.6, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "Table_Leg4",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 2.9, 0.4],
+            "CFrame": [49.6, 2.45, 17.6, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "ChairNorth1_Seat",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.6, 0.3, 1.6],
+            "CFrame": [41.5, 2.65, 12.4, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [0.2, 0.25, 0.3]
+          }
+        },
+        {
+          "Name": "ChairNorth1_Leg",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 1.5, 0.4],
+            "CFrame": [41.5, 1.75, 12.4, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "ChairNorth1_Back",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.6, 1.8, 0.4],
+            "CFrame": [41.5, 3.7, 11.5, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [0.2, 0.25, 0.3]
+          }
+        },
+        {
+          "Name": "ChairNorth2_Seat",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.6, 0.3, 1.6],
+            "CFrame": [44, 2.65, 12.4, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [0.2, 0.25, 0.3]
+          }
+        },
+        {
+          "Name": "ChairNorth2_Leg",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 1.5, 0.4],
+            "CFrame": [44, 1.75, 12.4, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "ChairNorth2_Back",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.6, 1.8, 0.4],
+            "CFrame": [44, 3.7, 11.5, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [0.2, 0.25, 0.3]
+          }
+        },
+        {
+          "Name": "ChairNorth3_Seat",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.6, 0.3, 1.6],
+            "CFrame": [46.5, 2.65, 12.4, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [0.2, 0.25, 0.3]
+          }
+        },
+        {
+          "Name": "ChairNorth3_Leg",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 1.5, 0.4],
+            "CFrame": [46.5, 1.75, 12.4, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "ChairNorth3_Back",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.6, 1.8, 0.4],
+            "CFrame": [46.5, 3.7, 11.5, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [0.2, 0.25, 0.3]
+          }
+        },
+        {
+          "Name": "ChairNorth4_Seat",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.6, 0.3, 1.6],
+            "CFrame": [49, 2.65, 12.4, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [0.2, 0.25, 0.3]
+          }
+        },
+        {
+          "Name": "ChairNorth4_Leg",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 1.5, 0.4],
+            "CFrame": [49, 1.75, 12.4, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "ChairNorth4_Back",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.6, 1.8, 0.4],
+            "CFrame": [49, 3.7, 11.5, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [0.2, 0.25, 0.3]
+          }
+        },
+        {
+          "Name": "ChairSouth1_Seat",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.6, 0.3, 1.6],
+            "CFrame": [41.5, 2.65, 19.6, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [0.2, 0.25, 0.3]
+          }
+        },
+        {
+          "Name": "ChairSouth1_Leg",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 1.5, 0.4],
+            "CFrame": [41.5, 1.75, 19.6, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "ChairSouth1_Back",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.6, 1.8, 0.4],
+            "CFrame": [41.5, 3.7, 20.5, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [0.2, 0.25, 0.3]
+          }
+        },
+        {
+          "Name": "ChairSouth2_Seat",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.6, 0.3, 1.6],
+            "CFrame": [44, 2.65, 19.6, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [0.2, 0.25, 0.3]
+          }
+        },
+        {
+          "Name": "ChairSouth2_Leg",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 1.5, 0.4],
+            "CFrame": [44, 1.75, 19.6, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "ChairSouth2_Back",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.6, 1.8, 0.4],
+            "CFrame": [44, 3.7, 20.5, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [0.2, 0.25, 0.3]
+          }
+        },
+        {
+          "Name": "ChairSouth3_Seat",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.6, 0.3, 1.6],
+            "CFrame": [46.5, 2.65, 19.6, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [0.2, 0.25, 0.3]
+          }
+        },
+        {
+          "Name": "ChairSouth3_Leg",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 1.5, 0.4],
+            "CFrame": [46.5, 1.75, 19.6, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "ChairSouth3_Back",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.6, 1.8, 0.4],
+            "CFrame": [46.5, 3.7, 20.5, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [0.2, 0.25, 0.3]
+          }
+        },
+        {
+          "Name": "ChairSouth4_Seat",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.6, 0.3, 1.6],
+            "CFrame": [49, 2.65, 19.6, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [0.2, 0.25, 0.3]
+          }
+        },
+        {
+          "Name": "ChairSouth4_Leg",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.4, 1.5, 0.4],
+            "CFrame": [49, 1.75, 19.6, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [0.17, 0.18, 0.2]
+          }
+        },
+        {
+          "Name": "ChairSouth4_Back",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [1.6, 1.8, 0.4],
+            "CFrame": [49, 3.7, 20.5, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [0.2, 0.25, 0.3]
+          }
+        },
+        {
+          "Name": "BriefingDisplay",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.2, 6, 12],
+            "CFrame": [51.3, 7.5, 16, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.08, 0.09, 0.1],
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Display",
+              "ClassName": "SurfaceGui",
+              "Properties": {
+                "Face": "Left",
+                "SizingMode": "PixelsPerStud",
+                "PixelsPerStud": 50,
+                "LightInfluence": 0
+              },
+              "Children": [
+                {
+                  "Name": "Text",
+                  "ClassName": "TextLabel",
+                  "Properties": {
+                    "Size": {
+                      "UDim2": [
+                        [1, 0],
+                        [1, 0]
+                      ]
+                    },
+                    "BackgroundTransparency": 1,
+                    "Text": "BRIEFING\nNO ACTIVE BRIEFING",
+                    "TextColor3": [0.84, 0.88, 0.9],
+                    "TextScaled": true,
+                    "TextWrapped": true,
+                    "FontFace": {
+                      "family": "rbxasset://fonts/families/GothamSSm.json",
+                      "weight": "Bold",
+                      "style": "Normal"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Markings",
+      "ClassName": "Folder",
+      "Children": [
+        {
+          "Name": "GuideLine_FromLobby",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [7.5, 0.06, 0.5],
+            "CFrame": [34.25, 1.03, 16, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.4, 0.62, 0.5],
+            "CanCollide": false,
+            "CastShadow": false
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Signage",
+      "ClassName": "Folder",
+      "Children": [
+        {
+          "Name": "Sign_ToLobby",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [0.2, 2, 10],
+            "CFrame": [30.6, 13, 16, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [0.08, 0.09, 0.1],
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Display",
+              "ClassName": "SurfaceGui",
+              "Properties": {
+                "Face": "Right",
+                "SizingMode": "PixelsPerStud",
+                "PixelsPerStud": 50,
+                "LightInfluence": 0
+              },
+              "Children": [
+                {
+                  "Name": "Text",
+                  "ClassName": "TextLabel",
+                  "Properties": {
+                    "Size": {
+                      "UDim2": [
+                        [1, 0],
+                        [1, 0]
+                      ]
+                    },
+                    "BackgroundTransparency": 1,
+                    "Text": "MAIN LOBBY",
+                    "TextColor3": [0.84, 0.88, 0.9],
+                    "TextScaled": true,
+                    "TextWrapped": true,
+                    "FontFace": {
+                      "family": "rbxasset://fonts/families/GothamSSm.json",
+                      "weight": "Bold",
+                      "style": "Normal"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
