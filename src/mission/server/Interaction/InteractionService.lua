@@ -169,7 +169,14 @@ local function logHandlerError(id: string, serial: number, message: string)
 end
 
 -- Creates the prompt and its connections, or raises after cleaning up everything it created.
-local function buildRegistration(handle: RegistrationHandle, state: InteractionCore.State, part: BasePart, handler: Handler): Registration
+local function buildRegistration(
+    handle: RegistrationHandle,
+    state: InteractionCore.State,
+    part: BasePart,
+    handler: Handler,
+    actionText: string,
+    objectText: string
+): Registration
     local prompt = Instance.new("ProximityPrompt")
     local connections: { RBXScriptConnection } = {}
     local registration: Registration = {
@@ -184,8 +191,8 @@ local function buildRegistration(handle: RegistrationHandle, state: InteractionC
 
     local ok, err = pcall(function()
         prompt.Name = "InteractionPrompt"
-        prompt.ActionText = Config.prompt.actionText
-        prompt.ObjectText = Config.prompt.objectText
+        prompt.ActionText = actionText
+        prompt.ObjectText = objectText
         prompt.HoldDuration = state.holdDuration
         prompt.MaxActivationDistance = InteractionConfig.effectiveRadius(state.maxDistance, Config.distanceToleranceStuds)
         prompt.RequiresLineOfSight = false -- v1: no line-of-sight validation (documented limitation)
@@ -219,16 +226,31 @@ end
 
 -- Registers one interaction on one target part (one registration per target; separate anchor parts for
 -- multi-action objects). `spec` is an InteractionCore.Spec; `handler` follows the non-yielding contract.
--- Returns (handle, nil) or (nil, reason). Reasons: service_unavailable, invalid_handler, invalid_target, prompt_failed,
--- or an InteractionCore reason (invalid_spec, invalid_target_key, duplicate_id, target_in_use). A rejected call
--- leaves no Core registration and no Roblox resource behind. Call it from a lifecycle start() callback.
-function InteractionService.register(spec: any, target: any, handler: any): (RegistrationHandle?, string?)
+-- `options` is optional: { actionText: string?, objectText: string? } overrides the generic prompt texts.
+-- Returns (handle, nil) or (nil, reason). Reasons: service_unavailable, invalid_handler, invalid_options, invalid_target,
+-- prompt_failed, or an InteractionCore reason (invalid_spec, invalid_target_key, duplicate_id, target_in_use). A
+-- rejected call leaves no Core registration and no Roblox resource behind. Call it from a lifecycle start() callback.
+function InteractionService.register(spec: any, target: any, handler: any, options: any): (RegistrationHandle?, string?)
     local activeStore = store
     if not ready or activeStore == nil then
         return nil, "service_unavailable"
     end
     if type(handler) ~= "function" then
         return nil, "invalid_handler"
+    end
+    local actionText: string = Config.prompt.actionText
+    local objectText: string = Config.prompt.objectText
+    if options ~= nil then
+        local optionsOk = InteractionConfig.validatePromptOptions(options)
+        if not optionsOk then
+            return nil, "invalid_options"
+        end
+        if options.actionText ~= nil then
+            actionText = options.actionText
+        end
+        if options.objectText ~= nil then
+            objectText = options.objectText
+        end
     end
     if typeof(target) ~= "Instance" then
         return nil, "invalid_target"
@@ -251,7 +273,7 @@ function InteractionService.register(spec: any, target: any, handler: any): (Reg
     local built: any = nil
     local created = false
     if state ~= nil then
-        created, built = pcall(buildRegistration, handle, state, part, handler :: Handler)
+        created, built = pcall(buildRegistration, handle, state, part, handler :: Handler, actionText, objectText)
     end
     if not created then
         activeStore:unregister(handle) -- roll back: never leave an invisible active registration behind

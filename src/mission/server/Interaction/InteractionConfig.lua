@@ -109,6 +109,24 @@ function InteractionConfig.validate(config: any): (boolean, string?)
     return true, nil
 end
 
+-- Optional per-interaction prompt texts accepted by InteractionService.register (TTL-08C). Returns (true, nil) or
+-- (false, detail): a plain table with only actionText / objectText, each nil or a valid text.
+function InteractionConfig.validatePromptOptions(options: any): (boolean, string?)
+    if type(options) ~= "table" or getmetatable(options) ~= nil then
+        return false, "options must be a plain table"
+    end
+    if not hasOnlyFields(options, { actionText = true, objectText = true }) then
+        return false, "options may contain actionText and objectText only"
+    end
+    if options.actionText ~= nil and not isPromptText(options.actionText, 1) then
+        return false, "actionText must be 1-40 bytes without control characters"
+    end
+    if options.objectText ~= nil and not isPromptText(options.objectText, 0) then
+        return false, "objectText must be 0-40 bytes without control characters"
+    end
+    return true, nil
+end
+
 -- The radius shown by the prompt (MaxActivationDistance) and accepted by the server: maxDistance + tolerance.
 function InteractionConfig.effectiveRadius(maxDistance: number, toleranceStuds: number): number
     return maxDistance + toleranceStuds

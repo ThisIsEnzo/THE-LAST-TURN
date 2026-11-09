@@ -274,3 +274,33 @@ test("the interaction action is not a NetworkConfig remote rate limit", function
     -- 'Interact' is a native ProximityPrompt action and must stay out of that table.
     expectEqual((NetworkConfig.RateLimits :: any)[Values.rateLimit.action], nil)
 end)
+
+-- Per-interaction prompt options (TTL-08C) ---------------------------------------------------------------------------
+
+test("validatePromptOptions accepts valid options", function()
+    expectTrue((InteractionConfig.validatePromptOptions({})))
+    expectTrue((InteractionConfig.validatePromptOptions({ actionText = "Use" })))
+    expectTrue((InteractionConfig.validatePromptOptions({ objectText = "" })))
+    expectTrue((InteractionConfig.validatePromptOptions({ actionText = "Use", objectText = "Door" })))
+    expectTrue((InteractionConfig.validatePromptOptions({ actionText = string.rep("x", 40), objectText = string.rep("y", 40) })))
+end)
+
+test("validatePromptOptions rejects invalid options (fail closed)", function()
+    local function bad(options: any, label: string)
+        local ok, detail = InteractionConfig.validatePromptOptions(options)
+        expectFalse(ok, label)
+        expectTrue(type(detail) == "string", label)
+    end
+    bad(nil, "nil")
+    bad("Use", "string")
+    bad(setmetatable({ actionText = "Use" }, {}), "metatable")
+    bad({ actionText = "" }, "empty action text")
+    bad({ actionText = string.rep("x", 41) }, "long action text")
+    bad({ actionText = "Open\ndoor" }, "control character")
+    bad({ actionText = 5 }, "numeric action text")
+    bad({ objectText = string.rep("y", 41) }, "long object text")
+    bad({ objectText = true }, "boolean object text")
+    bad({ actionText = "Use", extra = 1 }, "unknown field")
+    bad({ "Use" }, "array")
+end)
+

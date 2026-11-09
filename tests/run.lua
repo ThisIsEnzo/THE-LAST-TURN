@@ -16,6 +16,8 @@ require("./server_shared/SeededRandom.spec")
 require("./server_shared/MissionConfigCore.spec")
 require("./server_shared/InteractionCore.spec")
 require("./server_shared/InteractionConfig.spec")
+require("./server_shared/DoorCore.spec")
+require("./server_shared/DoorConfig.spec")
 
 local results = Harness.results()
 for _, failure in ipairs(results.failures) do
