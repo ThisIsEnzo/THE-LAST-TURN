@@ -113,3 +113,10 @@ Requires Roblox Studio / a published Experience (not covered, not yet run): `Mis
 `tests/server_shared/InteractionConfig.spec.lua` (Lune) covers the pure parts of the interaction adapter: validation of the server-only configuration, the distance-tolerance helpers checked against the real `InteractionCore` (prompt radius equals server-accepted radius; invalid raw distances are never made valid), and the rate-limit policy exercised through the real `RateLimiter` (burst, refill, one shared bucket across interactions, independent players, immediate plus deferred cleanup, `Interact` kept out of `NetworkConfig.RateLimits`). The `InteractionCore` specs are unchanged.
 
 Requires Roblox Studio / a published Experience (not covered, not yet run): `InteractionService` prompt creation and cleanup, `Triggered` handling, character and target facts, `PlayerRemoving` timing, mission-lifecycle ordering and shutdown, touch behaviour. The 20-item checklist is in `docs/TTL-08B-B_INTERACTION_SERVICE.md`; every item is pending.
+
+
+## 14. Door interaction tests (TTL-08C)
+
+`tests/server_shared/DoorCore.spec.lua` (Lune) covers the pure door state machine: Closed to Open and Open to Closed, invalid transitions and states, rejection while transitioning (state and deadline unchanged), the exact deadline boundary, a backward clock, invalid clock values failing closed, a door that cannot stay stuck, and configuration validation. `tests/server_shared/DoorConfig.spec.lua` checks that the shipped door configuration is valid and cross-checks it against `DoorCore.validateConfig`, `InteractionCore.validateSpec` and the prompt-text validation (including cooldown at least the transition time), plus malformed and out-of-range settings. `tests/server_shared/InteractionConfig.spec.lua` gained cases for `validatePromptOptions`.
+
+Requires Roblox Studio / a published Experience (not covered, not yet run): the runtime fixture, prompt behaviour, tween and final pose, lifecycle registration order, cleanup on shutdown, multi-player and mobile behaviour. The 13-item manual checklist is in `docs/TTL-08C_DOOR_INTERACTION.md`; every item is pending.
