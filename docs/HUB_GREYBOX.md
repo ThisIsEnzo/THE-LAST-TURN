@@ -77,14 +77,25 @@ python3 tools/hub_greybox/validate_hub_greybox.py [--render plan.png]
 
 The validator checks that every file only uses the documented classes, properties and value shapes, that sibling names are
 unique, that collidable geometry does not overlap accidentally, and that a character-sized walker (radius 1 stud) starting
-on the spawn reaches every accessible room while the restricted corridor stays unreachable. It is an offline sanity check,
-not a physics or visual test.
+on the spawn reaches every accessible room and every doorway threshold while the restricted corridor stays unreachable.
+A grid cell only counts as walkable if it is free of (radius-inflated) obstacles **and** has floor support: floor support
+comes only from large (at least 2 studs across, at most 200), thick (at least 0.5), collidable slabs whose top is at floor
+height, and the walker's centre needs floor within half a stud in every direction. The exterior `Ground` slab, the template
+Baseplate, non-collidable or thin markings, furniture tops and narrow strips never count as floor. Regression tests for this
+(including a route through unsupported space that must be rejected) live next to it:
+
+```
+python3 -m unittest discover -s tools/hub_greybox
+```
+
+It is an offline sanity check, not a physics or visual test.
 
 ## 6. Checks run
 
 | Check | Status |
 |---|---|
-| `tools/hub_greybox/validate_hub_greybox.py` (schema, naming, overlap, reachability) | passed |
+| `tools/hub_greybox/validate_hub_greybox.py` (schema, naming, overlap, floor-supported reachability) | passed |
+| `python3 -m unittest discover -s tools/hub_greybox` (19 validator regression tests) | passed |
 | `hub.project.json` / `mission.project.json` parse as JSON | passed |
 | `rojo build hub.project.json`, `rojo build mission.project.json` | **not run** (Rojo unavailable in the authoring environment); CI runs them |
 | `lune run tests/run` | **not run** (Lune unavailable); no Lua source or test changed |
