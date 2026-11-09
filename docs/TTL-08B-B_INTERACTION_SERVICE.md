@@ -24,7 +24,7 @@ consumer handler (future systems)      synchronous, non-yielding
 ## 2. Public API (server only)
 
 ```lua
-InteractionService.register(spec, target, handler) -> (handle?, reason?)
+InteractionService.register(spec, target, handler, options?) -> (handle?, reason?)   -- options: { actionText?, objectText? } (added in TTL-08C)
 InteractionService.unregister(handle)              -> (ok, reason?)
 InteractionService.setEnabled(handle, enabled)     -> (ok, reason?)
 InteractionService.isReady()                       -> boolean

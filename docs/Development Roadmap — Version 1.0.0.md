@@ -55,7 +55,7 @@ See [Phase 0 Checklist](./PHASE_0_CHECKLIST.md) for P0-01–P0-10, exit criteria
 ### Phase 2 — Playable Mission
 - TTL-06 Mission Lifecycle — DONE (merged; Lune coverage exists, but final review-hardening head had no reported CI run; Roblox runtime and return-teleport validation remain pending; PlaceIds are configured)
 - TTL-07 Mission Configuration — DONE (PR #9 merged; CI passed both Rojo builds and `lune run tests/run` with 200 passed, 0 failed; Studio/published-Experience runtime validation remains pending)
-- TTL-08 Basic Interaction — IN PROGRESS: TTL-08B-A (pure `InteractionCore` + Lune specs) merged per the project owner (PR #11); TTL-08B-B (`InteractionService`, native ProximityPrompt integration, Bootstrap, no gameplay consumers) IN REVIEW — `lune run tests/run` and both Rojo builds must pass in CI; Roblox Studio, multiplayer and mobile validation pending (see docs/TTL-08B-B_INTERACTION_SERVICE.md)
+- TTL-08 Basic Interaction — IN PROGRESS: TTL-08B-A (pure `InteractionCore` + Lune specs) merged per the project owner (PR #11); TTL-08B-B (`InteractionService`, native ProximityPrompt integration, Bootstrap, no gameplay consumers) MERGED (PR #12); TTL-08C (first consumer: server-authoritative test door via InteractionService, pure `DoorCore`, runtime fixture) IN REVIEW — CI (Lune, Rojo) must pass; Studio/published-Experience validation pending (see docs/TTL-08C_DOOR_INTERACTION.md)
 - TTL-09 Objectives
 - TTL-10 First Mission Map
 
