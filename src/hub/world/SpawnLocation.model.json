@@ -1,0 +1,13 @@
+{
+  "ClassName": "SpawnLocation",
+  "Properties": {
+    "Size": [14, 1, 8],
+    "CFrame": [0, 0.52, 50, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+    "Anchored": true,
+    "Transparency": 1,
+    "Neutral": true,
+    "AllowTeamChangeOnTouch": false,
+    "Duration": 0,
+    "Enabled": true
+  }
+}

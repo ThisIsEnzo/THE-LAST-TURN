@@ -1,0 +1,37 @@
+name: HUB greybox validation
+
+on:
+  pull_request:
+    paths:
+      - "src/hub/world/**"
+      - "tools/hub_greybox/**"
+      - ".github/workflows/hub-greybox-validation.yml"
+  push:
+    branches:
+      - master
+    paths:
+      - "src/hub/world/**"
+      - "tools/hub_greybox/**"
+      - ".github/workflows/hub-greybox-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-hub-greybox:
+    name: Validate HUB greybox geometry
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate HUB greybox geometry
+        run: python tools/hub_greybox/validate_hub_greybox.py
+
+      - name: Run HUB greybox regression tests
+        run: python -m unittest discover -s tools/hub_greybox -p "test_*.py" -v
