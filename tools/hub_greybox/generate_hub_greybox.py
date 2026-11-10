@@ -151,8 +151,8 @@ def wall(prefix, axis, fixed, lo, hi, openings=()):
             thin(f"{prefix}_WindowFrameBottom{index}", a, b, FY + sill, FY + sill + 0.3, T + 0.3, material="Metal", rgb=C_TRIM)
             continue
         seg(f"{prefix}_Lintel{index}", a, b, FY + DH, FY + H)
-        thin(f"{prefix}_FrameLeft{index}", a, a + 0.25, FY, FY + DH, T + 0.3, material="Metal", rgb=C_TRIM)
-        thin(f"{prefix}_FrameRight{index}", b - 0.25, b, FY, FY + DH, T + 0.3, material="Metal", rgb=C_TRIM)
+        thin(f"{prefix}_FrameLeft{index}", a, a + 0.25, FY, FY + DH - 0.4, T + 0.3, material="Metal", rgb=C_TRIM)
+        thin(f"{prefix}_FrameRight{index}", b - 0.25, b, FY, FY + DH - 0.4, T + 0.3, material="Metal", rgb=C_TRIM)
         thin(f"{prefix}_FrameTop{index}", a, b, FY + DH - 0.4, FY + DH, T + 0.3, material="Metal", rgb=C_TRIM)
         if kind == "glass_door":
             mid = (a + b) / 2
