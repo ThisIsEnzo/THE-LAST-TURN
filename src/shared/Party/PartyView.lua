@@ -282,6 +282,25 @@ function PartyViewClass.applyInviteEnded(self: PartyView, payload: any, now: num
     return true, events
 end
 
+-- Clears optimistic outgoing state when the server rejects an invite or confirms its outcome.
+function PartyViewClass.clearOutgoingInvite(self: PartyView, targetUserId: number)
+    local data = self :: any
+    data._outgoing[targetUserId] = nil
+    data._locks["invite:" .. tostring(targetUserId)] = nil
+end
+
+-- A rejected accept/decline returns the invitation row to an actionable state immediately.
+function PartyViewClass.resetResponding(self: PartyView, inviterUserId: number): boolean
+    local data = self :: any
+    local record = data._incoming[inviterUserId]
+    if record == nil or record.state ~= "responding" then
+        return false
+    end
+    record.state = "pending"
+    record.respondingSince = nil
+    return true
+end
+
 -- Locks ------------------------------------------------------------------------------------------------------------
 
 local function isLocked(data: any, key: string, now: number): boolean
