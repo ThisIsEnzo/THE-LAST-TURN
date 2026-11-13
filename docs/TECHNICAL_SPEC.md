@@ -101,6 +101,7 @@ Keep AI decisions on the server. Clients may receive presentation cues, never au
 - Keep remotes narrow and purpose-specific; do not expose arbitrary server method dispatch.
 - Rate-limit interaction and communication requests.
 - TTL-02 foundation: remotes are declared in `src/shared/Network/NetworkContract.lua`, created only by the server through the server-only `NetworkService` (`src/server_shared`, mapped to `ServerStorage.ServerShared` in both Rojo projects), rate limited per player and per request, and validated by a fail-closed schema validator. See ARCHITECTURE section 8.
+- HUB party actions that need a user-visible outcome (`PartyInvite`, `PartyRespondInvite`) use correlated `PartyActionResult` notifications. The server validates the correlation id and action payload, runs the existing PartyService/PartyCore rules, and returns success or a rejection code only to the requesting player. The client must never announce success optimistically; it maps known codes to safe text and recovers pending UI state after rejection or a bounded timeout. Correlation ids are not credentials and do not grant authority.
 - Client UI is a projection of server state, not the source of truth.
 - Avoid broadcasting hidden information to all clients and attempting to hide it only in UI.
 
