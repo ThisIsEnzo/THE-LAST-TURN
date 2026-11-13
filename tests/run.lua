@@ -18,6 +18,9 @@ require("./server_shared/InteractionCore.spec")
 require("./server_shared/InteractionConfig.spec")
 require("./server_shared/DoorCore.spec")
 require("./server_shared/DoorConfig.spec")
+require("./shared/PartyView.spec")
+require("./shared/LaunchView.spec")
+require("./shared/Messages.spec")
 
 local results = Harness.results()
 for _, failure in ipairs(results.failures) do
