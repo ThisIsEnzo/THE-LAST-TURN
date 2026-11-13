@@ -120,3 +120,15 @@ Requires Roblox Studio / a published Experience (not covered, not yet run): `Int
 `tests/server_shared/DoorCore.spec.lua` (Lune) covers the pure door state machine: Closed to Open and Open to Closed, invalid transitions and states, rejection while transitioning (state and deadline unchanged), the exact deadline boundary, a backward clock, invalid clock values failing closed, a door that cannot stay stuck, and configuration validation. `tests/server_shared/DoorConfig.spec.lua` checks that the shipped door configuration is valid and cross-checks it against `DoorCore.validateConfig`, `InteractionCore.validateSpec` and the prompt-text validation (including cooldown at least the transition time), plus malformed and out-of-range settings. `tests/server_shared/InteractionConfig.spec.lua` gained cases for `validatePromptOptions`.
 
 Requires Roblox Studio / a published Experience (not covered, not yet run): the runtime fixture, prompt behaviour, tween and final pose, lifecycle registration order, cleanup on shutdown, multi-player and mobile behaviour. The 13-item manual checklist is in `docs/TTL-08C_DOOR_INTERACTION.md`; every item is pending.
+
+
+## 15. Party UI and mission preparation tests (TTL-HUB-02)
+
+Pure Lune specs:
+- `tests/shared/PartyView.spec.lua`: party snapshot validation, solo/multi-member rendering, leader changes, invite lifecycle/countdown, duplicate-action prevention, kick/leave affordances, and recovery of optimistic invite/responding state after server rejection.
+- `tests/shared/LaunchView.spec.lua`: leader-only payload-less launch state, actual launch statuses, duplicate prevention, party-change reset and bounded recovery.
+- `tests/shared/Messages.spec.lua`: safe text for launch and party-action rejection reasons, invite outcomes, and compact/regular layout metrics.
+
+The server acknowledgement path in `PartyService` and the client controller wiring are Roblox-integrated code; pure specs do not execute RemoteEvents or prove delivery ordering. CI must run `lune run tests/run` and both HUB/MISSION Rojo builds. Do not describe these as passed until the workflow reports success.
+
+Requires Roblox Studio / a published Experience (not covered by Lune): invite success and rejection (including unknown/disconnected target and invite quota), accept success and rejection when the target already belongs to a multi-member party, delayed/missing acknowledgement recovery, duplicate requests, leader changes, party UI updates on multiple clients, terminal prompt/input, leader-only launch, whole-party reserved-server teleport, failure/retry, and mobile portrait/landscape layout. The 16-item checklist is in `docs/TTL-HUB-02_PARTY_UI_MISSION_PREPARATION.md`; every item remains pending until performed and recorded.
