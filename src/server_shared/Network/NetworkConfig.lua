@@ -12,7 +12,6 @@ local NetworkConfig = {
         PartyLeave = table.freeze({ capacity = 3, refillPerSecond = 0.5 }),
         PartyKick = table.freeze({ capacity = 5, refillPerSecond = 0.5 }),
         PartyRequestSnapshot = table.freeze({ capacity = 3, refillPerSecond = 0.5 }),
-        PartyActionResult = nil,
         -- TTL-05: launching is rare and expensive; allow a small burst, slow refill.
         MissionLaunch = table.freeze({ capacity = 2, refillPerSecond = 0.2 }),
     }),
