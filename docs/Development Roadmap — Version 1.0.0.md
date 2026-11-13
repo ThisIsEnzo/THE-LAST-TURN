@@ -58,7 +58,7 @@ See [Phase 0 Checklist](./PHASE_0_CHECKLIST.md) for P0-01–P0-10, exit criteria
 - TTL-08 Basic Interaction — IN PROGRESS: TTL-08B-A (pure `InteractionCore` + Lune specs) merged per the project owner (PR #11); TTL-08B-B (`InteractionService`, native ProximityPrompt integration, Bootstrap, no gameplay consumers) MERGED (PR #12); TTL-08C (first consumer: server-authoritative test door via InteractionService, pure `DoorCore`, runtime fixture) IN REVIEW — CI (Lune, Rojo) must pass; Studio/published-Experience validation pending (see docs/TTL-08C_DOOR_INTERACTION.md)
 - TTL-HUB-01 HUB Greybox — DONE (PR #14 merged and visually checked by the project owner in Studio; this remains prototype geometry, not final art).
 - TTL-HUB-02 Party UI & Mission Preparation — PR #15 MERGED; follow-up PR #19 adds server-authoritative invite/response acknowledgements, rejection recovery and implementation documentation. CI passed (HUB/MISSION Rojo builds; 378 Lune tests); Studio multiplayer, mobile and published teleport validation remain pending.
-- TTL-09 Objectives
+- TTL-09 Objectives — BACKLOG; design proposal in review ([TTL-09 design](./TTL-09_OBJECTIVE_SYSTEM.md)). Proposed milestones: TTL-09A core model and pure logic, TTL-09B server service and mission integration, TTL-09C client presentation; later extensions (dynamic events, branching/signals/variations, advanced cooperation) are tracked under the tasks that unlock them. Nothing implemented.
 - TTL-10 First Mission Map
 
 ### Phase 3 — Investigation & Rituals
