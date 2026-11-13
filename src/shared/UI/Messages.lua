@@ -117,6 +117,33 @@ function Messages.inviteBlocked(reason: any): string
     return message
 end
 
+-- Server-authoritative rejection reasons for invitation actions. Never display raw server codes.
+local PARTY_ACTION_FAILURE: { [string]: string } = {
+    not_leader = "Only the squad leader can do that.",
+    party_full = "The squad is full.",
+    already_in_party = "That player is already in your squad.",
+    already_invited = "An invitation is already pending.",
+    unknown_player = "You are no longer in this server session.",
+    unknown_target = "That player is no longer in this server.",
+    unknown_inviter = "That invitation is no longer available.",
+    invite_invalid = "That invitation is no longer valid.",
+    no_invite = "That invitation is no longer available.",
+    invite_expired = "That invitation has expired.",
+    too_many_invites = "Too many invitations are pending. Try again later.",
+    cannot_invite_self = "You cannot invite yourself.",
+    target_in_party = "Leave your current squad before accepting another invitation.",
+    cannot_respond_self = "That invitation is invalid.",
+    not_initialized = "The squad service is temporarily unavailable.",
+}
+
+function Messages.partyActionFailure(reason: any): string
+    local message = PARTY_ACTION_FAILURE[tostring(reason)]
+    if message == nil then
+        return "The squad action was rejected. Check the squad and try again."
+    end
+    return message
+end
+
 -- Squad change events (see PartyView.applySnapshot). Returns a template containing {name} where relevant.
 function Messages.partyEvent(eventType: any, isLocal: boolean?): string
     if eventType == "member_joined" then
