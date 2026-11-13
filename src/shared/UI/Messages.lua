@@ -132,7 +132,6 @@ local PARTY_ACTION_FAILURE: { [string]: string } = {
     too_many_invites = "Too many invitations are pending. Try again later.",
     cannot_invite_self = "You cannot invite yourself.",
     target_in_party = "Leave your current squad before accepting another invitation.",
-    cannot_invite_self = "You cannot invite yourself.",
     cannot_respond_self = "That invitation is invalid.",
     not_initialized = "The squad service is temporarily unavailable.",
 }
