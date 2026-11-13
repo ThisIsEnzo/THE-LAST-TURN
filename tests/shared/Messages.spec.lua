@@ -69,6 +69,21 @@ test("blocked invitations and squad events have messages", function()
     expectEqual(Messages.partyEvent("nope"), "The squad changed.")
 end)
 
+test("party action rejection reasons are translated without exposing raw codes", function()
+    local cases = {
+        { "not_leader", "Only the squad leader can do that." },
+        { "party_full", "The squad is full." },
+        { "unknown_target", "That player is no longer in this server." },
+        { "no_invite", "That invitation is no longer available." },
+        { "invite_expired", "That invitation has expired." },
+        { "target_in_party", "Leave your current squad before accepting another invitation." },
+    }
+    for _, case in ipairs(cases) do
+        expectEqual(Messages.partyActionFailure(case[1]), case[2], case[1])
+    end
+    expectTrue(Messages.partyActionFailure("private_internal_error") ~= "private_internal_error")
+end)
+
 test("fill substitutes the name literally", function()
     expectEqual(Messages.fill("{name} joined.", "Alex"), "Alex joined.")
     expectEqual(Messages.fill("{name} and {name}", "%1"), "%1 and %1", "pattern characters in names are harmless")
