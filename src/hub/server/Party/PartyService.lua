@@ -262,8 +262,8 @@ local function registerRequests()
         table.insert(registeredRequests, name)
     end
 
-    -- Handlers only translate requests into service calls; the service/core validate state. Requests naming a
-    -- player who is not connected are dropped (nothing to act on, nothing to report to the client yet).
+    -- Handlers translate requests into service calls; the service/core validate state. Missing targets/inviters
+    -- receive an explicit correlated rejection so the client can recover its optimistic UI state.
     register(requests.PartyInvite, {
         args = { Validator.object({ targetUserId = userId, requestId = requestId }) },
         handler = function(player: Player, payload: any)
