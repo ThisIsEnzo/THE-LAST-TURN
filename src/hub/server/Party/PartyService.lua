@@ -245,30 +245,39 @@ end
 local function registerRequests()
     local requests = NetworkContract.Requests
     local userId = Validator.integer({ min = 1, max = MAX_USER_ID })
+    local requestId = Validator.integer({ min = 1, max = MAX_USER_ID })
+
+    local function sendActionResult(player: Player, action: string, id: number, result: PartyResult, subjectUserId: number?)
+        local payload = { action = action, requestId = id, ok = result.ok, reason = result.rejection }
+        if action == "invite" then
+            payload.targetUserId = subjectUserId
+        else
+            payload.inviterUserId = subjectUserId
+        end
+        send(player.UserId, NetworkContract.Notifications.PartyActionResult, payload)
+    end
 
     local function register(name: string, definition: NetworkService.RequestDefinition)
         NetworkService.registerRequest(name, definition)
         table.insert(registeredRequests, name)
     end
 
-    -- Handlers only translate requests into service calls; the service/core validate state. Requests naming a
-    -- player who is not connected are dropped (nothing to act on, nothing to report to the client yet).
+    -- Handlers translate requests into service calls; the service/core validate state. Missing targets/inviters
+    -- receive an explicit correlated rejection so the client can recover its optimistic UI state.
     register(requests.PartyInvite, {
-        args = { Validator.object({ targetUserId = userId }) },
+        args = { Validator.object({ targetUserId = userId, requestId = requestId }) },
         handler = function(player: Player, payload: any)
             local target = Players:GetPlayerByUserId(payload.targetUserId)
-            if target then
-                PartyService.invite(player, target)
-            end
+            local result = if target then PartyService.invite(player, target) else failure("unknown_target")
+            sendActionResult(player, "invite", payload.requestId, result, payload.targetUserId)
         end,
     })
     register(requests.PartyRespondInvite, {
-        args = { Validator.object({ inviterUserId = userId, accept = Validator.boolean() }) },
+        args = { Validator.object({ inviterUserId = userId, accept = Validator.boolean(), requestId = requestId }) },
         handler = function(player: Player, payload: any)
             local inviter = Players:GetPlayerByUserId(payload.inviterUserId)
-            if inviter then
-                PartyService.respondToInvite(player, inviter, payload.accept)
-            end
+            local result = if inviter then PartyService.respondToInvite(player, inviter, payload.accept) else failure("unknown_inviter")
+            sendActionResult(player, "respond", payload.requestId, result, payload.inviterUserId)
         end,
     })
     register(requests.PartyLeave, {
