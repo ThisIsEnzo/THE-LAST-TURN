@@ -268,7 +268,7 @@ local function registerRequests()
         args = { Validator.object({ targetUserId = userId, requestId = requestId }) },
         handler = function(player: Player, payload: any)
             local target = Players:GetPlayerByUserId(payload.targetUserId)
-            local result = if target then PartyService.invite(player, target) else failure("unknown_player")
+            local result = if target then PartyService.invite(player, target) else failure("unknown_target")
             sendActionResult(player, "invite", payload.requestId, result, payload.targetUserId)
         end,
     })
