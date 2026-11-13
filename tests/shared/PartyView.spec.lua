@@ -405,6 +405,26 @@ test("candidates of a full party are blocked", function()
     expectEqual(candidates[1].state, "blocked_full")
 end)
 
+test("server rejection clears an optimistic outgoing invite so it can be retried", function()
+    local view = newView()
+    applied(view, snapshot(LOCAL, { LOCAL }))
+    expectTrue(view:markInviteSent(500, 0))
+    expectFalse(view:canInvite(500, 1))
+    view:clearOutgoingInvite(500)
+    expectTrue(view:canInvite(500, 1))
+end)
+
+test("server rejection resets a responding invitation immediately", function()
+    local view = newView()
+    applied(view, snapshot(LOCAL, { LOCAL }))
+    view:applyInviteReceived({ inviterUserId = 7, inviterDisplayName = "Alex", expiresInSeconds = 60 }, 0)
+    expectTrue(view:markResponding(7, 1))
+    expectEqual(view:getViewModel(2).incomingInvites[1].state, "responding")
+    expectTrue(view:resetResponding(7))
+    expectEqual(view:getViewModel(2).incomingInvites[1].state, "pending")
+    expectFalse(view:resetResponding(7), "reset is idempotent")
+end)
+
 -- Kick and leave -------------------------------------------------------------------------------------------------------------
 
 test("kick: leader only, members only, locked after a click and unlocked by the next snapshot", function()
