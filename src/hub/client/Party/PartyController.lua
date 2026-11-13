@@ -211,6 +211,14 @@ local function onInviteEnded(payload: any)
     end
     for _, event in ipairs(events) do
         noticeForInviteEnded(event)
+        if event.role == "target" then
+            -- A completed/expired invitation is definitive; don't later show a misleading no-response timeout.
+            for requestId, pending in pairs(pendingActions) do
+                if pending.action == "respond" and pending.subjectUserId == event.userId then
+                    pendingActions[requestId] = nil
+                end
+            end
+        end
     end
     changed()
 end
