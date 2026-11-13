@@ -36,6 +36,7 @@ local NetworkContract = {
         PartySnapshot = "PartySnapshot", -- party state, sent only to members of that party
         PartyInviteReceived = "PartyInviteReceived", -- sent only to the invited player
         PartyInviteEnded = "PartyInviteEnded", -- sent only to the invite's inviter and target
+        PartyActionResult = "PartyActionResult", -- correlated server acknowledgement for invite/response requests
         MissionLaunchStatus = "MissionLaunchStatus", -- launch progress/failure for the affected party members only
     }),
 }
