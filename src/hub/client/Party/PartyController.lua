@@ -35,6 +35,7 @@ local noticeListeners: { [number]: (Notice) -> () } = {}
 local nextListenerId = 0
 local refreshToken = 0
 local nextActionRequestId = 0
+local ACTION_ACK_TIMEOUT_SECONDS = 5
 local pendingActions: { [number]: { action: string, subjectUserId: number } } = {}
 
 local function now(): number
@@ -169,6 +170,26 @@ local function onPartyActionResult(payload: any)
         return
     end
     changed()
+end
+
+local function scheduleActionTimeout(requestId: number)
+    task.delay(ACTION_ACK_TIMEOUT_SECONDS, function()
+        local pending = pendingActions[requestId]
+        if pending == nil or not started then
+            return
+        end
+        pendingActions[requestId] = nil
+        local current = view
+        if current ~= nil then
+            if pending.action == "invite" then
+                current:clearOutgoingInvite(pending.subjectUserId)
+            elseif pending.action == "respond" then
+                current:resetResponding(pending.subjectUserId)
+            end
+            emitNotice("warning", "The server did not respond. Your action was not confirmed; try again.")
+            changed()
+        end
+    end)
 end
 
 local function makeRequestId(): number
@@ -343,6 +364,7 @@ function PartyController.invite(targetUserId: number): (boolean, string?)
         return false, "not_ready"
     end
     pendingActions[requestId] = { action = "invite", subjectUserId = targetUserId }
+    scheduleActionTimeout(requestId)
     changed()
     return true, nil
 end
@@ -361,6 +383,7 @@ function PartyController.respond(inviterUserId: number, accept: boolean): (boole
         return false, "not_ready"
     end
     pendingActions[requestId] = { action = "respond", subjectUserId = inviterUserId }
+    scheduleActionTimeout(requestId)
     changed()
     return true, nil
 end
