@@ -34,6 +34,8 @@ local changeListeners: { [number]: () -> () } = {}
 local noticeListeners: { [number]: (Notice) -> () } = {}
 local nextListenerId = 0
 local refreshToken = 0
+local nextActionRequestId = 0
+local pendingActions: { [number]: { action: string, subjectUserId: number } } = {}
 
 local function now(): number
     return time()
@@ -137,6 +139,46 @@ local function onInviteReceived(payload: any)
     end
 end
 
+local function onPartyActionResult(payload: any)
+    if type(payload) ~= "table" or type(payload.requestId) ~= "number" or type(payload.action) ~= "string" or type(payload.ok) ~= "boolean" then
+        return
+    end
+    local pending = pendingActions[payload.requestId]
+    if pending == nil or pending.action ~= payload.action then
+        return -- stale, duplicate or unsolicited acknowledgement
+    end
+    pendingActions[payload.requestId] = nil
+    local current = view
+    if current == nil then
+        return
+    end
+
+    if pending.action == "invite" and payload.targetUserId == pending.subjectUserId then
+        if payload.ok then
+            emitNotice("info", Messages.fill("Invitation sent to {name}.", nameOf(pending.subjectUserId, nil)))
+        else
+            current:clearOutgoingInvite(pending.subjectUserId)
+            emitNotice("warning", Messages.partyActionFailure(payload.reason))
+        end
+    elseif pending.action == "respond" and payload.inviterUserId == pending.subjectUserId then
+        if not payload.ok then
+            current:resetResponding(pending.subjectUserId)
+            emitNotice("warning", Messages.partyActionFailure(payload.reason))
+        end
+    else
+        return
+    end
+    changed()
+end
+
+local function makeRequestId(): number
+    nextActionRequestId += 1
+    if nextActionRequestId > 9007199254740991 then
+        nextActionRequestId = 1
+    end
+    return nextActionRequestId
+end
+
 local function onInviteEnded(payload: any)
     local current = view
     if current == nil then
@@ -186,6 +228,7 @@ function PartyController.start()
             [Notifications.PartySnapshot] = onSnapshot,
             [Notifications.PartyInviteReceived] = onInviteReceived,
             [Notifications.PartyInviteEnded] = onInviteEnded,
+            [Notifications.PartyActionResult] = onPartyActionResult,
         }
         for name, handler in pairs(handlers) do
             local remote = ClientNetwork.waitForNotification(name)
@@ -219,6 +262,7 @@ function PartyController.destroy()
     end
     table.clear(connections)
     table.clear(requests)
+    table.clear(pendingActions)
     table.clear(changeListeners)
     table.clear(noticeListeners)
     view = nil
@@ -290,9 +334,15 @@ function PartyController.invite(targetUserId: number): (boolean, string?)
         emitNotice("warning", Messages.inviteBlocked(reason))
         return false, reason
     end
-    current:markInviteSent(targetUserId, now())
-    fire(NetworkContract.Requests.PartyInvite, { targetUserId = targetUserId })
-    emitNotice("info", Messages.fill("Invitation sent to {name}.", nameOf(targetUserId, nil)))
+    local requestId = makeRequestId()
+    if not current:markInviteSent(targetUserId, now()) then
+        return false, "busy"
+    end
+    if not fire(NetworkContract.Requests.PartyInvite, { targetUserId = targetUserId, requestId = requestId }) then
+        current:clearOutgoingInvite(targetUserId)
+        return false, "not_ready"
+    end
+    pendingActions[requestId] = { action = "invite", subjectUserId = targetUserId }
     changed()
     return true, nil
 end
@@ -305,7 +355,12 @@ function PartyController.respond(inviterUserId: number, accept: boolean): (boole
     if not current:markResponding(inviterUserId, now()) then
         return false, "busy"
     end
-    fire(NetworkContract.Requests.PartyRespondInvite, { inviterUserId = inviterUserId, accept = accept })
+    local requestId = makeRequestId()
+    if not fire(NetworkContract.Requests.PartyRespondInvite, { inviterUserId = inviterUserId, accept = accept, requestId = requestId }) then
+        current:resetResponding(inviterUserId)
+        return false, "not_ready"
+    end
+    pendingActions[requestId] = { action = "respond", subjectUserId = inviterUserId }
     changed()
     return true, nil
 end
