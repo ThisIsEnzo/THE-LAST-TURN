@@ -1,6 +1,6 @@
 # TTL-HUB-02 — Party UI & Mission Preparation
 
-**Status:** Implemented on the PR branch; review fixes in progress. **Not validated in Roblox Studio.** Do not treat CI, pure tests or ad-hoc mocks as proof of real multiplayer, UI or teleport behavior.
+**Status:** Follow-up PR #19. CI passed both Rojo builds and 378 Lune tests. **Not validated in Roblox Studio.** Do not treat CI, pure tests or ad-hoc mocks as proof of real multiplayer, UI or teleport behavior.
 
 ## 1. Scope
 
