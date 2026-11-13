@@ -141,12 +141,25 @@ local function onInviteReceived(payload: any)
 end
 
 local function onPartyActionResult(payload: any)
-    if type(payload) ~= "table" or type(payload.requestId) ~= "number" or type(payload.action) ~= "string" or type(payload.ok) ~= "boolean" then
+    if
+        type(payload) ~= "table"
+        or type(payload.requestId) ~= "number"
+        or payload.requestId ~= payload.requestId
+        or payload.requestId < 1
+        or payload.requestId % 1 ~= 0
+        or type(payload.action) ~= "string"
+        or type(payload.ok) ~= "boolean"
+    then
         return
     end
     local pending = pendingActions[payload.requestId]
     if pending == nil or pending.action ~= payload.action then
         return -- stale, duplicate or unsolicited acknowledgement
+    end
+    local matchesSubject = (pending.action == "invite" and payload.targetUserId == pending.subjectUserId)
+        or (pending.action == "respond" and payload.inviterUserId == pending.subjectUserId)
+    if not matchesSubject then
+        return -- a malformed/mismatched acknowledgement must not consume another pending request
     end
     pendingActions[payload.requestId] = nil
     local current = view
@@ -154,20 +167,16 @@ local function onPartyActionResult(payload: any)
         return
     end
 
-    if pending.action == "invite" and payload.targetUserId == pending.subjectUserId then
+    if pending.action == "invite" then
         if payload.ok then
             emitNotice("info", Messages.fill("Invitation sent to {name}.", nameOf(pending.subjectUserId, nil)))
         else
             current:clearOutgoingInvite(pending.subjectUserId)
             emitNotice("warning", Messages.partyActionFailure(payload.reason))
         end
-    elseif pending.action == "respond" and payload.inviterUserId == pending.subjectUserId then
-        if not payload.ok then
-            current:resetResponding(pending.subjectUserId)
-            emitNotice("warning", Messages.partyActionFailure(payload.reason))
-        end
-    else
-        return
+    elseif pending.action == "respond" and not payload.ok then
+        current:resetResponding(pending.subjectUserId)
+        emitNotice("warning", Messages.partyActionFailure(payload.reason))
     end
     changed()
 end
@@ -211,12 +220,13 @@ local function onInviteEnded(payload: any)
     end
     for _, event in ipairs(events) do
         noticeForInviteEnded(event)
-        if event.role == "target" then
-            -- A completed/expired invitation is definitive; don't later show a misleading no-response timeout.
-            for requestId, pending in pairs(pendingActions) do
-                if pending.action == "respond" and pending.subjectUserId == event.userId then
-                    pendingActions[requestId] = nil
-                end
+        -- An invite ending is definitive; don't later show a stale success or no-response timeout.
+        for requestId, pending in pairs(pendingActions) do
+            if
+                (event.role == "target" and pending.action == "respond" and pending.subjectUserId == event.userId)
+                or (event.role == "inviter" and pending.action == "invite" and pending.subjectUserId == event.userId)
+            then
+                pendingActions[requestId] = nil
             end
         end
     end
