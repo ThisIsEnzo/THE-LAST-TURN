@@ -91,7 +91,14 @@ local function isText(value: any, maxBytes: number): boolean
     if utf8.len(value) == nil then
         return false
     end
-    return string.find(value, "%c") == nil
+    -- Lua's %c pattern only covers ASCII control bytes. Iterate decoded Unicode code points
+    -- so the C1 range (U+0080..U+009F), including NEL, is rejected as well.
+    for _, codepoint in utf8.codes(value) do
+        if codepoint <= 0x1F or (codepoint >= 0x7F and codepoint <= 0x9F) then
+            return false
+        end
+    end
+    return true
 end
 
 local function isPlainTable(value: any): boolean

@@ -177,6 +177,8 @@ test("text fields are bounded, non-empty, valid UTF-8 and free of control charac
     expectInvalid(withTitle("line\nbreak"), "invalid_title")
     expectInvalid(withTitle("tab\there"), "invalid_title")
     expectInvalid(withTitle("bad \255 utf8"), "invalid_title")
+    expectInvalid(withTitle("bad\194\133text"), "invalid_title", nil, "Unicode NEL (U+0085) is a control character")
+    expectInvalid(withTitle("bad\194\159text"), "invalid_title", nil, "Unicode U+009F is a control character")
     local function withDescription(text: any): any
         local o = objective("A", REQ)
         o.description = text
@@ -185,6 +187,10 @@ test("text fields are bounded, non-empty, valid UTF-8 and free of control charac
     expectValid(withDescription(string.rep("x", 140)), "140 byte description")
     expectInvalid(withDescription(string.rep("x", 141)), "invalid_description")
     expectInvalid(withDescription(""), "invalid_description")
+    expectInvalid(withDescription("description\194\133continued"), "invalid_description", nil, "C1 controls are rejected in descriptions")
+    local badLabel = objective("A", REQ)
+    badLabel.completion.slots[1].label = "label\194\133continued"
+    expectInvalid(content(badLabel), "invalid_slot_label", "A", "C1 controls are rejected in slot labels")
     local hidden = objective("A", REQ)
     hidden.hiddenUntilAvailable = "yes"
     expectInvalid(content(hidden), "invalid_hidden_flag", "A")
