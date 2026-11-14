@@ -57,11 +57,12 @@ An **objective** is a server-owned node in a small, statically validated directe
 
 ### 2.1 Method and baseline caveat
 
-The audit was performed on the uploaded `THE-LAST-TURN-master.zip` (source tree, docs, tests, CI workflows). Limitations that affect the confidence of this document:
+The initial source audit was performed on the uploaded `THE-LAST-TURN-master.zip` (source tree, docs, tests, CI workflows). During the PR #20 review, the relevant baseline and merge history were cross-checked against live GitHub metadata:
 
-- The ZIP contains **no `.git` directory** and the audit environment had **no network access** (neither at the original revision nor at revision 2). The latest commits on `master`, the state of PR #19 and PR #20 itself could not be inspected from here. The ZIP's roadmap still describes PR #19 as a follow-up that "adds" documentation (not as merged), so **this audit cannot be confirmed to be based on the master state that results from PR #19**. This is tracked as decision D9 and must be closed by rebasing PR #20 onto live `master` before approval.
-- File names in the ZIP had em dashes mangled to `#U2014`; this is a ZIP-export artifact. The repository's own links (`README.md`, `TECHNICAL_SPEC.md`) use the em-dash names, which is what this change edits.
-- `lune`, `rojo`, `selene` and `stylua` were not available; no Luau test, Rojo build or type check was run.
+- PR #19 is **merged** at `e001406da5aad571b9be30e8bda009d6f165d80f`. PR #20's base SHA is exactly that merge commit, so PR #20 is based on the master state containing PR #19; no rebase is required for this dependency.
+- PR #13 (TTL-08C) is **merged** at `812e7d9fb635f4cbea0b39aa0e3e357c633e0074`. Its head workflow run #42 completed successfully. Roblox Studio runtime validation remains pending.
+- PR #19's recorded validation passed both Rojo builds and 378 Lune tests (workflow runs #59/#60 completed successfully). Roblox Studio multiplayer, mobile and published teleport validation remain pending.
+- The ZIP contains no `.git` directory, so its original snapshot alone could not establish these facts. The live cross-check above supersedes that limitation for PR #20's baseline. File names in the ZIP had em dashes mangled to `#U2014`; this is a ZIP-export artifact.
 
 Nothing was assumed to exist because an older document names it. Every dependency below was confirmed in source.
 
@@ -118,11 +119,12 @@ Status vocabulary used in this document (it mirrors the roadmap's rule that merg
 Findings:
 
 - Required and documented as merged: TTL-02 networking, TTL-03 player state, TTL-05 arrival context, TTL-06 lifecycle, TTL-07 mission configuration, TTL-08B-A `InteractionCore` (PR #11), TTL-08B-B `InteractionService` (PR #12).
-- **TTL-08C (door consumer): implemented in source.** `DoorInteractionService`, `DoorCore`, the door fixture and the `DoorInteractionService` Bootstrap registration are present in the audited tree, and the PR #20 review states they are on current `master`. The earlier wording of this document ("discrepancy between the ZIP and the roadmap") is withdrawn: the code is merged; the roadmap's `IN REVIEW` line for TTL-08C is therefore stale as a statement about merge status. Its CI result and PR number are **not** visible from the audited tree, and Studio runtime validation remains pending.
-- **Roadmap correction scope.** This change does **not** rewrite the TTL-08C or PR #19 roadmap lines, because the evidence needed to write them correctly (the merged PR number, the CI run and head, merge confirmation of PR #19) is not available offline. The maintainer-side correction is tracked in D9 and must keep the three facts above separate (merged / CI passed with run reference / Studio pending).
+- **TTL-08C (door consumer): merged (PR #13).** `DoorInteractionService`, `DoorCore`, the door fixture and the `DoorInteractionService` Bootstrap registration are present in source. PR #13 merged at `812e7d9fb635f4cbea0b39aa0e3e357c633e0074`; its head workflow run #42 completed successfully. Roblox Studio/published-Experience runtime validation remains pending.
+- **TTL-HUB-02 follow-up: PR #19 merged.** PR #19 merged at `e001406da5aad571b9be30e8bda009d6f165d80f`; its PR description records both Rojo builds and 378 Lune tests passing, and workflow runs #59/#60 completed successfully. Studio multiplayer, mobile and published teleport validation remain pending.
+- **PR #20 baseline.** PR #20 targets `master` at the exact PR #19 merge SHA above. The baseline dependency is therefore satisfied; no rebase is required.
 - TTL-09 **does not depend on TTL-08C.** The design relies on `InteractionService` (merged, PR #12) and cites the door only as a structural precedent. It does not call, modify or require `DoorInteractionService`.
 
-Conclusion: **no blocker for the design content.** One open item blocks *approval*, not authoring: confirm that PR #19 is merged and that PR #20 is based on the resulting `master` (D9). `CONTRIBUTING.md` ("do not start dependent work until prerequisites are merged") applies to TTL-09A+ implementation.
+Conclusion: **the baseline dependency is satisfied**: PR #19 is merged and PR #20 is based on that merge. D9 is resolved by the live cross-check above. `CONTRIBUTING.md` ("do not start dependent work until prerequisites are merged") applies to TTL-09A+ implementation.
 
 ## 3. Proposed architecture and component responsibilities
 
@@ -846,7 +848,7 @@ Roadmap note proposed with this design: keep `TTL-09 Objectives` as one roadmap 
 | D6 | Party-size scaling of slot counts. | Fixed in v1; size-band variants through 4.6 after playtests. | Playtests |
 | D7 | Simultaneous or channeled cooperative actions need a transactional interaction design (current handlers are synchronous and non-yielding). | Design with the ritual milestone (TTL-14); require a documented solo alternative. | Before 09F |
 | D8 | Partial-success outcomes (GDD "escape with incomplete investigation"). | Reason tokens + results payload (TTL-25); no new lifecycle outcomes. | Before TTL-25 |
-| D9 | **Baseline confirmation.** Confirm PR #19 is merged and that PR #20 is based on the resulting `master`; correct the roadmap lines for TTL-08C (merged code present) and PR #19 with the merged PR number and CI evidence, keeping merged / CI passed / Studio pending separate. | Rebase PR #20 onto live `master` and update those roadmap lines from the repository, which could not be done offline. This design does not depend on 08C. | Before approving PR #20 |
+| D9 | **Baseline confirmation.** Verify PR #19 merge, PR #20 base SHA, and the TTL-08C / PR #19 roadmap status. | Resolved during PR #20 review: PR #19 is merged, PR #20 base SHA matches its merge commit, and the roadmap now records PR #13 / #19 merge and CI evidence separately from pending Studio validation. This design does not depend on 08C. | Resolved for PR #20 |
 | D10 | Snapshot format: full snapshots (proposed) versus deltas. | Full snapshots; measure payloads in Studio before optimizing. | After 09C |
 
 ### 16.2 Technical risks
@@ -902,7 +904,9 @@ Reading the graph under the 6.4/6.5 rules: power and ventilation each have alter
 
 ## 18. Revision history
 
-**Revision 2 (review fixes for PR #20).**
+**Revision 2 (architecture review fixes for PR #20).**
+
+**Revision 3 (live repository baseline verification during PR #20 review).** The audit now records PR #13 as merged with successful workflow run #42, PR #19 as merged with successful workflow runs #59/#60 and its reported 378 passing Lune tests, and PR #20's base SHA as exactly PR #19's merge commit. D9 is resolved. The roadmap now distinguishes merged status, automated checks and pending Studio validation.
 
 | Finding | Fix |
 |---|---|
