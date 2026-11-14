@@ -21,6 +21,9 @@ require("./server_shared/DoorConfig.spec")
 require("./shared/PartyView.spec")
 require("./shared/LaunchView.spec")
 require("./shared/Messages.spec")
+require("./server_shared/ObjectiveGraph.spec")
+require("./server_shared/ObjectiveCore.spec")
+require("./server_shared/ObjectiveContent.spec")
 
 local results = Harness.results()
 for _, failure in ipairs(results.failures) do
