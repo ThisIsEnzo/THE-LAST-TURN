@@ -1,6 +1,6 @@
 # TTL-09 — Objective System: Architecture & Technical Design
 
-Status: **DESIGN PROPOSAL — documentation only (revision 2: review fixes for PR #20; see section 18).** Nothing in this document is implemented. No Roblox Studio, multiplayer, mobile or published-Experience validation has been performed or is claimed. Luau code blocks below are type sketches and pseudo-signatures, not production code.
+Status: **DESIGN PROPOSAL — documentation only (revision 3: architecture review fixes and live baseline verification; see section 18).** Nothing in this document is implemented. No Roblox Studio, multiplayer, mobile or published-Experience validation has been performed or is claimed. Luau code blocks below are type sketches and pseudo-signatures, not production code.
 
 Scope: MISSION server (authoritative) and MISSION client (presentation). The HUB is not involved.
 
@@ -914,5 +914,5 @@ Reading the graph under the 6.4/6.5 rules: power and ventilation each have alter
 | Alternatives modelled as `OPTIONAL` would be rejected by the new rule | Specified `ALTERNATIVE` importance (6.5) as the more expressive rule, reserved for TTL-09E; the first milestones are unaffected |
 | Team-wipe logic was mixed into the objective design (D1 in 09B, 10, 11.3) | Removed from Objective scope; independent mission-outcome component specified in 11.5 using only `PlayerStateService` and `MissionLifecycleService`; scenario policy table added |
 | Extraction hardcoded as "any living participant" | Extraction is a separate gameplay condition with four candidate policies (11.6); slice `EXTRACT` is a dev placeholder; final rule needs product-owner approval before TTL-10 (D2) |
-| Audit described door code as a ZIP/roadmap "discrepancy" and mixed merge/CI/Studio facts | Status taxonomy added (2.5); door recorded as implemented in source; roadmap TTL-08C/PR #19 lines intentionally not rewritten without evidence; baseline confirmation tracked as D9 |
+| Audit described door code as a ZIP/roadmap "discrepancy" and mixed merge/CI/Studio facts | Status taxonomy added (2.5); PR #13 / TTL-08C and PR #19 merge and CI facts are verified and recorded in the roadmap separately from pending Studio validation; baseline confirmation D9 resolved |
 | Cross-checks | `REQUIRED` objectives cannot be cancelled (5.3); resolution evaluated once after the cascade (5.4); objective completion versus mission completion stated (5.4, 11.3); snapshot synchronization rules and initial revision (8.2); solo viability of extraction and alternatives (7.2); validation obligation for Inventory/Evidence/Ritual content (6.4); `InteractionService` registration/cleanup order re-checked and unchanged (3.5, 11.1, 11.2) |
