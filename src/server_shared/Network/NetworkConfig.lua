@@ -14,6 +14,8 @@ local NetworkConfig = {
         PartyRequestSnapshot = table.freeze({ capacity = 3, refillPerSecond = 0.5 }),
         -- TTL-05: launching is rare and expensive; allow a small burst, slow refill.
         MissionLaunch = table.freeze({ capacity = 2, refillPerSecond = 0.2 }),
+        -- TTL-09B: a pull once per client listener; small burst, slow refill.
+        ObjectiveRequestSnapshot = table.freeze({ capacity = 3, refillPerSecond = 0.5 }),
     }),
 }
 

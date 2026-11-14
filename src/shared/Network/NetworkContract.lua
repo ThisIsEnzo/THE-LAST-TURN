@@ -28,6 +28,9 @@ local NetworkContract = {
         PartyRequestSnapshot = "PartyRequestSnapshot", -- client pulls its snapshot once its listener is connected
         -- TTL-05 Mission Teleport (HUB handler only). No payload: the server decides party, place and mission.
         MissionLaunch = "MissionLaunch",
+        -- TTL-09B Objectives (MISSION handler only; HUB registers none). No payload: the client can only pull the
+        -- snapshot once its listener is connected. No request can complete, fail or change an objective.
+        ObjectiveRequestSnapshot = "ObjectiveRequestSnapshot",
     }),
 
     -- Server -> client.
@@ -38,6 +41,7 @@ local NetworkContract = {
         PartyInviteEnded = "PartyInviteEnded", -- sent only to the invite's inviter and target
         PartyActionResult = "PartyActionResult", -- correlated server acknowledgement for invite/response requests
         MissionLaunchStatus = "MissionLaunchStatus", -- launch progress/failure for the affected party members only
+        ObjectiveSnapshot = "ObjectiveSnapshot", -- TTL-09B: full objective snapshot with a monotonic revision, to mission participants only
     }),
 }
 
