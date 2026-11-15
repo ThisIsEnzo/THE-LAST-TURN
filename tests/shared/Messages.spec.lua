@@ -121,3 +121,48 @@ test("compact metrics use touch-friendly sizes", function()
     expectTrue(table.isfrozen(compact))
     expectFalse(table.isfrozen({}))
 end)
+
+-- Objective HUD strings (TTL-09C) --------------------------------------------------------------------------------------
+
+test("objective status words cover every server state and never leak codes", function()
+    local expected: { [string]: string } = {
+        LOCKED = "LOCKED",
+        AVAILABLE = "ACTIVE",
+        IN_PROGRESS = "IN PROGRESS",
+        COMPLETED = "DONE",
+        FAILED = "FAILED",
+        CANCELLED = "UNAVAILABLE",
+    }
+    for state, word in pairs(expected) do
+        expectEqual(Messages.objectiveStatus(state), word, state)
+    end
+    expectEqual(Messages.objectiveStatus("BOGUS"), "")
+    expectEqual(Messages.objectiveStatus(nil), "")
+    expectEqual(Messages.objectiveStatus(5), "")
+end)
+
+test("only optional objectives carry a tag", function()
+    expectEqual(Messages.objectiveTag("OPTIONAL"), "OPTIONAL")
+    expectEqual(Messages.objectiveTag("REQUIRED"), "")
+    expectEqual(Messages.objectiveTag(nil), "")
+    expectEqual(Messages.objectiveTag("ALTERNATIVE"), "")
+end)
+
+test("objective transition lines use the server title and a fixed phrase", function()
+    expectEqual(Messages.objectiveEvent("UNLOCKED", "Open the wing"), "New objective: Open the wing")
+    expectEqual(Messages.objectiveEvent("COMPLETED", "Restore power"), "Completed: Restore power")
+    expectEqual(Messages.objectiveEvent("FAILED", "Escape"), "Failed: Escape")
+    expectEqual(Messages.objectiveEvent("CANCELLED", "Find the records"), "No longer available: Find the records")
+    expectEqual(Messages.objectiveEvent("COMPLETED", ""), "Completed: an objective")
+    expectEqual(Messages.objectiveEvent("COMPLETED", nil), "Completed: an objective")
+    expectEqual(Messages.objectiveEvent("PROGRESS", "x"), "", "unknown kinds produce no line")
+    expectEqual(Messages.objectiveEvent(nil, "x"), "")
+end)
+
+test("the overflow line and the header", function()
+    expectEqual(Messages.objectiveMore(2), "+2 more")
+    expectEqual(Messages.objectiveMore(2.9), "+2 more")
+    expectEqual(Messages.objectiveMore(0), "")
+    expectEqual(Messages.objectiveMore(nil), "")
+    expectEqual(Messages.ObjectiveHeader, "OBJECTIVES")
+end)

@@ -170,4 +170,58 @@ function Messages.fill(template: string, name: string): string
     return result
 end
 
+-- Objective HUD (TTL-09C). Objective titles, descriptions and slot labels come from the server snapshot; only the fixed
+-- chrome (header, status words, tags, transition lines) lives here. Never shows ids, states as codes or reasons.
+Messages.ObjectiveHeader = "OBJECTIVES"
+
+local OBJECTIVE_STATUS: { [string]: string } = {
+    LOCKED = "LOCKED",
+    AVAILABLE = "ACTIVE",
+    IN_PROGRESS = "IN PROGRESS",
+    COMPLETED = "DONE",
+    FAILED = "FAILED",
+    CANCELLED = "UNAVAILABLE",
+}
+
+function Messages.objectiveStatus(state: any): string
+    local word = OBJECTIVE_STATUS[state]
+    if word == nil then
+        return ""
+    end
+    return word
+end
+
+-- OPTIONAL objectives carry a tag; REQUIRED ones are the default and stay untagged.
+function Messages.objectiveTag(importance: any): string
+    if importance == "OPTIONAL" then
+        return "OPTIONAL"
+    end
+    return ""
+end
+
+-- One short line for a transition event (kinds from ObjectiveView.EventKinds); `title` is server text.
+function Messages.objectiveEvent(kind: any, title: any): string
+    local name = "an objective"
+    if type(title) == "string" and #title > 0 then
+        name = title
+    end
+    if kind == "UNLOCKED" then
+        return "New objective: " .. name
+    elseif kind == "COMPLETED" then
+        return "Completed: " .. name
+    elseif kind == "FAILED" then
+        return "Failed: " .. name
+    elseif kind == "CANCELLED" then
+        return "No longer available: " .. name
+    end
+    return ""
+end
+
+function Messages.objectiveMore(count: any): string
+    if type(count) == "number" and count >= 1 then
+        return string.format("+%d more", math.floor(count))
+    end
+    return ""
+end
+
 return Messages
