@@ -24,6 +24,8 @@ require("./shared/Messages.spec")
 require("./server_shared/ObjectiveGraph.spec")
 require("./server_shared/ObjectiveCore.spec")
 require("./server_shared/ObjectiveContent.spec")
+require("./server_shared/ObjectiveRuntime.spec")
+require("./server_shared/ObjectiveConfig.spec")
 
 local results = Harness.results()
 for _, failure in ipairs(results.failures) do
