@@ -1,7 +1,9 @@
 --!strict
--- Server-side objective integration (TTL-09B). Thin Roblox glue around ObjectiveRuntime (pure, Lune-tested) and the
--- already-merged ObjectiveCore: it wires the real services into the runtime's injected ports, builds the greybox
--- anchors, registers the snapshot pull request and registers ONE mission lifecycle system. It owns no objective rules
+-- Server-side objective integration (TTL-09B, anchors from the authored map since TTL-10). Thin Roblox glue around
+-- ObjectiveRuntime (pure, Lune-tested) and the already-merged ObjectiveCore: it wires the real services into the runtime's
+-- injected ports, binds the objective slots to the authored map anchors (parts tagged `ObjectivePoint` with a `PointId`
+-- attribute, found server-side in the Workspace), registers the snapshot pull request and registers ONE mission lifecycle
+-- system. The anchors belong to the map: this service never creates, moves or destroys them. It owns no objective rules
 -- and no interaction validation: InteractionService / InteractionCore validate every activation first (mission ACTIVE,
 -- roster, ALIVE, character, target, distance, rate limit, busy, cooldown); the runtime then applies the command through
 -- ObjectiveCore.
@@ -17,6 +19,7 @@
 --
 -- Not here: team-wipe handling, extraction policy (EXTRACT is a dev placeholder), inventory/evidence/ritual, HUD.
 
+local CollectionService = game:GetService("CollectionService")
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local ServerStorage = game:GetService("ServerStorage")
@@ -28,11 +31,11 @@ local PlayerStateService = require(ServerStorage.ServerShared.Player.PlayerState
 local ObjectiveGraph = require(ServerStorage.ServerShared.Objective.ObjectiveGraph)
 local ObjectiveCore = require(ServerStorage.ServerShared.Objective.ObjectiveCore)
 local ObjectiveRuntime = require(ServerStorage.ServerShared.Objective.ObjectiveRuntime)
+local ObjectiveAnchors = require(ServerStorage.ServerShared.Objective.ObjectiveAnchors)
 local InteractionService = require(script.Parent.Parent.Interaction.InteractionService)
 local MissionLifecycleService = require(script.Parent.Parent.MissionLifecycle.MissionLifecycleService)
 local ObjectiveConfig = require(script.Parent.ObjectiveConfig)
 local ObjectiveContent = require(script.Parent.ObjectiveContent)
-local ObjectiveFixture = require(script.Parent.ObjectiveFixture)
 
 local SYSTEM_NAME = "Objective"
 local LOG_PREFIX = "[THE LAST TURN]"
@@ -43,10 +46,9 @@ local ObjectiveService = {}
 
 local initialized = false
 local runtime: any = nil
-local fixture: ObjectiveFixture.Fixture? = nil
 local requestRegistered = false
 
--- Point ids in content order, for the fixture.
+-- Point ids in content order, for the anchor report.
 local function collectPointIds(): { string }
     local pointIds: { string } = {}
     for _, objective in ipairs(ObjectiveContent.objectives) do
@@ -74,14 +76,16 @@ local function buildPlayersPort(): any
     }
 end
 
-local function cleanupFixture()
-    local current = fixture
-    fixture = nil
-    if current ~= nil then
-        pcall(function()
-            current.model:Destroy()
-        end)
+-- Collects the authored anchors server-side: parts tagged `ObjectivePoint` that are in the Workspace, keyed by their
+-- `PointId` attribute. Only the server reads this; clients never supply anchors or positions.
+local function discoverAnchors(): any
+    local candidates: { any } = {}
+    for _, instance in ipairs(CollectionService:GetTagged(ObjectiveAnchors.Tag)) do
+        if instance:IsA("BasePart") and instance:IsDescendantOf(workspace) then
+            table.insert(candidates, { pointId = instance:GetAttribute(ObjectiveAnchors.Attribute), anchor = instance })
+        end
     end
+    return ObjectiveAnchors.index(candidates)
 end
 
 -- Runs inside MissionLifecycleService's pcall while the mission is INITIALIZING. Throws to abort.
@@ -93,12 +97,18 @@ local function start(session: any)
         error("Objective: InteractionService is not ready; check the bootstrap and system order")
     end
 
-    local built, builtFixture = pcall(ObjectiveFixture.build, collectPointIds(), Config)
-    if not built then
-        error("Objective: could not build the anchors: " .. tostring(builtFixture))
+    local anchorIndex = discoverAnchors()
+    if #anchorIndex.duplicates > 0 then
+        warn(string.format("%s[Objective] Ambiguous anchors (PointId claimed more than once, none will be used): %s", LOG_PREFIX, table.concat(anchorIndex.duplicates, ", ")))
     end
-    local newFixture = builtFixture :: ObjectiveFixture.Fixture
-    fixture = newFixture
+    if anchorIndex.invalid > 0 then
+        warn(string.format("%s[Objective] %d tagged part(s) have no valid PointId attribute and are ignored.", LOG_PREFIX, anchorIndex.invalid))
+    end
+    local missing = ObjectiveAnchors.missing(collectPointIds(), anchorIndex)
+    if #missing > 0 then
+        -- ObjectiveRuntime decides: a missing REQUIRED anchor aborts the mission start, a missing OPTIONAL one cancels it.
+        warn(string.format("%s[Objective] No authored anchor for: %s", LOG_PREFIX, table.concat(missing, ", ")))
+    end
 
     local created = ObjectiveRuntime.new({
         graph = ObjectiveGraph,
@@ -107,7 +117,7 @@ local function start(session: any)
         config = Config,
         interaction = InteractionService,
         resolveAnchor = function(pointId: string): any?
-            return newFixture.anchors[pointId]
+            return anchorIndex.anchors[pointId]
         end,
         lifecycle = MissionLifecycleService,
         players = buildPlayersPort(),
@@ -138,7 +148,8 @@ local function start(session: any)
     requestRegistered = true
 end
 
--- Idempotent and safe after a partial or skipped start.
+-- Idempotent and safe after a partial or skipped start. Removes only what this service registered (prompts, the request
+-- handler); the authored map is never touched.
 local function stop()
     if requestRegistered then
         requestRegistered = false
@@ -151,7 +162,6 @@ local function stop()
             active:stop()
         end)
     end
-    cleanupFixture()
 end
 
 -- Diagnostics: the current state of one objective ("LOCKED", "AVAILABLE", ...), or nil when not running.

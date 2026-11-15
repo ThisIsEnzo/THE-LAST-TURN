@@ -3,21 +3,12 @@
 -- APIs), so Lune tests load and validate exactly what ships. Nothing here is client-controlled.
 --
 -- The interaction settings feed InteractionCore specs (validated by the specs against InteractionCore.validateSpec);
--- the prompt texts feed InteractionService prompt options (<= 40 bytes). The fixture settings only place the runtime
--- greybox anchors (the repository has no authored map yet; TTL-10 replaces the fixture with tagged map parts).
+-- the prompt texts feed InteractionService prompt options (<= 40 bytes). The objective anchors come from the authored
+-- map (tag `ObjectivePoint`, attribute `PointId`; see ObjectiveAnchors), not from this config.
 
 export type Config = {
     interaction: { maxDistance: number, holdDuration: number, cooldown: number },
     prompt: { actionText: string },
-    fixture: {
-        spawnDistanceStuds: number,
-        spacingStuds: number,
-        anchorSizeStuds: number,
-        heightStuds: number,
-        fallbackX: number,
-        fallbackY: number,
-        fallbackZ: number,
-    },
 }
 
 local ObjectiveConfig = {}
@@ -30,16 +21,6 @@ ObjectiveConfig.Values = table.freeze({
     }),
     prompt = table.freeze({
         actionText = "Use",
-    }),
-    fixture = table.freeze({
-        -- In front of the first SpawnLocation, deeper than the test door (which is 14 studs ahead), centered in a row.
-        spawnDistanceStuds = 26,
-        spacingStuds = 5,
-        anchorSizeStuds = 2.5,
-        heightStuds = 1.5,
-        fallbackX = 0,
-        fallbackY = 0,
-        fallbackZ = -40,
     }),
 })
 
@@ -65,8 +46,8 @@ end
 
 -- Returns (true, nil) or (false, detail).
 function ObjectiveConfig.validate(config: any): (boolean, string?)
-    if not onlyFields(config, { interaction = true, prompt = true, fixture = true }) then
-        return false, "config must contain interaction, prompt and fixture only"
+    if not onlyFields(config, { interaction = true, prompt = true }) then
+        return false, "config must contain interaction and prompt only"
     end
     local interaction = config.interaction
     if not onlyFields(interaction, { maxDistance = true, holdDuration = true, cooldown = true }) then
@@ -91,25 +72,6 @@ function ObjectiveConfig.validate(config: any): (boolean, string?)
         return false, "prompt.actionText must be 1-40 bytes without control characters"
     end
 
-    local fixture = config.fixture
-    if not onlyFields(fixture, { spawnDistanceStuds = true, spacingStuds = true, anchorSizeStuds = true, heightStuds = true, fallbackX = true, fallbackY = true, fallbackZ = true }) then
-        return false, "fixture has missing or unknown fields"
-    end
-    if not inRange(fixture.spawnDistanceStuds, 5, 200) then
-        return false, "fixture.spawnDistanceStuds must be in [5, 200]"
-    end
-    if not inRange(fixture.spacingStuds, 3, 30) then
-        return false, "fixture.spacingStuds must be in [3, 30]"
-    end
-    if not inRange(fixture.anchorSizeStuds, 1, 6) then
-        return false, "fixture.anchorSizeStuds must be in [1, 6]"
-    end
-    if not inRange(fixture.heightStuds, 0.5, 10) then
-        return false, "fixture.heightStuds must be in [0.5, 10]"
-    end
-    if not isFiniteNumber(fixture.fallbackX) or not isFiniteNumber(fixture.fallbackY) or not isFiniteNumber(fixture.fallbackZ) then
-        return false, "fixture fallback coordinates must be finite numbers"
-    end
     return true, nil
 end
 

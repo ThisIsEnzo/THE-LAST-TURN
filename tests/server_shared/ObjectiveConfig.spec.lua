@@ -15,7 +15,6 @@ local function copyValues(): any
     return {
         interaction = { maxDistance = 8, holdDuration = 0, cooldown = 0.5 },
         prompt = { actionText = "Use" },
-        fixture = { spawnDistanceStuds = 26, spacingStuds = 5, anchorSizeStuds = 2.5, heightStuds = 1.5, fallbackX = 0, fallbackY = 0, fallbackZ = -40 },
     }
 end
 
@@ -25,7 +24,6 @@ test("the shipped configuration is valid and frozen", function()
     expectTrue(table.isfrozen(ObjectiveConfig.Values))
     expectTrue(table.isfrozen(ObjectiveConfig.Values.interaction))
     expectTrue(table.isfrozen(ObjectiveConfig.Values.prompt))
-    expectTrue(table.isfrozen(ObjectiveConfig.Values.fixture))
 end)
 
 test("validation rejects unknown fields, bad ranges and bad texts", function()
@@ -46,9 +44,7 @@ test("validation rejects unknown fields, bad ranges and bad texts", function()
     expectTrue(invalid(function(c: any) c.prompt.actionText = "" end))
     expectTrue(invalid(function(c: any) c.prompt.actionText = string.rep("x", 41) end))
     expectTrue(invalid(function(c: any) c.prompt.actionText = "a\nb" end))
-    expectTrue(invalid(function(c: any) c.fixture.spacingStuds = 1 end))
-    expectTrue(invalid(function(c: any) c.fixture.fallbackZ = math.huge end))
-    expectTrue(invalid(function(c: any) c.fixture = nil end))
+    expectTrue(invalid(function(c: any) c.fixture = { spacingStuds = 5 } end), "the removed fixture section is rejected")
     expectFalse(ObjectiveConfig.validate("x"))
 end)
 
