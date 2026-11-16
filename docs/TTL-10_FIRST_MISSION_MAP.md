@@ -1,6 +1,6 @@
 # TTL-10 — First Mission Map (THE ASYLUM)
 
-Status: **IMPLEMENTED on `feature/ttl-10-first-mission-map`, pending PR review and merge. Not validated in Roblox Studio.** Checks that were actually run are in section 9; everything that needs Studio, a real device or real multiplayer is pending (section 10).
+Status: **IMPLEMENTED; PR #25 is open on `feat/map-ttl-10-first-mission-map` and pending review/merge. CI and Rojo builds passed on the PR head. Not validated in Roblox Studio.** Automated results are recorded in section 9; everything that needs Studio, a real device or real multiplayer remains pending (section 10).
 
 Source of truth: `docs/TTL-09_OBJECTIVE_SYSTEM.md` (anchors, decision D5), `docs/TTL-09B_OBJECTIVE_SERVICE.md`, `docs/HUB_GREYBOX.md` (the authoring convention this task follows).
 
@@ -95,7 +95,7 @@ Each anchor is a small non-collidable amber Part flush against a wall of its roo
 - `mission.project.json` maps `Workspace` to `src/mission/world` (`$ignoreUnknownInstances: true`, so the template baseplate is untouched) and sets a few `Lighting` properties (very dark ambient, night clock time, no post-processing, no fog). Pinned Rojo is 7.6.1.
 - `src/mission/world/SpawnLocation.model.json`: the spawn pad (14 x 1 x 8, invisible, flush with the floor) named `SpawnLocation` at (0, 44) in the lobby, so it patches the template spawn instead of adding a second one.
 - `src/mission/world/AsylumMap/`: `Architecture` (Floors, Walls, Ceilings), `Props`, `Lighting` (small neon lamps with low-brightness `PointLight`s) and `ObjectiveAnchors`. About 160 parts in total, wall runs merged.
-- Formats follow the HUB convention: documented Rojo JSON forms only (`Vector3`/`Color3` arrays, enum names as strings, flat 12-number `CFrame`, identity orientation). The two forms not used by the HUB are the part `Tags` property and the node-level `Attributes` map; **their exact acceptance by Rojo 7.6.1 could not be verified offline** (the CI Rojo build is the check).
+- Formats follow the HUB convention: documented Rojo JSON forms only (`Vector3`/`Color3` arrays, enum names as strings, flat 12-number `CFrame`, identity orientation). The part `Tags` property and node-level `Attributes` map are also used for the objective anchors. **Rojo 7.6.1 accepted the complete MISSION project, including these tags and attributes, in the successful CI `build-places` job.** This confirms the place build; the resulting tag/attribute behavior in a live Studio session remains on the owner checklist.
 - Regenerate with `python3 tools/asylum_greybox/generate_asylum_greybox.py` (layout data in `asylum_layout.py`); the JSON files are the source Rojo reads, and a test fails if they drift from the generator.
 
 ## 7. Extraction warning
@@ -114,11 +114,16 @@ Each anchor is a small non-collidable amber Part flush against a wall of its roo
 
 ## 9. Checks that were actually run
 
-In the authoring environment (no Lune, Rojo, Studio or network):
-- `python3 tools/asylum_greybox/validate_asylum_greybox.py`: passed (19 rooms, 23 doorways, 5 independent loops, all six anchors resolved and reachable).
-- `python3 -m unittest discover -s tools/asylum_greybox`: 24 tests passed (mutation tests: blocked doorway, sealed room, missing / duplicate / mis-tagged / misplaced / out-of-reach anchors, content mismatch, stale generated files, second spawn, tree-shaped room graph, missing Workspace mapping, no leftover fixture reference).
-- The Lua specs for the objective files ran only in a local Lua 5.4 shim that strips Luau annotations: `ObjectiveAnchors`, `ObjectiveConfig`, `ObjectiveRuntime`, `ObjectiveContent` (65 tests passed). This is a logic check, not Lune.
-Not run: `lune run tests/run`, the HUB and MISSION Rojo builds, CI, Luau strict diagnostics, anything in Roblox Studio. CI (`rojo-build.yml`, and the new `mission-greybox-validation.yml`) must run them.
+### CI results (PR #25 head `add8a6ab2e4df3a3dee836aed0226c30b0b1a8b4`)
+
+Both GitHub Actions check runs completed successfully on the PR head:
+
+- **`build-places` — SUCCESS** (`rojo-build.yml`): pinned Rojo 7.6.1 successfully built both `hub.project.json` and `mission.project.json`; the workflow then ran `lune run tests/run`. This also verifies that Rojo accepts the MISSION map JSON, including the `Tags` and `Attributes` used by the authored objective anchors.
+- **`Validate THE ASYLUM greybox geometry and objective anchors` — SUCCESS** (`mission-greybox-validation.yml`): the map validator passed (19 rooms, 23 doorways, 5 independent loops, all six anchors resolved and reachable) and the Python regression suite passed (24 tests).
+
+The successful CI checks supersede the earlier authoring-environment limitation: Lune, both Rojo place builds and the greybox validation workflow **did run in CI and passed**. The authoring environment itself did not run those tools locally. The earlier local checks also passed: the Python validator and 24 tests, plus 65 objective-related tests in a Lua 5.4 shim (not a substitute for Lune).
+
+Not covered by CI and still pending: Luau strict-mode diagnostics beyond the configured workflow, and anything that requires opening/running the place in Roblox Studio. In particular, visually inspecting the map, confirming tags/attributes on selected instances in Studio, prompt placement/reach, mobile controls, multiplayer behavior, camera clipping and low-end device performance remain owner tasks.
 
 ## 10. Studio validation checklist (owner task, all pending)
 
