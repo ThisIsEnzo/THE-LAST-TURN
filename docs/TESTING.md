@@ -162,3 +162,10 @@ Pure Lune specs, registered in `tests/run.lua`. The HUD itself builds Roblox GUI
 - `tests/shared/Messages.spec.lua`: the new objective HUD strings.
 
 Run with `lune run tests/run`; CI must also run both Rojo builds. Not covered and not run: `ObjectiveHud` rendering (layout, colours, touch targets, safe areas, toasts), `ObjectiveNetwork` against real remotes, the Bootstrap wiring, mission teardown behavior and every Roblox Studio / mobile / multiplayer check. The Studio checklist is in `docs/TTL-09C_OBJECTIVE_HUD.md` and is pending.
+
+## 19. Mission map and objective anchor tests (TTL-10)
+
+- `tests/server_shared/ObjectiveAnchors.spec.lua` (Lune, pure): `ObjectiveAnchors.index` / `missing` (valid ids, ambiguous ids resolve to nothing, invalid entries counted, order independence, garbage input), every shipped `pointId` is a valid anchor id, and the integration with `ObjectiveRuntime`: a complete map starts, a missing or ambiguous REQUIRED anchor fails the start closed, a missing OPTIONAL anchor only cancels its objective. `ObjectiveConfig.spec.lua` was adjusted for the removed fixture settings.
+- `tools/asylum_greybox/validate_asylum_greybox.py` and `tools/asylum_greybox/test_validate_asylum_greybox.py` (Python, standard library only, run by `.github/workflows/mission-greybox-validation.yml`): schema and naming of the map sources, overlaps, a character-sized walker from the spawn through every room, doorway and anchor, loops in the room graph, the exact match between the authored `PointId`s and `ObjectiveContent.lua`, the Rojo `Workspace` mapping, freshness of the generated files and absence of the removed fixture.
+
+Run `python3 tools/asylum_greybox/validate_asylum_greybox.py` and `python3 -m unittest discover -s tools/asylum_greybox -p "test_*.py"`, plus `lune run tests/run` and both Rojo builds. Not covered and not run: how the map looks and plays in Roblox Studio, Rojo's handling of the `Tags` and `Attributes` JSON forms, prompts at the authored positions, mobile and multiplayer behavior. See the checklist in `docs/TTL-10_FIRST_MISSION_MAP.md`.

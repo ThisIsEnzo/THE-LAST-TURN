@@ -1,0 +1,43 @@
+name: MISSION greybox validation
+
+on:
+  pull_request:
+    paths:
+      - "src/mission/world/**"
+      - "tools/asylum_greybox/**"
+      - "src/mission/server/Objective/ObjectiveContent.lua"
+      - "src/mission/server/Objective/ObjectiveConfig.lua"
+      - "mission.project.json"
+      - ".github/workflows/mission-greybox-validation.yml"
+  push:
+    branches:
+      - master
+    paths:
+      - "src/mission/world/**"
+      - "tools/asylum_greybox/**"
+      - "src/mission/server/Objective/ObjectiveContent.lua"
+      - "src/mission/server/Objective/ObjectiveConfig.lua"
+      - "mission.project.json"
+      - ".github/workflows/mission-greybox-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-mission-greybox:
+    name: Validate THE ASYLUM greybox geometry and objective anchors
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate THE ASYLUM greybox
+        run: python tools/asylum_greybox/validate_asylum_greybox.py
+
+      - name: Run MISSION greybox regression tests
+        run: python -m unittest discover -s tools/asylum_greybox -p "test_*.py" -v

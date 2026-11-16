@@ -1,0 +1,3095 @@
+{
+  "ClassName": "Model",
+  "Children": [
+    {
+      "Name": "Floors",
+      "ClassName": "Folder",
+      "Children": [
+        {
+          "Name": "Floor_AdmissionsOffice",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              12.0,
+              1.0,
+              12.0
+            ],
+            "CFrame": [
+              -14.0,
+              0.5,
+              22.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Wood",
+            "Color": [
+              0.26,
+              0.21,
+              0.16
+            ]
+          }
+        },
+        {
+          "Name": "Floor_CorrE",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              12.0,
+              1.0,
+              24.0
+            ],
+            "CFrame": [
+              42.0,
+              0.5,
+              -8.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.34,
+              0.35,
+              0.34
+            ]
+          }
+        },
+        {
+          "Name": "Floor_CorrW",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              12.0,
+              1.0,
+              24.0
+            ],
+            "CFrame": [
+              -42.0,
+              0.5,
+              -8.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.34,
+              0.35,
+              0.34
+            ]
+          }
+        },
+        {
+          "Name": "Floor_CrossN",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              96.0,
+              1.0,
+              12.0
+            ],
+            "CFrame": [
+              0.0,
+              0.5,
+              -26.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.34,
+              0.35,
+              0.34
+            ]
+          }
+        },
+        {
+          "Name": "Floor_CrossS",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              96.0,
+              1.0,
+              12.0
+            ],
+            "CFrame": [
+              0.0,
+              0.5,
+              10.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.34,
+              0.35,
+              0.34
+            ]
+          }
+        },
+        {
+          "Name": "Floor_EntranceLobby",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              40.0,
+              1.0,
+              24.0
+            ],
+            "CFrame": [
+              0.0,
+              0.5,
+              40.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Slate",
+            "Color": [
+              0.3,
+              0.29,
+              0.27
+            ]
+          }
+        },
+        {
+          "Name": "Floor_GateHall",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              24.0,
+              1.0,
+              20.0
+            ],
+            "CFrame": [
+              0.0,
+              0.5,
+              -42.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.26,
+              0.2,
+              0.2
+            ]
+          }
+        },
+        {
+          "Name": "Floor_HallN",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              12.0,
+              1.0,
+              24.0
+            ],
+            "CFrame": [
+              -2.0,
+              0.5,
+              -8.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.38,
+              0.38,
+              0.36
+            ]
+          }
+        },
+        {
+          "Name": "Floor_HallS",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              12.0,
+              1.0,
+              12.0
+            ],
+            "CFrame": [
+              -2.0,
+              0.5,
+              22.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.38,
+              0.38,
+              0.36
+            ]
+          }
+        },
+        {
+          "Name": "Floor_HydrotherapyWard",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              32.0,
+              1.0,
+              24.0
+            ],
+            "CFrame": [
+              20.0,
+              0.5,
+              -8.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Slate",
+            "Color": [
+              0.26,
+              0.34,
+              0.36
+            ]
+          }
+        },
+        {
+          "Name": "Floor_LoadingDock",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              24.0,
+              1.0,
+              20.0
+            ],
+            "CFrame": [
+              48.0,
+              0.5,
+              -42.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "DiamondPlate",
+            "Color": [
+              0.22,
+              0.23,
+              0.26
+            ]
+          }
+        },
+        {
+          "Name": "Floor_NurseStation",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              16.0,
+              1.0,
+              12.0
+            ],
+            "CFrame": [
+              12.0,
+              0.5,
+              22.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [
+              0.36,
+              0.4,
+              0.38
+            ]
+          }
+        },
+        {
+          "Name": "Floor_PatientWardA",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              20.0,
+              1.0,
+              24.0
+            ],
+            "CFrame": [
+              -50.0,
+              0.5,
+              28.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.3,
+              0.34,
+              0.32
+            ]
+          }
+        },
+        {
+          "Name": "Floor_QuarantineWard",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              24.0,
+              1.0,
+              20.0
+            ],
+            "CFrame": [
+              24.0,
+              0.5,
+              -42.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.22,
+              0.17,
+              0.17
+            ]
+          }
+        },
+        {
+          "Name": "Floor_RecordsOffice",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              20.0,
+              1.0,
+              24.0
+            ],
+            "CFrame": [
+              -30.0,
+              0.5,
+              28.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Wood",
+            "Color": [
+              0.28,
+              0.22,
+              0.16
+            ]
+          }
+        },
+        {
+          "Name": "Floor_StaffOffice",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              32.0,
+              1.0,
+              20.0
+            ],
+            "CFrame": [
+              -28.0,
+              0.5,
+              -42.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Wood",
+            "Color": [
+              0.24,
+              0.18,
+              0.14
+            ]
+          }
+        },
+        {
+          "Name": "Floor_StorageRoom",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              28.0,
+              1.0,
+              12.0
+            ],
+            "CFrame": [
+              34.0,
+              0.5,
+              46.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.26,
+              0.25,
+              0.23
+            ]
+          }
+        },
+        {
+          "Name": "Floor_TreatmentRoom",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              28.0,
+              1.0,
+              24.0
+            ],
+            "CFrame": [
+              -22.0,
+              0.5,
+              -8.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [
+              0.5,
+              0.56,
+              0.58
+            ]
+          }
+        },
+        {
+          "Name": "Floor_UtilityRoom",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              28.0,
+              1.0,
+              24.0
+            ],
+            "CFrame": [
+              34.0,
+              0.5,
+              28.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [
+              0.2,
+              0.21,
+              0.24
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Walls",
+      "ClassName": "Folder",
+      "Children": [
+        {
+          "Name": "Wall_H_0_24_29",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              25.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              48.0,
+              7.0,
+              -52.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.32,
+              0.33,
+              0.36
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_0_18_23",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              25.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              24.0,
+              7.0,
+              -52.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.4,
+              0.26,
+              0.26
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_0_4_11",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              33.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              -28.0,
+              7.0,
+              -52.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.44,
+              0.34,
+              0.3
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_0_12_17",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              25.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              0.0,
+              7.0,
+              -52.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.46,
+              0.32,
+              0.3
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_5_24_29",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              25.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              48.0,
+              7.0,
+              -32.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.32,
+              0.33,
+              0.36
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_5_18_23",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              25.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              24.0,
+              7.0,
+              -32.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.4,
+              0.26,
+              0.26
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_5_4_11",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              33.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              -28.0,
+              7.0,
+              -32.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.44,
+              0.34,
+              0.3
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_5_12_12",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              5.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              -10.0,
+              7.0,
+              -32.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.46,
+              0.32,
+              0.3
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_5_16_17",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              9.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              8.0,
+              7.0,
+              -32.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.46,
+              0.32,
+              0.3
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_5_3_3",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              5.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              -46.0,
+              7.0,
+              -32.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.55,
+              0.56,
+              0.55
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_8_16_23",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              33.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              20.0,
+              7.0,
+              -20.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.42,
+              0.56,
+              0.58
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_8_6_12",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              29.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              -22.0,
+              7.0,
+              -20.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.7,
+              0.76,
+              0.78
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_14_16_23",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              33.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              20.0,
+              7.0,
+              4.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.42,
+              0.56,
+              0.58
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_14_6_12",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              29.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              -22.0,
+              7.0,
+              4.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.7,
+              0.76,
+              0.78
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_17_20_21",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              9.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              24.0,
+              7.0,
+              16.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.3,
+              0.32,
+              0.36
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_17_25_26",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              9.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              44.0,
+              7.0,
+              16.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.3,
+              0.32,
+              0.36
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_17_12_12",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              5.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              -10.0,
+              7.0,
+              16.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.5,
+              0.46,
+              0.4
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_17_0_2",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              13.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              -54.0,
+              7.0,
+              16.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.5,
+              0.58,
+              0.54
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_17_5_5",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              5.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              -38.0,
+              7.0,
+              16.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.52,
+              0.46,
+              0.36
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_17_8_9",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              9.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              -24.0,
+              7.0,
+              16.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.52,
+              0.46,
+              0.36
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_17_16_16",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              5.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              6.0,
+              7.0,
+              16.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.6,
+              0.64,
+              0.62
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_17_19_19",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              5.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              18.0,
+              7.0,
+              16.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.6,
+              0.64,
+              0.62
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_20_10_12",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              13.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              -14.0,
+              7.0,
+              28.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.5,
+              0.46,
+              0.4
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_20_16_19",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              17.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              12.0,
+              7.0,
+              28.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.62,
+              0.58,
+              0.5
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_23_20_22",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              13.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              26.0,
+              7.0,
+              40.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.4,
+              0.38,
+              0.34
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_23_25_26",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              9.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              44.0,
+              7.0,
+              40.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.4,
+              0.38,
+              0.34
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_23_0_4",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              21.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              -50.0,
+              7.0,
+              40.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.5,
+              0.58,
+              0.54
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_23_5_9",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              21.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              -30.0,
+              7.0,
+              40.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.52,
+              0.46,
+              0.36
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_26_20_26",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              29.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              34.0,
+              7.0,
+              52.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.4,
+              0.38,
+              0.34
+            ]
+          }
+        },
+        {
+          "Name": "Wall_H_26_10_19",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              41.0,
+              12.0,
+              1.0
+            ],
+            "CFrame": [
+              0.0,
+              7.0,
+              52.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.62,
+              0.58,
+              0.5
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_0_17_22",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              25.0
+            ],
+            "CFrame": [
+              -60.0,
+              7.0,
+              28.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.5,
+              0.58,
+              0.54
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_3_5_16",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              49.0
+            ],
+            "CFrame": [
+              -48.0,
+              7.0,
+              -8.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.55,
+              0.56,
+              0.55
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_4_0_4",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              21.0
+            ],
+            "CFrame": [
+              -44.0,
+              7.0,
+              -42.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.44,
+              0.34,
+              0.3
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_5_17_22",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              25.0
+            ],
+            "CFrame": [
+              -40.0,
+              7.0,
+              28.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.5,
+              0.58,
+              0.54
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_6_8_9",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              9.0
+            ],
+            "CFrame": [
+              -36.0,
+              7.0,
+              -16.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.7,
+              0.76,
+              0.78
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_6_12_13",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              9.0
+            ],
+            "CFrame": [
+              -36.0,
+              7.0,
+              0.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.7,
+              0.76,
+              0.78
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_10_17_19",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              13.0
+            ],
+            "CFrame": [
+              -20.0,
+              7.0,
+              22.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.5,
+              0.46,
+              0.4
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_10_20_25",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              25.0
+            ],
+            "CFrame": [
+              -20.0,
+              7.0,
+              40.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.62,
+              0.58,
+              0.5
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_12_0_0",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              5.0
+            ],
+            "CFrame": [
+              -12.0,
+              7.0,
+              -50.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.46,
+              0.32,
+              0.3
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_12_4_4",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              5.0
+            ],
+            "CFrame": [
+              -12.0,
+              7.0,
+              -34.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.46,
+              0.32,
+              0.3
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_13_17_19",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              13.0
+            ],
+            "CFrame": [
+              -8.0,
+              7.0,
+              22.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.5,
+              0.46,
+              0.4
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_13_8_9",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              9.0
+            ],
+            "CFrame": [
+              -8.0,
+              7.0,
+              -16.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.7,
+              0.76,
+              0.78
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_13_13_13",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              5.0
+            ],
+            "CFrame": [
+              -8.0,
+              7.0,
+              2.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.7,
+              0.76,
+              0.78
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_16_8_9",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              9.0
+            ],
+            "CFrame": [
+              4.0,
+              7.0,
+              -16.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.42,
+              0.56,
+              0.58
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_16_13_13",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              5.0
+            ],
+            "CFrame": [
+              4.0,
+              7.0,
+              2.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.42,
+              0.56,
+              0.58
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_16_17_19",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              13.0
+            ],
+            "CFrame": [
+              4.0,
+              7.0,
+              22.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.6,
+              0.64,
+              0.62
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_18_0_0",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              5.0
+            ],
+            "CFrame": [
+              12.0,
+              7.0,
+              -50.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.46,
+              0.32,
+              0.3
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_18_4_4",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              5.0
+            ],
+            "CFrame": [
+              12.0,
+              7.0,
+              -34.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.46,
+              0.32,
+              0.3
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_20_17_19",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              13.0
+            ],
+            "CFrame": [
+              20.0,
+              7.0,
+              22.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.6,
+              0.64,
+              0.62
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_20_20_23",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              17.0
+            ],
+            "CFrame": [
+              20.0,
+              7.0,
+              36.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.62,
+              0.58,
+              0.5
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_24_0_0",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              5.0
+            ],
+            "CFrame": [
+              36.0,
+              7.0,
+              -50.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.32,
+              0.33,
+              0.36
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_24_4_4",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              5.0
+            ],
+            "CFrame": [
+              36.0,
+              7.0,
+              -34.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.32,
+              0.33,
+              0.36
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_24_8_9",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              9.0
+            ],
+            "CFrame": [
+              36.0,
+              7.0,
+              -16.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.42,
+              0.56,
+              0.58
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_24_12_13",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              9.0
+            ],
+            "CFrame": [
+              36.0,
+              7.0,
+              0.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.42,
+              0.56,
+              0.58
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_27_17_22",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              25.0
+            ],
+            "CFrame": [
+              48.0,
+              7.0,
+              28.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.3,
+              0.32,
+              0.36
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_27_23_25",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              13.0
+            ],
+            "CFrame": [
+              48.0,
+              7.0,
+              46.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.4,
+              0.38,
+              0.34
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_27_5_16",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              49.0
+            ],
+            "CFrame": [
+              48.0,
+              7.0,
+              -8.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.55,
+              0.56,
+              0.55
+            ]
+          }
+        },
+        {
+          "Name": "Wall_V_30_0_4",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.0,
+              12.0,
+              21.0
+            ],
+            "CFrame": [
+              60.0,
+              7.0,
+              -42.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.32,
+              0.33,
+              0.36
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Ceilings",
+      "ClassName": "Folder",
+      "Children": [
+        {
+          "Name": "Ceiling_AdmissionsOffice",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              12.0,
+              1.0,
+              12.0
+            ],
+            "CFrame": [
+              -14.0,
+              13.5,
+              22.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.17,
+              0.17,
+              0.18
+            ]
+          }
+        },
+        {
+          "Name": "Ceiling_CorrE",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              12.0,
+              1.0,
+              24.0
+            ],
+            "CFrame": [
+              42.0,
+              13.5,
+              -8.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.17,
+              0.17,
+              0.18
+            ]
+          }
+        },
+        {
+          "Name": "Ceiling_CorrW",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              12.0,
+              1.0,
+              24.0
+            ],
+            "CFrame": [
+              -42.0,
+              13.5,
+              -8.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.17,
+              0.17,
+              0.18
+            ]
+          }
+        },
+        {
+          "Name": "Ceiling_CrossN",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              96.0,
+              1.0,
+              12.0
+            ],
+            "CFrame": [
+              0.0,
+              13.5,
+              -26.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.17,
+              0.17,
+              0.18
+            ]
+          }
+        },
+        {
+          "Name": "Ceiling_CrossS",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              96.0,
+              1.0,
+              12.0
+            ],
+            "CFrame": [
+              0.0,
+              13.5,
+              10.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.17,
+              0.17,
+              0.18
+            ]
+          }
+        },
+        {
+          "Name": "Ceiling_EntranceLobby",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              40.0,
+              1.0,
+              24.0
+            ],
+            "CFrame": [
+              0.0,
+              13.5,
+              40.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.17,
+              0.17,
+              0.18
+            ]
+          }
+        },
+        {
+          "Name": "Ceiling_GateHall",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              24.0,
+              1.0,
+              20.0
+            ],
+            "CFrame": [
+              0.0,
+              13.5,
+              -42.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.17,
+              0.17,
+              0.18
+            ]
+          }
+        },
+        {
+          "Name": "Ceiling_HallN",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              12.0,
+              1.0,
+              24.0
+            ],
+            "CFrame": [
+              -2.0,
+              13.5,
+              -8.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.17,
+              0.17,
+              0.18
+            ]
+          }
+        },
+        {
+          "Name": "Ceiling_HallS",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              12.0,
+              1.0,
+              12.0
+            ],
+            "CFrame": [
+              -2.0,
+              13.5,
+              22.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.17,
+              0.17,
+              0.18
+            ]
+          }
+        },
+        {
+          "Name": "Ceiling_HydrotherapyWard",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              32.0,
+              1.0,
+              24.0
+            ],
+            "CFrame": [
+              20.0,
+              13.5,
+              -8.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.17,
+              0.17,
+              0.18
+            ]
+          }
+        },
+        {
+          "Name": "Ceiling_LoadingDock",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              24.0,
+              1.0,
+              20.0
+            ],
+            "CFrame": [
+              48.0,
+              13.5,
+              -42.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.17,
+              0.17,
+              0.18
+            ]
+          }
+        },
+        {
+          "Name": "Ceiling_NurseStation",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              16.0,
+              1.0,
+              12.0
+            ],
+            "CFrame": [
+              12.0,
+              13.5,
+              22.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.17,
+              0.17,
+              0.18
+            ]
+          }
+        },
+        {
+          "Name": "Ceiling_PatientWardA",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              20.0,
+              1.0,
+              24.0
+            ],
+            "CFrame": [
+              -50.0,
+              13.5,
+              28.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.17,
+              0.17,
+              0.18
+            ]
+          }
+        },
+        {
+          "Name": "Ceiling_QuarantineWard",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              24.0,
+              1.0,
+              20.0
+            ],
+            "CFrame": [
+              24.0,
+              13.5,
+              -42.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.17,
+              0.17,
+              0.18
+            ]
+          }
+        },
+        {
+          "Name": "Ceiling_RecordsOffice",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              20.0,
+              1.0,
+              24.0
+            ],
+            "CFrame": [
+              -30.0,
+              13.5,
+              28.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.17,
+              0.17,
+              0.18
+            ]
+          }
+        },
+        {
+          "Name": "Ceiling_StaffOffice",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              32.0,
+              1.0,
+              20.0
+            ],
+            "CFrame": [
+              -28.0,
+              13.5,
+              -42.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.17,
+              0.17,
+              0.18
+            ]
+          }
+        },
+        {
+          "Name": "Ceiling_StorageRoom",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              28.0,
+              1.0,
+              12.0
+            ],
+            "CFrame": [
+              34.0,
+              13.5,
+              46.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.17,
+              0.17,
+              0.18
+            ]
+          }
+        },
+        {
+          "Name": "Ceiling_TreatmentRoom",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              28.0,
+              1.0,
+              24.0
+            ],
+            "CFrame": [
+              -22.0,
+              13.5,
+              -8.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.17,
+              0.17,
+              0.18
+            ]
+          }
+        },
+        {
+          "Name": "Ceiling_UtilityRoom",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              28.0,
+              1.0,
+              24.0
+            ],
+            "CFrame": [
+              34.0,
+              13.5,
+              28.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.17,
+              0.17,
+              0.18
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

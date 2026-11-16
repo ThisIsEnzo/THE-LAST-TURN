@@ -1,0 +1,1261 @@
+{
+  "ClassName": "Model",
+  "Children": [
+    {
+      "Name": "Lamps",
+      "ClassName": "Folder",
+      "Children": [
+        {
+          "Name": "Lamp_AdmissionsOffice_1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              -14.0,
+              12.6,
+              22.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  1.0,
+                  0.82,
+                  0.62
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_CorrE_1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              42.0,
+              12.6,
+              -8.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  0.78,
+                  0.88,
+                  1.0
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_CorrW_1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              -42.0,
+              12.6,
+              -8.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  0.78,
+                  0.88,
+                  1.0
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_CrossN_1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              -36.0,
+              12.6,
+              -26.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  0.78,
+                  0.88,
+                  1.0
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_CrossN_2",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              -12.0,
+              12.6,
+              -26.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  0.78,
+                  0.88,
+                  1.0
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_CrossN_3",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              12.0,
+              12.6,
+              -26.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  0.78,
+                  0.88,
+                  1.0
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_CrossN_4",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              36.0,
+              12.6,
+              -26.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  0.78,
+                  0.88,
+                  1.0
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_CrossS_1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              -36.0,
+              12.6,
+              10.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  0.78,
+                  0.88,
+                  1.0
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_CrossS_2",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              -12.0,
+              12.6,
+              10.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  0.78,
+                  0.88,
+                  1.0
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_CrossS_3",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              12.0,
+              12.6,
+              10.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  0.78,
+                  0.88,
+                  1.0
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_CrossS_4",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              36.0,
+              12.6,
+              10.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  0.78,
+                  0.88,
+                  1.0
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_EntranceLobby_1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              0.0,
+              12.6,
+              40.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  1.0,
+                  0.82,
+                  0.62
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_GateHall_1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              0.0,
+              12.6,
+              -42.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  1.0,
+                  0.82,
+                  0.62
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_HallN_1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              -2.0,
+              12.6,
+              -8.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  0.78,
+                  0.88,
+                  1.0
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_HallS_1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              -2.0,
+              12.6,
+              22.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  0.78,
+                  0.88,
+                  1.0
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_HydrotherapyWard_1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              20.0,
+              12.6,
+              -8.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  0.78,
+                  0.88,
+                  1.0
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_LoadingDock_1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              48.0,
+              12.6,
+              -42.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  1.0,
+                  0.82,
+                  0.62
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_NurseStation_1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              12.0,
+              12.6,
+              22.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  1.0,
+                  0.82,
+                  0.62
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_PatientWardA_1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              -50.0,
+              12.6,
+              28.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  1.0,
+                  0.82,
+                  0.62
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_QuarantineWard_1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              24.0,
+              12.6,
+              -42.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  1.0,
+                  0.82,
+                  0.62
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_RecordsOffice_1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              -30.0,
+              12.6,
+              28.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  1.0,
+                  0.82,
+                  0.62
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_StaffOffice_1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              -28.0,
+              12.6,
+              -42.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  1.0,
+                  0.82,
+                  0.62
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_StorageRoom_1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              34.0,
+              12.6,
+              46.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  1.0,
+                  0.82,
+                  0.62
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_TreatmentRoom_1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              -22.0,
+              12.6,
+              -8.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  0.78,
+                  0.88,
+                  1.0
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Lamp_UtilityRoom_1",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.0,
+              0.4,
+              2.0
+            ],
+            "CFrame": [
+              34.0,
+              12.6,
+              28.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Neon",
+            "Color": [
+              0.9,
+              0.9,
+              0.85
+            ],
+            "CanCollide": false,
+            "CastShadow": false
+          },
+          "Children": [
+            {
+              "Name": "Light",
+              "ClassName": "PointLight",
+              "Properties": {
+                "Brightness": 0.9,
+                "Range": 26,
+                "Color": [
+                  1.0,
+                  0.82,
+                  0.62
+                ],
+                "Shadows": false
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

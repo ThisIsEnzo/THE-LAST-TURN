@@ -1,0 +1,971 @@
+{
+  "ClassName": "Model",
+  "Children": [
+    {
+      "Name": "Props",
+      "ClassName": "Folder",
+      "Children": [
+        {
+          "Name": "EntranceLobby_ReceptionDesk",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              8.0,
+              3.5,
+              4.0
+            ],
+            "CFrame": [
+              -14.0,
+              2.75,
+              36.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Wood",
+            "Color": [
+              0.3,
+              0.22,
+              0.15
+            ]
+          }
+        },
+        {
+          "Name": "EntranceLobby_WaitingBenchA",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              3.0,
+              2.0,
+              6.0
+            ],
+            "CFrame": [
+              13.5,
+              2.0,
+              37.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [
+              0.22,
+              0.26,
+              0.3
+            ]
+          }
+        },
+        {
+          "Name": "EntranceLobby_WaitingBenchB",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              3.0,
+              2.0,
+              6.0
+            ],
+            "CFrame": [
+              13.5,
+              2.0,
+              47.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Fabric",
+            "Color": [
+              0.22,
+              0.26,
+              0.3
+            ]
+          }
+        },
+        {
+          "Name": "AdmissionsOffice_AdmissionsDesk",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              6.0,
+              3.2,
+              2.5
+            ],
+            "CFrame": [
+              -16.0,
+              2.6,
+              23.75,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Wood",
+            "Color": [
+              0.3,
+              0.22,
+              0.15
+            ]
+          }
+        },
+        {
+          "Name": "NurseStation_NurseCounter",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              8.0,
+              3.5,
+              2.0
+            ],
+            "CFrame": [
+              10.0,
+              2.75,
+              25.5,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [
+              0.7,
+              0.74,
+              0.72
+            ]
+          }
+        },
+        {
+          "Name": "PatientWardA_BedA",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              3.0,
+              1.8,
+              7.0
+            ],
+            "CFrame": [
+              -55.5,
+              1.9,
+              21.5,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [
+              0.5,
+              0.52,
+              0.5
+            ]
+          }
+        },
+        {
+          "Name": "PatientWardA_BedB",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              3.0,
+              1.8,
+              7.0
+            ],
+            "CFrame": [
+              -55.5,
+              1.9,
+              34.5,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [
+              0.5,
+              0.52,
+              0.5
+            ]
+          }
+        },
+        {
+          "Name": "PatientWardA_BedC",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              3.0,
+              1.8,
+              4.5
+            ],
+            "CFrame": [
+              -46.5,
+              1.9,
+              36.25,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [
+              0.5,
+              0.52,
+              0.5
+            ]
+          }
+        },
+        {
+          "Name": "RecordsOffice_Shelves",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.7,
+              7.0,
+              16.0
+            ],
+            "CFrame": [
+              -21.65,
+              4.5,
+              28.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Wood",
+            "Color": [
+              0.34,
+              0.26,
+              0.18
+            ]
+          }
+        },
+        {
+          "Name": "RecordsOffice_ArchiveDesk",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              5.0,
+              3.2,
+              3.0
+            ],
+            "CFrame": [
+              -35.5,
+              2.6,
+              31.5,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Wood",
+            "Color": [
+              0.3,
+              0.22,
+              0.15
+            ]
+          }
+        },
+        {
+          "Name": "RecordsOffice_FileCabinets",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              6.0,
+              5.0,
+              1.5
+            ],
+            "CFrame": [
+              -30.0,
+              3.5,
+              37.15,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [
+              0.4,
+              0.42,
+              0.42
+            ]
+          }
+        },
+        {
+          "Name": "UtilityRoom_BoilerA",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              6.0,
+              8.0,
+              8.0
+            ],
+            "CFrame": [
+              27.0,
+              5.0,
+              24.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "CorrodedMetal",
+            "Color": [
+              0.32,
+              0.26,
+              0.22
+            ]
+          }
+        },
+        {
+          "Name": "UtilityRoom_BoilerB",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              6.0,
+              8.0,
+              7.0
+            ],
+            "CFrame": [
+              27.0,
+              5.0,
+              34.5,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "CorrodedMetal",
+            "Color": [
+              0.32,
+              0.26,
+              0.22
+            ]
+          }
+        },
+        {
+          "Name": "StorageRoom_ShelfRowA",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              20.0,
+              8.0,
+              2.0
+            ],
+            "CFrame": [
+              34.0,
+              5.0,
+              50.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [
+              0.38,
+              0.4,
+              0.42
+            ]
+          }
+        },
+        {
+          "Name": "StorageRoom_CratesA",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              4.0,
+              3.0,
+              3.5
+            ],
+            "CFrame": [
+              42.0,
+              2.5,
+              43.25,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Wood",
+            "Color": [
+              0.36,
+              0.28,
+              0.2
+            ]
+          }
+        },
+        {
+          "Name": "TreatmentRoom_ExamTableA",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              6.0,
+              2.8,
+              4.0
+            ],
+            "CFrame": [
+              -25.0,
+              2.4,
+              -12.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [
+              0.8,
+              0.82,
+              0.84
+            ]
+          }
+        },
+        {
+          "Name": "TreatmentRoom_ExamTableB",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              6.0,
+              2.8,
+              4.0
+            ],
+            "CFrame": [
+              -25.0,
+              2.4,
+              0.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "SmoothPlastic",
+            "Color": [
+              0.8,
+              0.82,
+              0.84
+            ]
+          }
+        },
+        {
+          "Name": "TreatmentRoom_InstrumentCabinet",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.5,
+              6.0,
+              6.0
+            ],
+            "CFrame": [
+              -33.75,
+              4.0,
+              -16.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [
+              0.74,
+              0.76,
+              0.78
+            ]
+          }
+        },
+        {
+          "Name": "HydrotherapyWard_TubA",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              4.0,
+              2.2,
+              7.0
+            ],
+            "CFrame": [
+              12.0,
+              2.1,
+              -0.5,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [
+              0.62,
+              0.66,
+              0.68
+            ]
+          }
+        },
+        {
+          "Name": "HydrotherapyWard_TubB",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              4.0,
+              2.2,
+              7.0
+            ],
+            "CFrame": [
+              19.0,
+              2.1,
+              -0.5,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [
+              0.62,
+              0.66,
+              0.68
+            ]
+          }
+        },
+        {
+          "Name": "HydrotherapyWard_TubC",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              4.0,
+              2.2,
+              7.0
+            ],
+            "CFrame": [
+              27.0,
+              2.1,
+              -0.5,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [
+              0.62,
+              0.66,
+              0.68
+            ]
+          }
+        },
+        {
+          "Name": "StaffOffice_StaffDesk",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              7.0,
+              3.2,
+              4.0
+            ],
+            "CFrame": [
+              -36.5,
+              2.6,
+              -44.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Wood",
+            "Color": [
+              0.3,
+              0.22,
+              0.15
+            ]
+          }
+        },
+        {
+          "Name": "StaffOffice_LockerBank",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              1.5,
+              7.0,
+              5.0
+            ],
+            "CFrame": [
+              -42.25,
+              4.5,
+              -35.5,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [
+              0.34,
+              0.36,
+              0.38
+            ]
+          }
+        },
+        {
+          "Name": "GateHall_GatePillarW",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.5,
+              12.0,
+              2.5
+            ],
+            "CFrame": [
+              -8.75,
+              7.0,
+              -40.75,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.4,
+              0.34,
+              0.32
+            ]
+          }
+        },
+        {
+          "Name": "GateHall_GatePillarE",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              2.5,
+              12.0,
+              2.5
+            ],
+            "CFrame": [
+              8.75,
+              7.0,
+              -40.75,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Concrete",
+            "Color": [
+              0.4,
+              0.34,
+              0.32
+            ]
+          }
+        },
+        {
+          "Name": "QuarantineWard_CotA",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              3.0,
+              1.8,
+              6.0
+            ],
+            "CFrame": [
+              23.5,
+              1.9,
+              -47.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [
+              0.45,
+              0.4,
+              0.4
+            ]
+          }
+        },
+        {
+          "Name": "QuarantineWard_CotB",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              3.0,
+              1.8,
+              6.0
+            ],
+            "CFrame": [
+              23.5,
+              1.9,
+              -37.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [
+              0.45,
+              0.4,
+              0.4
+            ]
+          }
+        },
+        {
+          "Name": "QuarantineWard_CotC",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              3.0,
+              1.8,
+              6.0
+            ],
+            "CFrame": [
+              30.5,
+              1.9,
+              -47.0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Metal",
+            "Color": [
+              0.45,
+              0.4,
+              0.4
+            ]
+          }
+        },
+        {
+          "Name": "LoadingDock_CrateStackA",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              6.0,
+              4.0,
+              5.0
+            ],
+            "CFrame": [
+              43.0,
+              3.0,
+              -47.5,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Wood",
+            "Color": [
+              0.36,
+              0.28,
+              0.2
+            ]
+          }
+        },
+        {
+          "Name": "LoadingDock_CrateStackB",
+          "ClassName": "Part",
+          "Properties": {
+            "Size": [
+              5.0,
+              3.0,
+              3.5
+            ],
+            "CFrame": [
+              42.5,
+              2.5,
+              -35.25,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "Anchored": true,
+            "Material": "Wood",
+            "Color": [
+              0.36,
+              0.28,
+              0.2
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

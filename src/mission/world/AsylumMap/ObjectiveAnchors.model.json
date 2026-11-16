@@ -1,0 +1,239 @@
+{
+  "ClassName": "Model",
+  "Children": [
+    {
+      "Name": "EXTRACTION_POINT",
+      "ClassName": "Part",
+      "Properties": {
+        "Size": [
+          1.2,
+          4.0,
+          5.0
+        ],
+        "CFrame": [
+          58.8,
+          4.5,
+          -42.0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "Anchored": true,
+        "Material": "SmoothPlastic",
+        "Color": [
+          0.78,
+          0.6,
+          0.28
+        ],
+        "CanCollide": false,
+        "Tags": [
+          "ObjectivePoint"
+        ]
+      },
+      "Attributes": {
+        "PointId": "EXTRACTION_POINT"
+      }
+    },
+    {
+      "Name": "POWER_FUSE_A",
+      "ClassName": "Part",
+      "Properties": {
+        "Size": [
+          1.2,
+          3.0,
+          3.0
+        ],
+        "CFrame": [
+          46.8,
+          4.5,
+          28.0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "Anchored": true,
+        "Material": "SmoothPlastic",
+        "Color": [
+          0.78,
+          0.6,
+          0.28
+        ],
+        "CanCollide": false,
+        "Tags": [
+          "ObjectivePoint"
+        ]
+      },
+      "Attributes": {
+        "PointId": "POWER_FUSE_A"
+      }
+    },
+    {
+      "Name": "POWER_FUSE_B",
+      "ClassName": "Part",
+      "Properties": {
+        "Size": [
+          1.2,
+          3.0,
+          3.0
+        ],
+        "CFrame": [
+          -58.8,
+          4.5,
+          28.0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "Anchored": true,
+        "Material": "SmoothPlastic",
+        "Color": [
+          0.78,
+          0.6,
+          0.28
+        ],
+        "CanCollide": false,
+        "Tags": [
+          "ObjectivePoint"
+        ]
+      },
+      "Attributes": {
+        "PointId": "POWER_FUSE_B"
+      }
+    },
+    {
+      "Name": "POWER_FUSE_C",
+      "ClassName": "Part",
+      "Properties": {
+        "Size": [
+          3.0,
+          3.0,
+          1.2
+        ],
+        "CFrame": [
+          20.0,
+          4.5,
+          -18.8,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "Anchored": true,
+        "Material": "SmoothPlastic",
+        "Color": [
+          0.78,
+          0.6,
+          0.28
+        ],
+        "CanCollide": false,
+        "Tags": [
+          "ObjectivePoint"
+        ]
+      },
+      "Attributes": {
+        "PointId": "POWER_FUSE_C"
+      }
+    },
+    {
+      "Name": "RECORDS_CABINET",
+      "ClassName": "Part",
+      "Properties": {
+        "Size": [
+          4.0,
+          5.0,
+          1.2
+        ],
+        "CFrame": [
+          -30.0,
+          4.5,
+          38.8,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "Anchored": true,
+        "Material": "SmoothPlastic",
+        "Color": [
+          0.78,
+          0.6,
+          0.28
+        ],
+        "CanCollide": false,
+        "Tags": [
+          "ObjectivePoint"
+        ]
+      },
+      "Attributes": {
+        "PointId": "RECORDS_CABINET"
+      }
+    },
+    {
+      "Name": "WING_ACCESS_PANEL",
+      "ClassName": "Part",
+      "Properties": {
+        "Size": [
+          3.0,
+          3.5,
+          1.2
+        ],
+        "CFrame": [
+          8.0,
+          4.5,
+          -30.8,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "Anchored": true,
+        "Material": "SmoothPlastic",
+        "Color": [
+          0.78,
+          0.6,
+          0.28
+        ],
+        "CanCollide": false,
+        "Tags": [
+          "ObjectivePoint"
+        ]
+      },
+      "Attributes": {
+        "PointId": "WING_ACCESS_PANEL"
+      }
+    }
+  ]
+}

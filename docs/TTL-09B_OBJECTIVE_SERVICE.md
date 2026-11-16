@@ -14,8 +14,8 @@ Server-side integration of `ObjectiveGraph` / `ObjectiveCore` into the MISSION r
 |---|---|
 | `src/server_shared/Objective/ObjectiveRuntime.lua` | Pure orchestration with injected ports: compiles the content once, owns the `ObjectiveCore`, registers one interaction per slot, reconciles prompts, publishes snapshots, answers pulls, reports a resolution to the lifecycle. Lune-tested. |
 | `src/mission/server/Objective/ObjectiveService.lua` | Roblox glue: wires real services into the runtime, builds the anchors, registers the pull request and the lifecycle system `Objective`. |
-| `src/mission/server/Objective/ObjectiveConfig.lua` | Server-only interaction, prompt and fixture tunables with a pure validator. |
-| `src/mission/server/Objective/ObjectiveFixture.lua` | Runtime greybox anchors (no map exists yet; replaced in TTL-10). |
+| `src/mission/server/Objective/ObjectiveConfig.lua` | Server-only interaction and prompt tunables with a pure validator (the fixture section was removed in TTL-10). |
+| ~~`ObjectiveFixture.lua`~~ | Removed in TTL-10: anchors now come from the authored map (tag `ObjectivePoint`, attribute `PointId`), see `docs/TTL-10_FIRST_MISSION_MAP.md`. |
 | `NetworkContract` / `NetworkConfig` | `ObjectiveRequestSnapshot` (no payload, rate limit 3 / 0.5 per s) and `ObjectiveSnapshot` (full snapshot). |
 | `mission/server/Bootstrap.server.lua` | `ObjectiveService.init()` after `DoorInteractionService.init()`, before `MissionLifecycleService.init()`. |
 
@@ -32,7 +32,7 @@ Server-side integration of `ObjectiveGraph` / `ObjectiveCore` into the MISSION r
 - A REQUIRED slot that cannot be anchored or registered aborts the mission start (rollback, ABORTED / initialization_failed). An OPTIONAL objective is cancelled with `binding_failed` and the mission continues; if the Core cannot cancel it (it is still LOCKED) the start aborts, because the Core only defines cancel from AVAILABLE / IN_PROGRESS.
 - Prompt updates never change Core state; a failed update is retried by the next reconcile.
 - The lifecycle keeps ownership of mission state. The runtime only calls `isActive` and `endMission`.
-- Known gaps: a total team wipe does not end the mission (separate mission-outcome component, design 11.5); `ObjectiveFixture` placement is unverified; prompt distance and tolerance are provisional.
+- Known gaps: a total team wipe does not end the mission (separate mission-outcome component, design 11.5); the anchor placement of the authored map (TTL-10) is unverified in Studio; prompt distance and tolerance are provisional.
 
 ## Studio checklist (all pending)
 
