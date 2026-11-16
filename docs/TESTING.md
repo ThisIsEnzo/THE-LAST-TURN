@@ -169,3 +169,12 @@ Run with `lune run tests/run`; CI must also run both Rojo builds. Not covered an
 - `tools/asylum_greybox/validate_asylum_greybox.py` and `tools/asylum_greybox/test_validate_asylum_greybox.py` (Python, standard library only, run by `.github/workflows/mission-greybox-validation.yml`): schema and naming of the map sources, overlaps, a character-sized walker from the spawn through every room, doorway and anchor, loops in the room graph, the exact match between the authored `PointId`s and `ObjectiveContent.lua`, the Rojo `Workspace` mapping, freshness of the generated files and absence of the removed fixture.
 
 Run `python3 tools/asylum_greybox/validate_asylum_greybox.py` and `python3 -m unittest discover -s tools/asylum_greybox -p "test_*.py"`, plus `lune run tests/run` and both Rojo builds. Not covered and not run: how the map looks and plays in Roblox Studio, Rojo's handling of the `Tags` and `Attributes` JSON forms, prompts at the authored positions, mobile and multiplayer behavior. See the checklist in `docs/TTL-10_FIRST_MISSION_MAP.md`.
+
+## 20. Evidence core tests (TTL-11A)
+
+Pure Lune specs, registered in `tests/run.lua` (no Roblox APIs):
+- `tests/server_shared/EvidenceCatalog.spec.lua`: definition validation (structure, limits, tokens, text including control characters, the confirmation requirement, duplicate ids), fixed error ordering, determinism, input ownership (`validate` neither mutates nor freezes the caller's table), and `compile` as a frozen copy.
+- `tests/server_shared/EvidenceCore.spec.lua`: initial state, the explicit state machine (valid and invalid transitions, terminal CONFIRMED, a seeded pseudo-random command stream checked against the transition table), duplicate observations and confirmations, shared and capped progress, source limit, invalid contexts / contributors / evidence / source ids, rejection precedence, atomicity, revision, copy semantics, determinism, mission-agnostic behavior, and the invariant checker against corrupted state.
+- `tests/server_shared/EvidenceContent.spec.lua`: the shipped example catalog validates, is deeply frozen, is solo-viable and cannot be confirmed by a single report.
+
+Run with `lune run tests/run`; CI must also run both Rojo builds. Not covered: any runtime integration (there is none in TTL-11A), `EvidenceService`, network and HUD (TTL-11B and later), and every Roblox Studio / multiplayer / mobile check.
