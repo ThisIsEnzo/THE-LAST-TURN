@@ -224,4 +224,62 @@ function Messages.objectiveMore(count: any): string
     return ""
 end
 
+-- Evidence HUD (TTL-11C). Evidence titles come from the server snapshot (discovered evidence only); only the fixed chrome
+-- lives here. Never shows ids, source names or states as codes beyond the plain status words below.
+Messages.EvidenceHeader = "EVIDENCE"
+Messages.EvidenceJournalTitle = "EVIDENCE JOURNAL"
+Messages.EvidenceEmpty = "Nothing found yet."
+
+-- "EVIDENCE 2 / 4", or just "EVIDENCE 2" when the server did not supply a total (nothing is invented).
+function Messages.evidenceCounter(discovered: any, total: any): string
+    local found = 0
+    if type(discovered) == "number" and discovered == discovered and discovered >= 0 then
+        found = math.floor(discovered)
+    end
+    if type(total) == "number" and total == total and total >= 1 and total >= found then
+        return string.format("%s %d / %d", Messages.EvidenceHeader, found, math.floor(total))
+    end
+    return string.format("%s %d", Messages.EvidenceHeader, found)
+end
+
+function Messages.evidenceStatus(state: any): string
+    if state == "OBSERVED" then
+        return "OBSERVED"
+    elseif state == "CONFIRMED" then
+        return "CONFIRMED"
+    end
+    return ""
+end
+
+-- "ENVIRONMENTAL" -> "Environmental", "SOME_TYPE" -> "Some type".
+function Messages.evidenceCategory(token: any): string
+    if type(token) ~= "string" or #token == 0 then
+        return ""
+    end
+    local words = string.lower((string.gsub(token, "_", " ")))
+    return string.upper(string.sub(words, 1, 1)) .. string.sub(words, 2)
+end
+
+-- Corroboration of evidence that needs several distinct sightings, e.g. "1 of 2 sightings".
+function Messages.evidenceCorroboration(sources: any, required: any): string
+    if type(sources) == "number" and type(required) == "number" and sources >= 1 and required >= 2 and sources <= required then
+        return string.format("%d of %d sightings", math.floor(sources), math.floor(required))
+    end
+    return ""
+end
+
+-- One short line for a transition event (kinds from EvidenceView.EventKinds); `title` is server text.
+function Messages.evidenceEvent(kind: any, title: any): string
+    local name = "a clue"
+    if type(title) == "string" and #title > 0 then
+        name = title
+    end
+    if kind == "DISCOVERED" then
+        return "New evidence: " .. name
+    elseif kind == "CONFIRMED" then
+        return "Confirmed: " .. name
+    end
+    return ""
+end
+
 return Messages

@@ -32,3 +32,29 @@ startPart("ObjectiveHud", function()
         ObjectiveHud.start(objectiveController)
     end
 end)
+
+-- TTL-11C: evidence HUD. The controller is the shared snapshot controller driving EvidenceView; the presenter (pure) decides
+-- what to show and the HUD (UI port) draws it. Each piece starts in its own protected call.
+local EvidenceNetwork = require(script.Parent:WaitForChild("Evidence"):WaitForChild("EvidenceNetwork"))
+local EvidenceHud = require(script.Parent:WaitForChild("Evidence"):WaitForChild("EvidenceHud"))
+local EvidencePresenter = require(Shared:WaitForChild("Evidence"):WaitForChild("EvidencePresenter"))
+local Messages = require(Shared:WaitForChild("UI"):WaitForChild("Messages"))
+
+local evidenceController: any = nil
+startPart("EvidenceController", function()
+    evidenceController = EvidenceNetwork.createController()
+    evidenceController:start() -- connects the listener first, then pulls the current snapshot once it is ready
+end)
+startPart("EvidenceHud", function()
+    if evidenceController ~= nil then
+        local presenter = EvidencePresenter.new({
+            controller = evidenceController,
+            ui = EvidenceHud,
+            text = Messages,
+            log = function(message: string)
+                warn("[THE LAST TURN][MISSION]" .. message)
+            end,
+        })
+        presenter:start() -- idempotent: one HUD, however often this runs
+    end
+end)

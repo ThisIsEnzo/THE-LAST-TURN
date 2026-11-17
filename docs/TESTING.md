@@ -186,3 +186,12 @@ Pure Lune specs, registered in `tests/run.lua`. `EvidenceService` is Roblox glue
 - `tests/server_shared/EvidenceConfig.spec.lua`: configuration validation, derived interaction specs and prompt options against `InteractionCore.validateSpec` / `InteractionConfig.validatePromptOptions`, the generic prompt text, and the contract and rate-limit additions.
 
 Run with `lune run tests/run`; CI must also run both Rojo builds. Not covered and not run: `EvidenceService` wiring, real prompts and replication, the authored evidence sources (none exist yet), mission teardown order and every Roblox Studio / multiplayer / mobile check. The Studio checklist is in `docs/TTL-11B_EVIDENCE_SERVICE.md` and is pending.
+
+## 22. Evidence HUD tests (TTL-11C)
+
+Pure Lune specs, registered in `tests/run.lua`. The HUD (`EvidenceHud`) builds GUI instances and `EvidenceNetwork` touches RemoteEvents, so neither can be required under Lune; all client state, revision, synchronization and presentation logic lives in the pure `EvidenceView`, the existing `ObjectiveController` (driven through injected ports) and `EvidencePresenter`.
+- `tests/shared/EvidenceView.spec.lua`: baseline and initialization from an existing snapshot, revision rule, one discovery = one entry and one event, confirmation events, several discoveries, total handling (never invented), privacy (UNKNOWN rejects the payload, extra fields dropped), malformed payloads and entry fields, duplicates and limits, copy semantics.
+- `tests/shared/EvidencePresenter.spec.lua`: the real controller + view + presenter + `Messages` with fake network, clock and UI: initialization and the pull race, counter and journal updates, duplicates and stale updates (no renders), shared notifications, no ids or raw codes in the render state, journal open/close, idempotent start (respawn), listener leak check, destroy and mission end, restart, UI and render failures.
+- `tests/shared/Messages.spec.lua`: the new evidence strings.
+
+Run with `lune run tests/run`; CI must also run both Rojo builds. Not covered and not run: `EvidenceHud` rendering and key binding, `EvidenceNetwork` against real remotes, the Bootstrap wiring, and every Roblox Studio / mobile / multiplayer check (checklist in `docs/TTL-11C_EVIDENCE_HUD.md`).

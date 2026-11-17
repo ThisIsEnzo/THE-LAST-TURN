@@ -34,6 +34,8 @@ require("./server_shared/EvidenceRuntime.spec")
 require("./server_shared/EvidenceConfig.spec")
 require("./shared/ObjectiveView.spec")
 require("./shared/ObjectiveController.spec")
+require("./shared/EvidenceView.spec")
+require("./shared/EvidencePresenter.spec")
 
 local results = Harness.results()
 for _, failure in ipairs(results.failures) do
