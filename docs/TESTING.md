@@ -178,3 +178,11 @@ Pure Lune specs, registered in `tests/run.lua` (no Roblox APIs):
 - `tests/server_shared/EvidenceContent.spec.lua`: the shipped example catalog validates, is deeply frozen, is solo-viable and cannot be confirmed by a single report.
 
 Run with `lune run tests/run`; CI must also run both Rojo builds. Not covered: any runtime integration (there is none in TTL-11A), `EvidenceService`, network and HUD (TTL-11B and later), and every Roblox Studio / multiplayer / mobile check.
+
+## 21. Evidence service tests (TTL-11B)
+
+Pure Lune specs, registered in `tests/run.lua`. `EvidenceService` is Roblox glue and cannot be required under Lune; all orchestration lives in the pure `EvidenceRuntime`, driven with the production `InteractionCore` and `RateLimiter` (so range, eligibility, participation, disabled prompts, busy/cooldown and rate limiting are enforced by the real code) plus fakes for the lifecycle, players, source objects, network and clock.
+- `tests/server_shared/EvidenceRuntime.spec.lua`: initialization and failure with full rollback; valid discovery with authoritative ledger assertions; multi-player snapshots, joining and pulling; corroboration and confirmation policy; snapshot privacy; out-of-range, dead, non-participant and inactive-mission rejections; missing, unavailable, malformed, unknown and ambiguous sources; duplicate and flood handling; disconnects; failure isolation and healing; stop, restart and stale handlers.
+- `tests/server_shared/EvidenceConfig.spec.lua`: configuration validation, derived interaction specs and prompt options against `InteractionCore.validateSpec` / `InteractionConfig.validatePromptOptions`, the generic prompt text, and the contract and rate-limit additions.
+
+Run with `lune run tests/run`; CI must also run both Rojo builds. Not covered and not run: `EvidenceService` wiring, real prompts and replication, the authored evidence sources (none exist yet), mission teardown order and every Roblox Studio / multiplayer / mobile check. The Studio checklist is in `docs/TTL-11B_EVIDENCE_SERVICE.md` and is pending.

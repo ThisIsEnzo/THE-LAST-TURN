@@ -30,6 +30,8 @@ require("./server_shared/ObjectiveAnchors.spec")
 require("./server_shared/EvidenceCatalog.spec")
 require("./server_shared/EvidenceCore.spec")
 require("./server_shared/EvidenceContent.spec")
+require("./server_shared/EvidenceRuntime.spec")
+require("./server_shared/EvidenceConfig.spec")
 require("./shared/ObjectiveView.spec")
 require("./shared/ObjectiveController.spec")
 

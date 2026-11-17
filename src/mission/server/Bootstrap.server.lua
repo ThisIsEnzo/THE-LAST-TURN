@@ -18,6 +18,7 @@ local MissionConfigService = require(script.Parent.MissionConfig.MissionConfigSe
 local InteractionService = require(script.Parent.Interaction.InteractionService)
 local DoorInteractionService = require(script.Parent.Door.DoorInteractionService)
 local ObjectiveService = require(script.Parent.Objective.ObjectiveService)
+local EvidenceService = require(script.Parent.Evidence.EvidenceService)
 
 NetworkService.init()
 PlayerStateService.init() -- TTL-03: must run after networking; other systems start after this.
@@ -26,6 +27,7 @@ MissionConfigService.init() -- TTL-07: registers the first lifecycle system; MUS
 InteractionService.init() -- TTL-08B-B: registers the Interaction lifecycle system; after MissionConfigService, BEFORE MissionLifecycleService.init().
 DoorInteractionService.init() -- TTL-08C: first gameplay consumer; registers after InteractionService, BEFORE MissionLifecycleService.init().
 ObjectiveService.init() -- TTL-09B: after InteractionService (and the door), BEFORE MissionLifecycleService.init().
+EvidenceService.init() -- TTL-11B: after InteractionService and ObjectiveService, BEFORE MissionLifecycleService.init().
 MissionLifecycleService.init() -- TTL-06: owns the mission lifecycle; after MissionContextService.
 DiagnosticHandshake.register("MISSION") -- TTL-02 diagnostic only; removable.
 
