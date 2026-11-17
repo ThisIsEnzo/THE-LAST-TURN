@@ -31,6 +31,9 @@ local NetworkContract = {
         -- TTL-09B Objectives (MISSION handler only; HUB registers none). No payload: the client can only pull the
         -- snapshot once its listener is connected. No request can complete, fail or change an objective.
         ObjectiveRequestSnapshot = "ObjectiveRequestSnapshot",
+        -- TTL-11B Evidence (MISSION handler only; HUB registers none). No payload: the client can only pull the snapshot once
+        -- its listener is connected. Evidence is discovered through server-created interactions, never through a request.
+        EvidenceRequestSnapshot = "EvidenceRequestSnapshot",
     }),
 
     -- Server -> client.
@@ -42,6 +45,7 @@ local NetworkContract = {
         PartyActionResult = "PartyActionResult", -- correlated server acknowledgement for invite/response requests
         MissionLaunchStatus = "MissionLaunchStatus", -- launch progress/failure for the affected party members only
         ObjectiveSnapshot = "ObjectiveSnapshot", -- TTL-09B: full objective snapshot with a monotonic revision, to mission participants only
+        EvidenceSnapshot = "EvidenceSnapshot", -- TTL-11B: privacy-safe evidence snapshot (discovered evidence only) with a monotonic revision, to mission participants only
     }),
 }
 
