@@ -109,6 +109,15 @@ ANCHORS = {
     "RECORDS_CABINET": ("RecordsOffice", -30.0, 4.5, 38.8, (4.0, 5.0, 1.2)),
 }
 
+# Evidence sources: SourceId -> (evidenceId, expected region, world x, world y, world z, size).
+# Wall-mounted non-collidable parts discovered through EvidenceSource + EvidenceId/SourceId.
+EVIDENCE_SOURCES = {
+    "COLD_SPOT_TREATMENT": ("COLD_SPOT", "TreatmentRoom", -34.8, 4.5, -6.0, (1.2, 3.0, 3.0)),
+    "COLD_SPOT_QUARANTINE": ("COLD_SPOT", "QuarantineWard", 34.8, 4.5, -42.0, (1.2, 3.0, 3.0)),
+}
+EVIDENCE_TAG = "EvidenceSource"
+MIN_SOURCE_SEPARATION = 40.0
+
 # Props: (region, name, x0, z0, x1, z1, height, material, colour) in WORLD studs. Anchored, collidable.
 PROPS = [
     ("EntranceLobby", "ReceptionDesk", -18.0, 34.0, -10.0, 38.0, 3.5, "Wood", (0.3, 0.22, 0.15)),

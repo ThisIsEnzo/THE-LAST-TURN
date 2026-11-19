@@ -177,6 +177,19 @@ def build_anchors():
     return {"ClassName": "Model", "Children": children}
 
 
+def build_evidence_sources():
+    children = []
+    for source_id, (evidence_id, region, x, y, z, size) in sorted(L.EVIDENCE_SOURCES.items()):
+        node = part(source_id, x - size[0] / 2, x + size[0] / 2,
+                    y - size[1] / 2, y + size[1] / 2,
+                    z - size[2] / 2, z + size[2] / 2,
+                    "SmoothPlastic", (0.45, 0.62, 0.72), collide=False,
+                    extra={"Tags": [L.EVIDENCE_TAG]})
+        node["Attributes"] = {"EvidenceId": evidence_id, "SourceId": source_id}
+        children.append(node)
+    return {"ClassName": "Model", "Children": children}
+
+
 def build_spawn():
     sx, sy, sz = L.SPAWN["size"]
     return {
@@ -210,6 +223,7 @@ def main():
     write(os.path.join(env, "Lighting.model.json"), build_lamps())
     write(os.path.join(env, "Props.model.json"), build_props())
     write(os.path.join(env, "ObjectiveAnchors.model.json"), build_anchors())
+    write(os.path.join(env, "EvidenceSources.model.json"), build_evidence_sources())
     print("generated", world)
 
 

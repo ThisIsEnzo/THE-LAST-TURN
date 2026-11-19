@@ -1,0 +1,85 @@
+{
+  "ClassName": "Model",
+  "Children": [
+    {
+      "Name": "COLD_SPOT_QUARANTINE",
+      "ClassName": "Part",
+      "Properties": {
+        "Size": [
+          1.2,
+          3,
+          3
+        ],
+        "CFrame": [
+          34.8,
+          4.5,
+          -42,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "Anchored": true,
+        "Material": "SmoothPlastic",
+        "Color": [
+          0.45,
+          0.62,
+          0.72
+        ],
+        "CanCollide": false,
+        "Tags": [
+          "EvidenceSource"
+        ]
+      },
+      "Attributes": {
+        "EvidenceId": "COLD_SPOT",
+        "SourceId": "COLD_SPOT_QUARANTINE"
+      }
+    },
+    {
+      "Name": "COLD_SPOT_TREATMENT",
+      "ClassName": "Part",
+      "Properties": {
+        "Size": [
+          1.2,
+          3,
+          3
+        ],
+        "CFrame": [
+          -34.8,
+          4.5,
+          -6,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "Anchored": true,
+        "Material": "SmoothPlastic",
+        "Color": [
+          0.45,
+          0.62,
+          0.72
+        ],
+        "CanCollide": false,
+        "Tags": [
+          "EvidenceSource"
+        ]
+      },
+      "Attributes": {
+        "EvidenceId": "COLD_SPOT",
+        "SourceId": "COLD_SPOT_TREATMENT"
+      }
+    }
+  ]
+}
