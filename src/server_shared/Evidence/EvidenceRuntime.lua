@@ -153,6 +153,8 @@ function EvidenceRuntime.new(deps: Deps): Runtime
         _roster = {}, -- [userId] = true
         _rosterList = {}, -- UserIds in session order (deterministic broadcast order)
         _slots = {}, -- array of { evidenceId, sourceId, anchor, handle, applied }
+        _confirmedSubscribers = {},
+        _nextConfirmedSubscriberId = 0,
     }, Runtime)
 end
 
@@ -277,9 +279,11 @@ local function activate(self: any, capturedGeneration: number, slot: any, player
     if not result.ok or not result.changed then
         return false
     end
+    local confirmed = false
     if deps.config.confirmWhenCorroborated then
         -- Policy only: EvidenceCore decides whether enough distinct sources agree (a rejection here is normal and silent).
-        self._core:confirm(slot.evidenceId, userId, context)
+        local confirmResult = self._core:confirm(slot.evidenceId, userId, context)
+        confirmed = confirmResult.ok and confirmResult.changed
     end
     local reconciled, reconcileError = pcall(reconcile, self)
     if not reconciled then
@@ -288,6 +292,22 @@ local function activate(self: any, capturedGeneration: number, slot: any, player
     local sent, sendError = pcall(broadcast, self)
     if not sent then
         log(self, "broadcast raised: " .. tostring(sendError))
+    end
+    if confirmed then
+        local callbacks = {}
+        for _, callback in pairs(self._confirmedSubscribers) do
+            table.insert(callbacks, callback)
+        end
+        for _, callback in ipairs(callbacks) do
+            local ok, callbackError = pcall(callback, slot.evidenceId, {
+                sourceId = slot.sourceId,
+                confirmedBy = userId,
+                at = context.now,
+            })
+            if not ok then
+                log(self, "confirmed subscriber raised: " .. tostring(callbackError))
+            end
+        end
     end
     return true
 end
@@ -394,6 +414,7 @@ function Runtime.stop(self: any)
     self._plan = nil
     self._roster = {}
     self._rosterList = {}
+    self._confirmedSubscribers = {}
 end
 
 function Runtime.isRunning(self: any): boolean
@@ -410,6 +431,19 @@ function Runtime.requestSnapshot(self: any, player: any)
         return
     end
     sendSnapshot(self, player)
+end
+
+-- Subscribes to actual OBSERVED -> CONFIRMED transitions. Subscribers are mission-scoped and cleared on stop.
+function Runtime.onConfirmed(self: any, callback: (evidenceId: string, info: any) -> ()): () -> ()
+    if type(callback) ~= "function" or not self._running then
+        return function() end
+    end
+    self._nextConfirmedSubscriberId += 1
+    local id = self._nextConfirmedSubscriberId
+    self._confirmedSubscribers[id] = callback
+    return function()
+        self._confirmedSubscribers[id] = nil
+    end
 end
 
 -- Diagnostics (read-only).
