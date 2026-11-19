@@ -173,6 +173,15 @@ function ObjectiveService.getObjectiveState(objectiveId: string): string?
     return active:getObjectiveState(objectiveId)
 end
 
+-- Trusted server-only SIGNAL completion. No client remote exposes this method.
+function ObjectiveService.completeBySignal(objectiveId: string, sourceToken: string): any
+    local active = runtime
+    if active == nil then
+        return { ok = false, reason = "not_running", changed = false, changes = {}, resolution = nil }
+    end
+    return active:applySignal(objectiveId, sourceToken)
+end
+
 -- Idempotent. Must run after InteractionService.init() and BEFORE MissionLifecycleService.init(). Invalid configuration
 -- or content is logged here; start() then aborts the mission with the same problem.
 function ObjectiveService.init()
