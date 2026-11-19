@@ -28,6 +28,8 @@ InteractionService.init() -- TTL-08B-B: registers the Interaction lifecycle syst
 DoorInteractionService.init() -- TTL-08C: first gameplay consumer; registers after InteractionService, BEFORE MissionLifecycleService.init().
 ObjectiveService.init() -- TTL-09B: after InteractionService (and the door), BEFORE MissionLifecycleService.init().
 EvidenceService.init() -- TTL-11B: after InteractionService and ObjectiveService, BEFORE MissionLifecycleService.init().
+local EvidenceObjectiveBridgeService = require(script.Parent.Evidence.EvidenceObjectiveBridgeService)
+EvidenceObjectiveBridgeService.init() -- TTL-11D: after Evidence/Objective systems, BEFORE MissionLifecycleService.init().
 MissionLifecycleService.init() -- TTL-06: owns the mission lifecycle; after MissionContextService.
 DiagnosticHandshake.register("MISSION") -- TTL-02 diagnostic only; removable.
 
