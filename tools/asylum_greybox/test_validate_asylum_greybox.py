@@ -24,6 +24,7 @@ COPIED = [
     "mission.project.json",
     os.path.join("src", "mission", "server", "Objective", "ObjectiveContent.lua"),
     os.path.join("src", "mission", "server", "Objective", "ObjectiveConfig.lua"),
+    os.path.join("src", "mission", "server", "Evidence", "EvidenceContent.lua"),
 ]
 
 
@@ -84,6 +85,7 @@ class AsylumGreyboxTests(unittest.TestCase):
             os.path.join("AsylumMap", "Lighting.model.json"): G.build_lamps(),
             os.path.join("AsylumMap", "Props.model.json"): G.build_props(),
             os.path.join("AsylumMap", "ObjectiveAnchors.model.json"): G.build_anchors(),
+            os.path.join("AsylumMap", "EvidenceSources.model.json"): G.build_evidence_sources(),
         }
         for rel, node in expected.items():
             with open(os.path.join(ROOT, "src", "mission", "world", rel), encoding="utf-8") as handle:
@@ -270,6 +272,35 @@ class AsylumGreyboxTests(unittest.TestCase):
         errors = problems(self.tmp)
         self.assertTrue(any("RECORDS_CABINET_2" in e and "no authored anchor" in e for e in errors), errors)
         self.assertTrue(any("matches no objective pointId" in e for e in errors), errors)
+
+    # evidence sources ----------------------------------------------------------------------------------------------
+
+    def evidence_sources_path(self):
+        return world_path(self.tmp, "AsylumMap", "EvidenceSources.model.json")
+
+    def test_missing_evidence_source_is_detected(self):
+        edit_json(self.evidence_sources_path(), lambda data: data["Children"].pop(0))
+        self.assertProblem("needs 2 distinct authored sources")
+
+    def test_missing_evidence_tag_is_detected(self):
+        edit_json(self.evidence_sources_path(), lambda data: data["Children"][0]["Properties"].pop("Tags"))
+        self.assertProblem("missing tag EvidenceSource")
+
+    def test_unknown_evidence_id_is_detected(self):
+        edit_json(self.evidence_sources_path(), lambda data: data["Children"][0]["Attributes"].update({"EvidenceId": "NOT_REAL"}))
+        self.assertProblem("unknown or missing EvidenceId")
+
+    def test_duplicate_source_id_is_detected(self):
+        def mutate(data):
+            clone = json.loads(json.dumps(data["Children"][0]))
+            clone["Properties"]["CFrame"][0] -= 4
+            data["Children"].append(clone)
+        edit_json(self.evidence_sources_path(), mutate)
+        self.assertProblem("duplicate SourceId")
+
+    def test_collidable_evidence_source_is_rejected(self):
+        edit_json(self.evidence_sources_path(), lambda data: data["Children"][0]["Properties"].pop("CanCollide"))
+        self.assertProblem("must be non-collidable")
 
     # structure -----------------------------------------------------------------------------------------------------
 
