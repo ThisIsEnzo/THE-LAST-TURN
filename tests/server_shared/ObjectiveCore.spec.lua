@@ -182,7 +182,7 @@ end)
 -- trusted SIGNAL completion --------------------------------------------------------------------------------------
 
 test("SIGNAL completion validates token, completes once and is idempotent", function()
-    local core = newCore(planOf(signalDef("DOC", OPT, "evidence_token")))
+    local core = newCore(planOf(signalDef("DOC", REQ, "evidence_token")))
     local wrong = core:completeBySignal("DOC", "wrong", tick())
     expectFalse(wrong.ok)
     expectEqual(wrong.reason, Reasons.INVALID_SIGNAL_TOKEN)
@@ -211,7 +211,7 @@ test("SIGNAL rejects SLOTS and cannot complete while LOCKED", function()
 end)
 
 test("SIGNAL snapshot is projected as one display-only step", function()
-    local core = newCore(planOf(signalDef("DOC", OPT, "token")))
+    local core = newCore(planOf(signalDef("DOC", REQ, "token")))
     local before = core:getSnapshot().objectives[1]
     expectEqual(before.required, 1)
     expectEqual(before.filled, 0)
