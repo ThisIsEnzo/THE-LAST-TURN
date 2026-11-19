@@ -25,6 +25,7 @@ COPIED = [
     os.path.join("src", "mission", "server", "Objective", "ObjectiveContent.lua"),
     os.path.join("src", "mission", "server", "Objective", "ObjectiveConfig.lua"),
     os.path.join("src", "mission", "server", "Evidence", "EvidenceContent.lua"),
+    os.path.join("src", "mission", "server", "Evidence", "EvidenceObjectiveContent.lua"),
 ]
 
 
