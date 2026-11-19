@@ -1,6 +1,6 @@
 # TTL-11D — Evidence → Objectives Integration
 
-**Status:** implementation candidate on `feat/ttl-11d-evidence-objective-integration`. Automated Lune/Rojo validation is pending. Roblox Studio, multiplayer and mobile validation have not been performed.
+**Status:** implementation candidate on `feat/ttl-11d-evidence-objective-integration`. The Asylum map now authors two COLD_SPOT sources and the offline validator checks their tags, attributes, uniqueness, catalog membership, source count, room placement and interaction reach. CI must be rerun on the latest head. Roblox Studio, multiplayer and mobile validation have not been performed.
 
 ## Scope
 
@@ -35,6 +35,15 @@ The first mapping is optional and does not affect required progression:
 - Objective: `DOCUMENT_COLD_SPOT`
 - Token: `evidence_cold_spot`
 
+## Authored COLD_SPOT sources
+
+| SourceId | Room | Position (studs) |
+|---|---|---|
+| `COLD_SPOT_TREATMENT` | TreatmentRoom | (-34.8, 4.5, -6.0) |
+| `COLD_SPOT_QUARANTINE` | QuarantineWard | (34.8, 4.5, -42.0) |
+
+Both parts are tagged `EvidenceSource` and carry `EvidenceId = COLD_SPOT` plus their unique `SourceId`. The catalog requires two distinct sources. The map validator checks source validity, count, room placement and interaction reach. Server startup cross-validates mapped evidence IDs, objective kinds and signal tokens.
+
 ## Lifecycle
 
 Bootstrap initializes ObjectiveService and EvidenceService, then the bridge service, all before MissionLifecycleService.init(). The bridge therefore starts after the Evidence and Objective runtimes, and stops first in reverse order while EvidenceService is still alive. The bridge drops its deduplication state on stop.
@@ -45,4 +54,4 @@ A future server-side RitualService may read `EvidenceService.getEvidenceState(ev
 
 ## Validation and limits
 
-Pure tests cover SIGNAL validation/completion, token rejection, idempotency, snapshot projection, evidence confirmation callback behavior/isolation/cleanup, and bridge mapping/forwarding. Run `lune run tests/run` and both Rojo place builds in the real repository/CI. This authoring session has not run Lune, Rojo or Roblox Studio. Studio, multiplayer and mobile checks remain pending.
+Pure tests cover SIGNAL validation/completion, token rejection, idempotency, snapshot projection, evidence confirmation callback behavior/isolation/cleanup, and bridge mapping/forwarding. Python map regression tests cover missing/invalid evidence sources. CI must rerun Lune, both Rojo builds and the greybox validation workflow. Roblox Studio, multiplayer and mobile checks remain pending. Studio, multiplayer and mobile checks remain pending.
