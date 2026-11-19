@@ -75,7 +75,19 @@ local FIND_RECORDS = table.freeze({
     }),
 })
 
+-- TTL-11D optional objective: completed by the trusted server bridge after COLD_SPOT is CONFIRMED.
+local DOCUMENT_COLD_SPOT = table.freeze({
+    id = "DOCUMENT_COLD_SPOT",
+    importance = "OPTIONAL",
+    title = "Document cold spot",
+    description = "Confirm a cold spot to document the phenomenon.",
+    completion = table.freeze({
+        kind = "SIGNAL",
+        signal = table.freeze({ sourceToken = "evidence_cold_spot" }),
+    }),
+})
+
 return table.freeze({
-    version = 1,
-    objectives = table.freeze({ RESTORE_POWER, OPEN_WING, EXTRACT, FIND_RECORDS }),
+    version = 2,
+    objectives = table.freeze({ RESTORE_POWER, OPEN_WING, EXTRACT, FIND_RECORDS, DOCUMENT_COLD_SPOT }),
 })

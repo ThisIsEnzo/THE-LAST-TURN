@@ -41,17 +41,17 @@ end)
 
 test("the shipped content is deeply frozen plain data", function()
     expectTrue(deepFrozen(content), "every table is frozen")
-    expectEqual(content.version, 1)
+    expectEqual(content.version, 2)
     expectEqual(getmetatable(content), nil)
 end)
 
 test("the first slice has exactly the documented objectives", function()
-    expectEqual(#content.objectives, 4)
+    expectEqual(#content.objectives, 5)
     local ids = {}
     for _, objective in ipairs(content.objectives) do
         table.insert(ids, objective.id)
     end
-    expectEqual(table.concat(ids, ","), "RESTORE_POWER,OPEN_WING,EXTRACT,FIND_RECORDS")
+    expectEqual(table.concat(ids, ","), "RESTORE_POWER,OPEN_WING,EXTRACT,FIND_RECORDS,DOCUMENT_COLD_SPOT")
 
     local power = byId("RESTORE_POWER")
     expectEqual(power.importance, "REQUIRED")
@@ -83,7 +83,7 @@ end)
 test("the slice demonstrates the required capabilities", function()
     local multiSlot, optional, dependencyEdges = 0, 0, 0
     for _, objective in ipairs(content.objectives) do
-        if #objective.completion.slots > 1 then
+        if objective.completion.kind == "SLOTS" and #objective.completion.slots > 1 then
             multiSlot = multiSlot + 1
         end
         if objective.importance == "OPTIONAL" then
@@ -128,11 +128,20 @@ test("nothing required depends on the optional objective", function()
     end
 end)
 
-test("the slice uses no reserved features: no ALTERNATIVE importance, no SIGNAL completion", function()
+test("ALTERNATIVE remains reserved and the optional cold-spot objective uses SIGNAL", function()
+    local signals = 0
     for _, objective in ipairs(content.objectives) do
         expectTrue(objective.importance == "REQUIRED" or objective.importance == "OPTIONAL", objective.id)
-        expectEqual(objective.completion.kind, "SLOTS", objective.id)
+        if objective.completion.kind == "SIGNAL" then
+            signals += 1
+            expectEqual(objective.id, "DOCUMENT_COLD_SPOT")
+            expectEqual(objective.importance, "OPTIONAL")
+            expectEqual(objective.completion.signal.sourceToken, "evidence_cold_spot")
+        else
+            expectEqual(objective.completion.kind, "SLOTS", objective.id)
+        end
     end
+    expectEqual(signals, 1)
 end)
 
 test("every slot has its own anchor id and ids are unique", function()
@@ -140,12 +149,14 @@ test("every slot has its own anchor id and ids are unique", function()
     local slotIdsPerObjective = 0
     for _, objective in ipairs(content.objectives) do
         local slotIds: { [string]: boolean } = {}
-        for _, slot in ipairs(objective.completion.slots) do
-            expectEqual(points[slot.pointId], nil, "duplicate anchor " .. slot.pointId)
-            points[slot.pointId] = true
-            expectEqual(slotIds[slot.id], nil, "duplicate slot " .. slot.id)
-            slotIds[slot.id] = true
-            slotIdsPerObjective = slotIdsPerObjective + 1
+        if objective.completion.kind == "SLOTS" then
+            for _, slot in ipairs(objective.completion.slots) do
+                expectEqual(points[slot.pointId], nil, "duplicate anchor " .. slot.pointId)
+                points[slot.pointId] = true
+                expectEqual(slotIds[slot.id], nil, "duplicate slot " .. slot.id)
+                slotIds[slot.id] = true
+                slotIdsPerObjective = slotIdsPerObjective + 1
+            end
         end
     end
     expectEqual(slotIdsPerObjective, 6)
@@ -155,8 +166,10 @@ test("texts respect the documented limits", function()
     for _, objective in ipairs(content.objectives) do
         expectTrue(#objective.title <= ObjectiveGraph.Limits.MaxTitleBytes, objective.id)
         expectTrue(#objective.description <= ObjectiveGraph.Limits.MaxDescriptionBytes, objective.id)
-        for _, slot in ipairs(objective.completion.slots) do
-            expectTrue(#slot.label <= ObjectiveGraph.Limits.MaxLabelBytes, slot.id)
+        if objective.completion.kind == "SLOTS" then
+            for _, slot in ipairs(objective.completion.slots) do
+                expectTrue(#slot.label <= ObjectiveGraph.Limits.MaxLabelBytes, slot.id)
+            end
         end
     end
 end)

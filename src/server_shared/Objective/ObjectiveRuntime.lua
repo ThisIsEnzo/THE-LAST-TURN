@@ -229,6 +229,21 @@ local function contribute(self: any, capturedGeneration: number, objectiveId: st
     return true
 end
 
+-- Trusted server-side completion; deliberately has no player/remote path.
+function Runtime.applySignal(self: any, objectiveId: string, sourceToken: string): any
+    if not self._running or self._core == nil then
+        return { ok = false, reason = "not_running", changed = false, changes = {}, resolution = nil }
+    end
+    if not self._deps.lifecycle.isActive() then
+        return { ok = false, reason = "mission_inactive", changed = false, changes = {}, resolution = nil }
+    end
+    local result = self._core:completeBySignal(objectiveId, sourceToken, self._deps.now())
+    if result.ok and result.changed then
+        afterApplied(self, result)
+    end
+    return result
+end
+
 -- Raises on any problem so the lifecycle aborts the mission (ABORTED / initialization_failed); partial work is rolled
 -- back first. `session.expectedUserIds` is the roster; the session table is never kept or mutated.
 function Runtime.start(self: any, session: any)

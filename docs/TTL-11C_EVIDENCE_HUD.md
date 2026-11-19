@@ -1,6 +1,6 @@
 # TTL-11C — Evidence HUD
 
-Status: implemented on `feat/ttl-11c-evidence-hud` (stacked on TTL-11A and TTL-11B), pending PR review and merge. Automated checks: pending CI (`lune run tests/run`, both Rojo builds). **Roblox Studio, multiplayer and mobile validation: pending, none performed.**
+Status: MERGED to `master` (PR #28). CI for the merged head passed both Rojo builds and `lune run tests/run` (743 passed, 0 failed). **Roblox Studio, multiplayer and mobile validation: pending, none performed.**
 
 Source of truth: `docs/TTL-11B_EVIDENCE_SERVICE.md` (the replicated state) and `docs/TTL-09C_OBJECTIVE_HUD.md` (the client pattern this follows). The server schema and network contract are used unchanged.
 

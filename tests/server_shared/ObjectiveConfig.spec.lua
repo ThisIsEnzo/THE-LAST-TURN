@@ -51,13 +51,15 @@ end)
 test("every interaction spec and prompt option derived from the config passes the interaction layer's validators", function()
     local count = 0
     for _, objective in ipairs(ObjectiveContent.objectives) do
-        for _, slot in ipairs(objective.completion.slots) do
-            local spec = ObjectiveRuntime.buildSpec(ObjectiveConfig.Values, objective.id, slot.id)
+        if objective.completion.kind == "SLOTS" then
+            for _, slot in ipairs(objective.completion.slots) do
+                local spec = ObjectiveRuntime.buildSpec(ObjectiveConfig.Values, objective.id, slot.id)
             local ok, detail = InteractionCore.validateSpec(spec)
             expectTrue(ok, tostring(detail))
             local optionsOk, optionsDetail = InteractionConfig.validatePromptOptions(ObjectiveRuntime.buildPromptOptions(ObjectiveConfig.Values, slot.label))
             expectTrue(optionsOk, tostring(optionsDetail))
-            count = count + 1
+                count = count + 1
+            end
         end
     end
     expectEqual(count, 6)

@@ -15,8 +15,10 @@ end
 local function contentPointIds(): { string }
     local ids = {}
     for _, objective in ipairs((ObjectiveContent :: any).objectives) do
-        for _, slot in ipairs(objective.completion.slots) do
-            table.insert(ids, slot.pointId)
+        if objective.completion.kind == "SLOTS" then
+            for _, slot in ipairs(objective.completion.slots) do
+                table.insert(ids, slot.pointId)
+            end
         end
     end
     return ids

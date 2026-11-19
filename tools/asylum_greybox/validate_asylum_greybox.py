@@ -40,6 +40,9 @@ REACH_FACTOR = 0.75  # an interaction position must be within this fraction of t
 
 TAG = "ObjectivePoint"
 ATTRIBUTE = "PointId"
+EVIDENCE_TAG = "EvidenceSource"
+EVIDENCE_ATTRIBUTES = {"EvidenceId", "SourceId"}
+SOURCE_ID_PATTERN = re.compile(r"^[A-Z][A-Z0-9_]{0,31}$")
 
 ALLOWED_CLASSES = {"Model", "Folder", "Part", "SpawnLocation", "PointLight"}
 ALLOWED_PROPS = {
@@ -98,19 +101,25 @@ def check_node(report, path, node):
         elif key == "Material" and value not in MATERIALS:
             report.fail(f"{path}.Material {value!r} unknown")
         elif key == "Tags":
-            if value != [TAG]:
-                report.fail(f"{path}.Tags must be exactly [{TAG!r}]")
+            if value not in ([TAG], [EVIDENCE_TAG]):
+                report.fail(f"{path}.Tags must be exactly [{TAG!r}] or [{EVIDENCE_TAG!r}]")
     attributes = node.get("Attributes")
     if attributes is not None:
         if not (isinstance(attributes, dict) and all(isinstance(k, str) and isinstance(v, str) for k, v in attributes.items())):
             report.fail(f"{path}.Attributes must be a string-to-string map")
-        elif set(attributes) - {ATTRIBUTE}:
-            report.fail(f"{path}.Attributes: only {ATTRIBUTE} is allowed")
+        else:
+            keys = set(attributes)
+            if keys - ({ATTRIBUTE} | EVIDENCE_ATTRIBUTES):
+                report.fail(f"{path}.Attributes: only {ATTRIBUTE}, EvidenceId and SourceId are allowed")
+            elif EVIDENCE_ATTRIBUTES & keys and keys != EVIDENCE_ATTRIBUTES:
+                report.fail(f"{path}.Attributes: an evidence source needs both EvidenceId and SourceId")
+            elif ATTRIBUTE in keys and keys != {ATTRIBUTE}:
+                report.fail(f"{path}.Attributes: an objective anchor may only carry {ATTRIBUTE}")
     if cls in ("Part", "SpawnLocation") and props.get("Anchored") is not True:
         report.fail(f"{path}: part is not anchored")
 
 
-def walk(report, node, path, parts, anchors):
+def walk(report, node, path, parts, anchors, sources):
     name = node.get("Name", "")
     here = f"{path}/{name}" if name else path
     check_node(report, here, node)
@@ -139,15 +148,17 @@ def walk(report, node, path, parts, anchors):
                 "attributes": node.get("Attributes", {}),
             }
             parts.append(entry)
-            if TAG in entry["tags"] or ATTRIBUTE in entry["attributes"]:
+            if EVIDENCE_TAG in entry["tags"] or EVIDENCE_ATTRIBUTES & set(entry["attributes"]):
+                sources.append(entry)
+            elif TAG in entry["tags"] or ATTRIBUTE in entry["attributes"]:
                 anchors.append(entry)
     for child in children:
         if child.get("Name"):
-            walk(report, child, here, parts, anchors)
+            walk(report, child, here, parts, anchors, sources)
 
 
 def load(report, world):
-    parts, anchors, files = [], [], []
+    parts, anchors, sources, files = [], [], [], []
     for base, _, names in os.walk(world):
         for fname in sorted(names):
             if fname.endswith(".json"):
@@ -163,8 +174,8 @@ def load(report, world):
         stem = os.path.basename(path)[: -len(".model.json")] if path.endswith(".model.json") else os.path.basename(path)
         node = dict(node)
         node.setdefault("Name", stem)
-        walk(report, node, "", parts, anchors)
-    return parts, anchors, files
+        walk(report, node, "", parts, anchors, sources)
+    return parts, anchors, sources, files
 
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -296,6 +307,27 @@ def content_point_ids(root):
     return re.findall(r'slot\(\s*"[A-Z0-9_]+"\s*,\s*"([A-Z0-9_]+)"', text)
 
 
+def content_evidence_requirements(root):
+    text = read_text(os.path.join(root, "src", "mission", "server", "Evidence", "EvidenceContent.lua"))
+    pattern = r'evidence\(\s*"([A-Z0-9_]+)"\s*,\s*"[A-Z0-9_]+"\,\s*"[^"]*"\s*,\s*"[^"]*"\s*,\s*(\d+)\s*\)'
+    return {match[0]: int(match[1]) for match in re.findall(pattern, text)}
+
+
+def content_signal_objectives(root):
+    text = read_text(os.path.join(root, "src", "mission", "server", "Objective", "ObjectiveContent.lua"))
+    result = {}
+    for objective_id in re.findall(r'id\s*=\s*"([A-Z0-9_]+)"', text):
+        match = re.search(r'id\s*=\s*"' + re.escape(objective_id) + r'"[\s\S]{0,1200}?kind\s*=\s*"SIGNAL"[\s\S]{0,400}?sourceToken\s*=\s*"([A-Za-z0-9_-]+)"', text)
+        if match:
+            result[objective_id] = match.group(1)
+    return result
+
+
+def content_mappings(root):
+    text = read_text(os.path.join(root, "src", "mission", "server", "Evidence", "EvidenceObjectiveContent.lua"))
+    return re.findall(r'evidenceId\s*=\s*"([A-Z0-9_]+)"\s*,\s*objectiveId\s*=\s*"([A-Z0-9_]+)"\s*,\s*sourceToken\s*=\s*"([A-Za-z0-9_-]+)"', text)
+
+
 def configured_prompt_distance(root):
     text = read_text(os.path.join(root, "src", "mission", "server", "Objective", "ObjectiveConfig.lua"))
     match = re.search(r"maxDistance\s*=\s*([0-9.]+)", text)
@@ -318,7 +350,7 @@ def region_of(x, z):
 def validate(root, report=None):
     report = report or Report()
     world = os.path.join(root, "src", "mission", "world")
-    parts, anchors, files = load(report, world)
+    parts, anchors, sources, files = load(report, world)
     report.info["files"] = len(files)
     report.info["parts"] = len(parts)
     if not parts:
@@ -502,6 +534,68 @@ def validate(root, report=None):
         if best is not None:
             lengths[pid] = round(best * CELL)
     report.info["walk distance spawn -> anchor (studs, grid path)"] = dict(sorted(lengths.items()))
+
+
+    # 5b. authored evidence sources (TTL-11D)
+    requirements = content_evidence_requirements(root)
+    if not requirements:
+        report.fail("could not read any evidence definition from EvidenceContent.lua")
+    seen_sources = {}
+    per_evidence = {}
+    for entry in sources:
+        attrs = entry["attributes"]
+        evidence_id, source_id = attrs.get("EvidenceId"), attrs.get("SourceId")
+        if EVIDENCE_TAG not in entry["tags"]:
+            report.fail(f"evidence source {entry['path']}: missing tag {EVIDENCE_TAG}")
+        if not evidence_id or not SOURCE_ID_PATTERN.fullmatch(evidence_id):
+            report.fail(f"evidence source {entry['path']}: missing or invalid EvidenceId")
+        if not source_id or not SOURCE_ID_PATTERN.fullmatch(source_id):
+            report.fail(f"evidence source {entry['path']}: missing or invalid SourceId")
+        if source_id and entry["name"] != source_id:
+            report.fail(f"evidence source {entry['path']}: part name must equal its SourceId ({source_id})")
+        if entry["collide"] is not False:
+            report.fail(f"evidence source {entry['path']}: must be non-collidable")
+        if evidence_id and evidence_id not in requirements:
+            report.fail(f"evidence source {entry['path']}: EvidenceId {evidence_id} is not in EvidenceContent.lua")
+        if source_id:
+            if source_id in seen_sources:
+                report.fail(f"duplicate SourceId {source_id}")
+            seen_sources[source_id] = entry
+        if evidence_id and source_id and evidence_id in requirements:
+            per_evidence.setdefault(evidence_id, []).append(entry)
+    for evidence_id, entries in sorted(per_evidence.items()):
+        for entry in entries:
+            x0, x1, _, _, z0, z1 = entry["box"]
+            cx, cz = (x0 + x1) / 2, (z0 + z1) / 2
+            source_id = entry["attributes"].get("SourceId")
+            expected = L.EVIDENCE_SOURCES.get(source_id)
+            if expected and region_of(cx, cz) != expected[1]:
+                report.fail(f"evidence source {source_id} is in {region_of(cx, cz)}, expected {expected[1]}")
+            if nav.nearest_reachable_distance(cx, cz, reach_limit) is None:
+                report.fail(f"evidence source {source_id}: no walkable interaction position within {reach_limit} studs")
+        for i in range(len(entries)):
+            for j in range(i + 1, len(entries)):
+                a, b = entries[i]["box"], entries[j]["box"]
+                ax, az = (a[0] + a[1]) / 2, (a[4] + a[5]) / 2
+                bx, bz = (b[0] + b[1]) / 2, (b[4] + b[5]) / 2
+                distance = ((ax - bx) ** 2 + (az - bz) ** 2) ** 0.5
+                if distance < L.MIN_SOURCE_SEPARATION:
+                    report.fail(f"evidence {evidence_id}: sources are closer than {L.MIN_SOURCE_SEPARATION} studs")
+    if set(L.EVIDENCE_SOURCES) != set(seen_sources):
+        report.fail("asylum_layout.EVIDENCE_SOURCES does not match the authored evidence sources")
+    report.info["evidence sources"] = len(sources)
+
+    # 5c. evidence -> SIGNAL objective mapping consistency
+    signal_objectives = content_signal_objectives(root)
+    for evidence_id, objective_id, token in content_mappings(root):
+        if evidence_id not in requirements:
+            report.fail(f"mapping {evidence_id} -> {objective_id}: evidence id is not in EvidenceContent.lua")
+        if objective_id not in signal_objectives:
+            report.fail(f"mapping {evidence_id} -> {objective_id}: objective is not a SIGNAL objective in ObjectiveContent.lua")
+        elif signal_objectives[objective_id] != token:
+            report.fail(f"mapping {evidence_id} -> {objective_id}: sourceToken does not match the objective's configured token")
+        if len(per_evidence.get(evidence_id, [])) < requirements.get(evidence_id, 1):
+            report.fail(f"mapping {evidence_id} -> {objective_id}: evidence cannot be CONFIRMED with the authored sources")
 
     # 6. Rojo mapping
     try:

@@ -146,10 +146,15 @@ end
 -- Diagnostics: the current state of one evidence ("UNKNOWN", "OBSERVED", "CONFIRMED"), or nil when not running.
 function EvidenceService.getEvidenceState(evidenceId: string): string?
     local active = runtime
-    if active == nil then
-        return nil
-    end
+    if active == nil then return nil end
     return active:getEvidenceState(evidenceId)
+end
+
+-- Server-only mission-scoped subscription to actual evidence confirmations.
+function EvidenceService.onEvidenceConfirmed(callback: (evidenceId: string, info: any) -> ()): () -> ()
+    local active = runtime
+    if active == nil then return function() end end
+    return active:onConfirmed(callback)
 end
 
 -- Idempotent. Must run after InteractionService.init() and BEFORE MissionLifecycleService.init(). Invalid configuration or

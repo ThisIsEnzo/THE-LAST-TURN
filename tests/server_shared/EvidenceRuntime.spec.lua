@@ -737,6 +737,45 @@ test("a duplicate that reaches the handler is rejected by EvidenceCore and publi
     expectEqual(#world.sent, sent)
 end)
 
+test("confirmation subscribers fire only on a real OBSERVED -> CONFIRMED transition", function()
+    local world, runtime = started()
+    local events = {}
+    local unsubscribe = runtime:onConfirmed(function(id, info) table.insert(events, { id = id, info = info }) end)
+    expectOk(world.interact("COLD_SPOT/CELLAR", player(world, 1)))
+    expectEqual(#events, 0)
+    world.advance(5)
+    expectOk(world.interact("COLD_SPOT/ATTIC", player(world, 2)))
+    expectEqual(#events, 1)
+    expectEqual(events[1].id, "COLD_SPOT")
+    expectEqual(events[1].info.sourceId, "ATTIC")
+    unsubscribe()
+    runtime:stop()
+end)
+
+test("throwing confirmation subscribers are isolated from the ledger and broadcast", function()
+    local world, runtime = started()
+    runtime:onConfirmed(function() error("subscriber failed") end)
+    local calls = 0
+    runtime:onConfirmed(function() calls += 1 end)
+    expectOk(world.interact("MOVED_OBJECT/NURSERY", player(world, 1)))
+    expectEqual(runtime:getEvidenceState("MOVED_OBJECT"), "CONFIRMED")
+    expectEqual(calls, 1)
+    expectTrue(#world.sent > 0)
+    expectTrue(#world.logs > 0)
+end)
+
+test("stopping evidence runtime clears confirmation subscribers", function()
+    local world, runtime = started()
+    local calls = 0
+    runtime:onConfirmed(function() calls += 1 end)
+    runtime:stop()
+    world.candidates = sourceCandidates()
+    world.lifecycleActive = true
+    runtime:start(SESSION)
+    expectOk(world.interact("MOVED_OBJECT/NURSERY", player(world, 1)))
+    expectEqual(calls, 0)
+end)
+
 test("rapid repeated requests are throttled by the real rate limiter and never mutate state twice", function()
     local world, runtime = started()
     local limit = InteractionConfig.Values.rateLimit

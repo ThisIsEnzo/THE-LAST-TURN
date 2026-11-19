@@ -61,6 +61,8 @@ ObjectiveCore.Reasons = table.freeze({
     INVALID_REASON = "invalid_reason",
     REQUIRED_CANNOT_CANCEL = "required_cannot_cancel",
     INVALID_TRANSITION = "invalid_transition",
+    NOT_SIGNAL = "not_signal",
+    INVALID_SIGNAL_TOKEN = "invalid_signal_token",
 })
 
 ObjectiveCore.SnapshotVersion = 1
@@ -434,6 +436,49 @@ function Store.cancel(self: Store, objectiveId: any, reason: any, now: any): Com
     return endObjective(self, objectiveId, reason, now, States.CANCELLED)
 end
 
+-- Trusted server-side SIGNAL completion. No player or interaction is involved.
+function Store.completeBySignal(self: Store, objectiveId: any, sourceToken: any, now: any): CommandResult
+    local data: any = self
+    if not isFiniteNumber(now) then
+        return rejected(Reasons.INVALID_TIME)
+    end
+    if type(objectiveId) ~= "string" then
+        return rejected(Reasons.INVALID_OBJECTIVE_ID)
+    end
+    local instance = data._instances[objectiveId]
+    if instance == nil then
+        return rejected(Reasons.UNKNOWN_OBJECTIVE)
+    end
+    local definition = data._plan.objectives[objectiveId]
+    if definition.completionKind ~= "SIGNAL" then
+        return rejected(Reasons.NOT_SIGNAL)
+    end
+    if definition.signal == nil or sourceToken ~= definition.signal.sourceToken then
+        return rejected(Reasons.INVALID_SIGNAL_TOKEN)
+    end
+    if instance.state == States.COMPLETED then
+        return { ok = true, reason = nil, changed = false, changes = {}, resolution = nil }
+    end
+    if data._resolution ~= nil then
+        return rejected(Reasons.MISSION_RESOLVED)
+    end
+    if instance.state == States.LOCKED then
+        return rejected(Reasons.NOT_AVAILABLE)
+    end
+    if instance.state == States.FAILED or instance.state == States.CANCELLED then
+        return rejected(Reasons.OBJECTIVE_TERMINAL)
+    end
+
+    local scratch = newScratch(data)
+    local changes: { Change } = {}
+    scratch.state[objectiveId] = States.COMPLETED
+    table.insert(changes, { kind = "STATE", objectiveId = objectiveId, from = instance.state, to = States.COMPLETED })
+    cascade(data._plan, scratch, changes)
+    local resolution = evaluateResolution(data._plan, scratch)
+    commit(data, changes, resolution, now)
+    return { ok = true, reason = nil, changed = true, changes = changes, resolution = copyResolution(resolution) }
+end
+
 function Store.getRevision(self: Store): number
     return (self :: any)._revision
 end
@@ -488,20 +533,30 @@ function Store.getSnapshot(self: Store): any
         local definition = plan.objectives[id]
         local instance = data._instances[id]
         if not (definition.hiddenUntilAvailable and not instance.revealed) then
-            local slots = {}
-            for _, slot in ipairs(definition.slots) do
-                table.insert(slots, { label = slot.label, filled = instance.slots[slot.id].filled })
+            if definition.completionKind == "SIGNAL" then
+                local done = instance.state == States.COMPLETED
+                table.insert(objectives, {
+                    id = id, title = definition.title, description = definition.description,
+                    importance = definition.importance, state = instance.state,
+                    filled = if done then 1 else 0, required = 1,
+                    slots = { { label = definition.title, filled = done } },
+                })
+            else
+                local slots = {}
+                for _, slot in ipairs(definition.slots) do
+                    table.insert(slots, { label = slot.label, filled = instance.slots[slot.id].filled })
+                end
+                table.insert(objectives, {
+                    id = id,
+                    title = definition.title,
+                    description = definition.description,
+                    importance = definition.importance,
+                    state = instance.state,
+                    filled = instance.filledCount,
+                    required = instance.slotCount,
+                    slots = slots,
+                })
             end
-            table.insert(objectives, {
-                id = id,
-                title = definition.title,
-                description = definition.description,
-                importance = definition.importance,
-                state = instance.state,
-                filled = instance.filledCount,
-                required = instance.slotCount,
-                slots = slots,
-            })
         end
     end
     return { v = ObjectiveCore.SnapshotVersion, revision = data._revision, objectives = objectives }
