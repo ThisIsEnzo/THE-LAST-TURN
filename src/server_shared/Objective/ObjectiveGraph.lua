@@ -26,9 +26,10 @@ ObjectiveGraph.Importance = table.freeze({
     OPTIONAL = "OPTIONAL",
 })
 
--- `SIGNAL` is reserved for TTL-09E and is rejected here (`unsupported_completion_kind`).
+-- `SIGNAL` is a trusted server-side completion path (TTL-11D). Branching remains reserved for TTL-09E.
 ObjectiveGraph.CompletionKinds = table.freeze({
     SLOTS = "SLOTS",
+    SIGNAL = "SIGNAL",
 })
 
 ObjectiveGraph.Dependency = table.freeze({
@@ -46,6 +47,7 @@ ObjectiveGraph.Limits = table.freeze({
     MaxDescriptionBytes = 140,
     MaxLabelBytes = 40,
     MaxIdLength = 32,
+    MaxSourceTokenLength = 48,
 })
 
 local States = ObjectiveGraph.States
@@ -55,7 +57,7 @@ local Limits = ObjectiveGraph.Limits
 
 export type DependencySpec = { allOf: { string }?, anyOf: { string }? }
 export type SlotDefinition = { id: string, pointId: string, label: string }
-export type CompletionSpec = { kind: string, slots: { SlotDefinition } }
+export type CompletionSpec = { kind: string, slots: { SlotDefinition }?, signal: { sourceToken: string }? }
 export type ObjectiveDefinition = { id: string, importance: string, requires: DependencySpec?, completion: CompletionSpec, title: string, description: string, hiddenUntilAvailable: boolean? }
 export type ObjectiveContent = { version: number, objectives: { ObjectiveDefinition } }
 
@@ -72,8 +74,9 @@ local OBJECTIVE_FIELDS: { [string]: boolean } = {
     hiddenUntilAvailable = true,
 }
 local REQUIRES_FIELDS: { [string]: boolean } = { allOf = true, anyOf = true }
-local COMPLETION_FIELDS: { [string]: boolean } = { kind = true, slots = true }
+local COMPLETION_FIELDS: { [string]: boolean } = { kind = true, slots = true, signal = true }
 local SLOT_FIELDS: { [string]: boolean } = { id = true, pointId = true, label = true }
+local SIGNAL_FIELDS: { [string]: boolean } = { sourceToken = true }
 
 local function isInteger(value: any, min: number, max: number): boolean
     return type(value) == "number" and value >= min and value <= max and value % 1 == 0
@@ -81,6 +84,12 @@ end
 
 local function isId(value: any): boolean
     return type(value) == "string" and #value >= 1 and #value <= Limits.MaxIdLength and string.match(value, ID_PATTERN) ~= nil
+end
+
+-- Server-authored token; never replicated or accepted from a client.
+local function isSourceToken(value: any): boolean
+    return type(value) == "string" and #value >= 1 and #value <= Limits.MaxSourceTokenLength
+        and string.match(value, "^[A-Za-z0-9_%-]+$") ~= nil
 end
 
 -- Non-empty, bounded, valid UTF-8, no control characters (including newlines and tabs).
@@ -195,38 +204,53 @@ local function checkObjectiveStructure(entry: any): string?
     if not hasOnlyFields(completion, COMPLETION_FIELDS) then
         return "unexpected_completion_field"
     end
-    if completion.kind ~= "SLOTS" then
-        if completion.kind == "SIGNAL" then
-            return "unsupported_completion_kind"
+    if completion.kind == "SLOTS" then
+        if completion.signal ~= nil then
+            return "signal_not_allowed"
         end
-        return "invalid_completion_kind"
+        local slotCount = denseArrayLength(completion.slots, Limits.MaxSlotsPerObjective)
+        if slotCount == nil then
+            return "invalid_slots"
+        end
+        if slotCount < 1 then
+            return "empty_slots"
+        end
+        for index = 1, slotCount do
+            local slot = completion.slots[index]
+            if not isPlainTable(slot) then
+                return "invalid_slot_entry"
+            end
+            if not hasOnlyFields(slot, SLOT_FIELDS) then
+                return "unexpected_slot_field"
+            end
+            if not isId(slot.id) then
+                return "invalid_slot_id"
+            end
+            if not isId(slot.pointId) then
+                return "invalid_point_id"
+            end
+            if not isText(slot.label, Limits.MaxLabelBytes) then
+                return "invalid_slot_label"
+            end
+        end
+        return nil
     end
-    local slotCount = denseArrayLength(completion.slots, Limits.MaxSlotsPerObjective)
-    if slotCount == nil then
-        return "invalid_slots"
+    if completion.kind == "SIGNAL" then
+        if completion.slots ~= nil then
+            return "slots_not_allowed"
+        end
+        if not isPlainTable(completion.signal) then
+            return "invalid_signal"
+        end
+        if not hasOnlyFields(completion.signal, SIGNAL_FIELDS) then
+            return "unexpected_signal_field"
+        end
+        if not isSourceToken(completion.signal.sourceToken) then
+            return "invalid_source_token"
+        end
+        return nil
     end
-    if slotCount < 1 then
-        return "empty_slots"
-    end
-    for index = 1, slotCount do
-        local slot = completion.slots[index]
-        if not isPlainTable(slot) then
-            return "invalid_slot_entry"
-        end
-        if not hasOnlyFields(slot, SLOT_FIELDS) then
-            return "unexpected_slot_field"
-        end
-        if not isId(slot.id) then
-            return "invalid_slot_id"
-        end
-        if not isId(slot.pointId) then
-            return "invalid_point_id"
-        end
-        if not isText(slot.label, Limits.MaxLabelBytes) then
-            return "invalid_slot_label"
-        end
-    end
-    return nil
+    return "invalid_completion_kind"
 end
 
 -- Returns (true, nil, nil) or (false, code, subject). `subject` is the offending objective id when there is one. Codes are
@@ -270,18 +294,20 @@ function ObjectiveGraph.validate(content: any): (boolean, string?, string?)
             return false, "duplicate_objective_id", entry.id
         end
         byId[entry.id] = entry
-        local slotIds: { [string]: boolean } = {}
-        for slotIndex = 1, #entry.completion.slots do
-            local slot = entry.completion.slots[slotIndex]
-            if slotIds[slot.id] then
-                return false, "duplicate_slot_id", entry.id
+        if entry.completion.kind == "SLOTS" then
+            local slotIds: { [string]: boolean } = {}
+            for slotIndex = 1, #entry.completion.slots do
+                local slot = entry.completion.slots[slotIndex]
+                if slotIds[slot.id] then
+                    return false, "duplicate_slot_id", entry.id
+                end
+                slotIds[slot.id] = true
+                -- One slot is one interaction registration on one anchor (design 3.4): anchors cannot be shared.
+                if pointIds[slot.pointId] ~= nil then
+                    return false, "duplicate_point_id", entry.id
+                end
+                pointIds[slot.pointId] = entry.id
             end
-            slotIds[slot.id] = true
-            -- One slot is one interaction registration on one anchor (design 3.4): anchors cannot be shared.
-            if pointIds[slot.pointId] ~= nil then
-                return false, "duplicate_point_id", entry.id
-            end
-            pointIds[slot.pointId] = entry.id
         end
     end
 
@@ -427,6 +453,8 @@ export type PlanObjective = {
     title: string,
     description: string,
     hiddenUntilAvailable: boolean,
+    completionKind: string,
+    signal: { sourceToken: string }?,
     slots: { PlanSlot },
 }
 export type Plan = {
@@ -468,9 +496,14 @@ function ObjectiveGraph.compile(content: any): (Plan?, string?, string?)
             })
         end
         local slots: { PlanSlot } = {}
-        for slotIndex = 1, #entry.completion.slots do
-            local slot = entry.completion.slots[slotIndex]
-            slots[slotIndex] = table.freeze({ id = slot.id, pointId = slot.pointId, label = slot.label })
+        local signal: { sourceToken: string }? = nil
+        if entry.completion.kind == "SLOTS" then
+            for slotIndex = 1, #entry.completion.slots do
+                local slot = entry.completion.slots[slotIndex]
+                slots[slotIndex] = table.freeze({ id = slot.id, pointId = slot.pointId, label = slot.label })
+            end
+        else
+            signal = table.freeze({ sourceToken = entry.completion.signal.sourceToken })
         end
         order[index] = entry.id
         objectives[entry.id] = table.freeze({
@@ -480,6 +513,8 @@ function ObjectiveGraph.compile(content: any): (Plan?, string?, string?)
             title = entry.title,
             description = entry.description,
             hiddenUntilAvailable = entry.hiddenUntilAvailable == true,
+            completionKind = entry.completion.kind,
+            signal = signal,
             slots = table.freeze(slots),
         })
     end
