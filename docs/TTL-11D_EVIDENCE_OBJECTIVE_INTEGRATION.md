@@ -54,4 +54,4 @@ A future server-side RitualService may read `EvidenceService.getEvidenceState(ev
 
 ## Validation and limits
 
-Pure tests cover SIGNAL validation/completion, token rejection, idempotency, snapshot projection, evidence confirmation callback behavior/isolation/cleanup, and bridge mapping/forwarding. Python map regression tests cover missing/invalid evidence sources. CI must rerun Lune, both Rojo builds and the greybox validation workflow. Roblox Studio, multiplayer and mobile checks remain pending. Studio, multiplayer and mobile checks remain pending.
+Pure tests cover SIGNAL validation/completion, token rejection, idempotency, snapshot projection, evidence confirmation callback behavior/isolation/cleanup, and bridge mapping/forwarding. Python map regression tests cover missing/invalid evidence sources. CI must rerun Lune, both Rojo builds and the greybox validation workflow. Roblox Studio, multiplayer and mobile checks remain pending.
