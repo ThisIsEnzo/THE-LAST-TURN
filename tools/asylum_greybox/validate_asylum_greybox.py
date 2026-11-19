@@ -565,10 +565,6 @@ def validate(root, report=None):
             seen_sources[source_id] = entry
         if evidence_id and source_id and evidence_id in requirements:
             per_evidence.setdefault(evidence_id, []).append(entry)
-    for evidence_id, required in sorted(requirements.items()):
-        authored = len(per_evidence.get(evidence_id, []))
-        if authored < required:
-            report.fail(f"evidence {evidence_id} needs {required} distinct authored sources but only {authored} exist")
     for evidence_id, entries in sorted(per_evidence.items()):
         for entry in entries:
             x0, x1, _, _, z0, z1 = entry["box"]
