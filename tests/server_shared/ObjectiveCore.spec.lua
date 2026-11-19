@@ -8,6 +8,11 @@ local Reasons = ObjectiveCore.Reasons
 
 local REQ, OPT = "REQUIRED", "OPTIONAL"
 
+local function signalDef(id: string, importance: string, token: string, requires: any?): any
+    return { id = id, importance = importance, requires = requires, title = "Signal " .. id, description = "Signal objective",
+        completion = { kind = "SIGNAL", signal = { sourceToken = token } } }
+end
+
 local function def(id: string, importance: string, requires: any?, slotCount: number?, hidden: boolean?): any
     local slots = {}
     for index = 1, slotCount or 1 do
@@ -172,6 +177,50 @@ test("the store copies nothing from the caller: a compiled plan cannot be change
     local core = ObjectiveCore.new(plan, 0)
     content.objectives[1].title = "Changed"
     expectEqual(core:getSnapshot().objectives[1].title, "Title A")
+end)
+
+-- trusted SIGNAL completion --------------------------------------------------------------------------------------
+
+test("SIGNAL completion validates token, completes once and is idempotent", function()
+    local core = newCore(planOf(signalDef("DOC", OPT, "evidence_token")))
+    local wrong = core:completeBySignal("DOC", "wrong", tick())
+    expectFalse(wrong.ok)
+    expectEqual(wrong.reason, Reasons.INVALID_SIGNAL_TOKEN)
+    expectEqual(core:getRevision(), 0)
+    local applied = core:completeBySignal("DOC", "evidence_token", tick())
+    expectTrue(applied.ok)
+    expectTrue(applied.changed)
+    expectEqual(core:getState("DOC"), "COMPLETED")
+    expectEqual(core:getRevision(), 1)
+    local duplicate = core:completeBySignal("DOC", "evidence_token", tick())
+    expectTrue(duplicate.ok)
+    expectFalse(duplicate.changed)
+    expectEqual(core:getRevision(), 1)
+    check(core)
+end)
+
+test("SIGNAL rejects SLOTS and cannot complete while LOCKED", function()
+    local slots = newCore()
+    expectEqual(slots:completeBySignal("P", "token", tick()).reason, Reasons.NOT_SIGNAL)
+    local core = newCore(planOf(signalDef("ROOT", REQ, "root"), signalDef("CHILD", REQ, "child", { allOf = { "ROOT" } })))
+    expectEqual(core:completeBySignal("CHILD", "child", tick()).reason, Reasons.NOT_AVAILABLE)
+    expectTrue(core:completeBySignal("ROOT", "root", tick()).ok)
+    expectEqual(core:getState("CHILD"), "AVAILABLE")
+    expectTrue(core:completeBySignal("CHILD", "child", tick()).ok)
+    check(core)
+end)
+
+test("SIGNAL snapshot is projected as one display-only step", function()
+    local core = newCore(planOf(signalDef("DOC", OPT, "token")))
+    local before = core:getSnapshot().objectives[1]
+    expectEqual(before.required, 1)
+    expectEqual(before.filled, 0)
+    expectEqual(#before.slots, 1)
+    core:completeBySignal("DOC", "token", tick())
+    local after = core:getSnapshot().objectives[1]
+    expectEqual(after.required, 1)
+    expectEqual(after.filled, 1)
+    expectTrue(after.slots[1].filled)
 end)
 
 -- contribution lifecycle -------------------------------------------------------------------------------------------
