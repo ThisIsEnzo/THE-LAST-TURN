@@ -42,8 +42,6 @@ TAG = "ObjectivePoint"
 ATTRIBUTE = "PointId"
 EVIDENCE_TAG = "EvidenceSource"
 EVIDENCE_ATTRIBUTES = {"EvidenceId", "SourceId"}
-EVIDENCE_TAG = "EvidenceSource"
-EVIDENCE_ATTRIBUTES = {"EvidenceId", "SourceId"}
 SOURCE_ID_PATTERN = re.compile(r"^[A-Z][A-Z0-9_]{0,31}$")
 
 ALLOWED_CLASSES = {"Model", "Folder", "Part", "SpawnLocation", "PointLight"}
@@ -598,39 +596,6 @@ def validate(root, report=None):
             report.fail(f"mapping {evidence_id} -> {objective_id}: sourceToken does not match the objective's configured token")
         if len(per_evidence.get(evidence_id, [])) < requirements.get(evidence_id, 1):
             report.fail(f"mapping {evidence_id} -> {objective_id}: evidence cannot be CONFIRMED with the authored sources")
-
-    # 5b. authored evidence source validation (TTL-11D)
-    evidence_text = read_text(os.path.join(root, "src", "mission", "server", "Evidence", "EvidenceContent.lua"))
-    required_counts = {m[0]: int(m[1]) for m in re.findall(r'evidence\(\s*"([A-Z0-9_]+)"\s*,\s*"[A-Z0-9_]+"\s*,\s*"[^"]*"\s*,\s*"[^"]*"\s*,\s*(\d+)\s*\)', evidence_text)}
-    seen_source_ids = set()
-    counts_by_evidence = {}
-    for source in sources:
-        attrs = source["attributes"]
-        evidence_id, source_id = attrs.get("EvidenceId"), attrs.get("SourceId")
-        if EVIDENCE_TAG not in source["tags"]: report.fail(f"evidence source {source['path']}: missing tag {EVIDENCE_TAG}")
-        if not evidence_id or evidence_id not in required_counts: report.fail(f"evidence source {source['path']}: unknown or missing EvidenceId {evidence_id}")
-        if not source_id or not re.fullmatch(r"[A-Z][A-Z0-9_]{0,31}", source_id): report.fail(f"evidence source {source['path']}: invalid or missing SourceId")
-        if source_id and source["name"] != source_id: report.fail(f"evidence source {source['path']}: part name must equal SourceId")
-        if source_id in seen_source_ids: report.fail(f"duplicate SourceId {source_id}")
-        if source_id: seen_source_ids.add(source_id)
-        if source["collide"] is not False: report.fail(f"evidence source {source['path']}: must be non-collidable")
-        if evidence_id in required_counts: counts_by_evidence[evidence_id] = counts_by_evidence.get(evidence_id, 0) + 1
-        if evidence_id and source_id:
-            expected = L.EVIDENCE_SOURCES.get(source_id)
-            x0, x1, _, _, z0, z1 = source["box"]
-            cx, cz = (x0 + x1) / 2, (z0 + z1) / 2
-            if expected and region_of(cx, cz) != expected[1]: report.fail(f"evidence source {source_id}: expected room {expected[1]}")
-            if nav.nearest_reachable_distance(cx, cz, reach_limit) is None: report.fail(f"evidence source {source_id}: no reachable interaction position")
-    mapping_text = read_text(os.path.join(root, "src", "mission", "server", "Evidence", "EvidenceObjectiveContent.lua"))
-    mapped_evidence_ids = set(re.findall(r'evidenceId\s*=\s*"([A-Z0-9_]+)"', mapping_text))
-    for evidence_id in sorted(mapped_evidence_ids):
-        required = required_counts.get(evidence_id)
-        if required is None:
-            report.fail(f"evidence mapping references unknown catalog id {evidence_id}")
-        elif counts_by_evidence.get(evidence_id, 0) < required:
-            report.fail(f"evidence {evidence_id} needs {required} distinct authored sources but only {counts_by_evidence.get(evidence_id, 0)} exist")
-    if set(L.EVIDENCE_SOURCES) != seen_source_ids: report.fail("asylum_layout.EVIDENCE_SOURCES does not match authored evidence SourceIds")
-    report.info["evidence sources"] = len(sources)
 
     # 6. Rojo mapping
     try:
