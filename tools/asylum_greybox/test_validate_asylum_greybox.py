@@ -281,7 +281,7 @@ class AsylumGreyboxTests(unittest.TestCase):
 
     def test_missing_evidence_source_is_detected(self):
         edit_json(self.evidence_sources_path(), lambda data: data["Children"].pop(0))
-        self.assertProblem("needs 2 distinct authored sources")
+        self.assertProblem("cannot be CONFIRMED")
 
     def test_missing_evidence_tag_is_detected(self):
         edit_json(self.evidence_sources_path(), lambda data: data["Children"][0]["Properties"].pop("Tags"))
@@ -289,7 +289,7 @@ class AsylumGreyboxTests(unittest.TestCase):
 
     def test_unknown_evidence_id_is_detected(self):
         edit_json(self.evidence_sources_path(), lambda data: data["Children"][0]["Attributes"].update({"EvidenceId": "NOT_REAL"}))
-        self.assertProblem("unknown or missing EvidenceId")
+        self.assertProblem("is not in EvidenceContent.lua")
 
     def test_duplicate_source_id_is_detected(self):
         def mutate(data):
