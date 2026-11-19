@@ -90,11 +90,18 @@ Each anchor is a small non-collidable amber Part flush against a wall of its roo
 - **Cleanup:** the service only unregisters its own prompts and request handler; it never creates, moves or destroys the authored map.
 - **Offline validation (`tools/asylum_greybox/validate_asylum_greybox.py`):** reads the generated JSON independently and checks, among others: tag and attribute on every anchor, part name equals PointId, PointIds exactly equal the pointIds parsed from `ObjectiveContent.lua` (no missing, no extra, no duplicates), each anchor inside its intended room, a walkable position within 75 percent of the configured prompt distance, spread over the map, not next to the spawn. Lune covers the pure side (`tests/server_shared/ObjectiveAnchors.spec.lua`).
 
+## 5bis. Evidence sources (TTL-11D)
+
+- Two non-collidable parts tagged `EvidenceSource` are authored for `COLD_SPOT` and discovered through the existing EvidenceService attributes.
+- `COLD_SPOT_TREATMENT` is in TreatmentRoom at (-34.8, 4.5, -6.0); `COLD_SPOT_QUARANTINE` is in QuarantineWard at (34.8, 4.5, -42.0). They are more than 40 studs apart.
+- The catalog requires two distinct sources before COLD_SPOT can be CONFIRMED. Only then can optional objective DOCUMENT_COLD_SPOT complete.
+- The offline validator checks source tags, attributes, unique IDs, catalog membership, minimum source count, room placement and interaction reach.
+
 ## 6. Rojo representation
 
 - `mission.project.json` maps `Workspace` to `src/mission/world` (`$ignoreUnknownInstances: true`, so the template baseplate is untouched) and sets a few `Lighting` properties (very dark ambient, night clock time, no post-processing, no fog). Pinned Rojo is 7.6.1.
 - `src/mission/world/SpawnLocation.model.json`: the spawn pad (14 x 1 x 8, invisible, flush with the floor) named `SpawnLocation` at (0, 44) in the lobby, so it patches the template spawn instead of adding a second one.
-- `src/mission/world/AsylumMap/`: `Architecture` (Floors, Walls, Ceilings), `Props`, `Lighting` (small neon lamps with low-brightness `PointLight`s) and `ObjectiveAnchors`. About 160 parts in total, wall runs merged.
+- `src/mission/world/AsylumMap/`: `Architecture` (Floors, Walls, Ceilings), `Props`, `Lighting` (small neon lamps with low-brightness `PointLight`s) `ObjectiveAnchors` and `EvidenceSources`. About 160 parts in total, wall runs merged.
 - Formats follow the HUB convention: documented Rojo JSON forms only (`Vector3`/`Color3` arrays, enum names as strings, flat 12-number `CFrame`, identity orientation). The part `Tags` property and node-level `Attributes` map are also used for the objective anchors. **Rojo 7.6.1 accepted the complete MISSION project, including these tags and attributes, in the successful CI `build-places` job.** This confirms the place build; the resulting tag/attribute behavior in a live Studio session remains on the owner checklist.
 - Regenerate with `python3 tools/asylum_greybox/generate_asylum_greybox.py` (layout data in `asylum_layout.py`); the JSON files are the source Rojo reads, and a test fails if they drift from the generator.
 
