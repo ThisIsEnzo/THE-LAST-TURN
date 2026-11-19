@@ -775,8 +775,9 @@ end)
 test("generated specs and prompt options are valid for every slot of the shipped content", function()
     local seen: { [string]: boolean } = {}
     for _, objective in ipairs(ObjectiveContent.objectives) do
-        for _, slot in ipairs(objective.completion.slots) do
-            local spec = ObjectiveRuntime.buildSpec(ObjectiveConfig.Values, objective.id, slot.id)
+        if objective.completion.kind == "SLOTS" then
+            for _, slot in ipairs(objective.completion.slots) do
+                local spec = ObjectiveRuntime.buildSpec(ObjectiveConfig.Values, objective.id, slot.id)
             local ok, detail = InteractionCore.validateSpec(spec)
             expectTrue(ok, tostring(detail))
             expectTrue(#spec.id <= InteractionCore.Limits.MaxIdLength)
@@ -785,7 +786,8 @@ test("generated specs and prompt options are valid for every slot of the shipped
             expectEqual(spec.enabled, false)
             local options = ObjectiveRuntime.buildPromptOptions(ObjectiveConfig.Values, slot.label)
             expectEqual(options.actionText, "Use")
-            expectEqual(options.objectText, slot.label)
+                expectEqual(options.objectText, slot.label)
+            end
         end
     end
 end)
