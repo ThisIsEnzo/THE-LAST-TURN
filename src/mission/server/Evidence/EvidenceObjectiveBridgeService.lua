@@ -6,6 +6,8 @@ local EvidenceService = require(script.Parent.EvidenceService)
 local ObjectiveService = require(script.Parent.Parent.Objective.ObjectiveService)
 local MissionLifecycleService = require(script.Parent.Parent.MissionLifecycle.MissionLifecycleService)
 local MappingContent = require(script.Parent.EvidenceObjectiveContent)
+local EvidenceContent = require(script.Parent.EvidenceContent)
+local ObjectiveContent = require(script.Parent.Parent.Objective.ObjectiveContent)
 local Service = {}
 local initialized = false
 local activeBridge: any = nil
@@ -27,8 +29,32 @@ local function stop()
     activeBridge = nil
     if instance ~= nil then instance:stop() end
 end
+local function validateContentMapping()
+    local evidenceIds: {[string]: boolean} = {}
+    for _, definition in ipairs(EvidenceContent.evidence) do evidenceIds[definition.id] = true end
+    local signalTokens: {[string]: string} = {}
+    for _, objective in ipairs(ObjectiveContent.objectives) do
+        if objective.completion.kind == "SIGNAL" then
+            signalTokens[objective.id] = objective.completion.signal.sourceToken
+        end
+    end
+    for _, mapping in ipairs(MappingContent.mappings) do
+        if not evidenceIds[mapping.evidenceId] then
+            error(string.format("EvidenceObjectiveBridgeService: unknown evidence id %s", mapping.evidenceId))
+        end
+        local token = signalTokens[mapping.objectiveId]
+        if token == nil then
+            error(string.format("EvidenceObjectiveBridgeService: %s is not a SIGNAL objective", mapping.objectiveId))
+        end
+        if token ~= mapping.sourceToken then
+            error(string.format("EvidenceObjectiveBridgeService: sourceToken mismatch for %s", mapping.objectiveId))
+        end
+    end
+end
+
 function Service.init()
     if initialized then return end
+    validateContentMapping()
     local ok, code, subject = Bridge.validateMapping(MappingContent)
     if not ok then error(string.format("invalid evidence/objective mapping %s at %s", tostring(code), tostring(subject))) end
     if not MissionLifecycleService.registerSystem({ name = "EvidenceObjective", start = start, stop = stop }) then
