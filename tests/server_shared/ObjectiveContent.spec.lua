@@ -83,7 +83,7 @@ end)
 test("the slice demonstrates the required capabilities", function()
     local multiSlot, optional, dependencyEdges = 0, 0, 0
     for _, objective in ipairs(content.objectives) do
-        if #objective.completion.slots > 1 then
+        if objective.completion.kind == "SLOTS" and #objective.completion.slots > 1 then
             multiSlot = multiSlot + 1
         end
         if objective.importance == "OPTIONAL" then
@@ -149,12 +149,14 @@ test("every slot has its own anchor id and ids are unique", function()
     local slotIdsPerObjective = 0
     for _, objective in ipairs(content.objectives) do
         local slotIds: { [string]: boolean } = {}
-        for _, slot in ipairs(objective.completion.slots) do
-            expectEqual(points[slot.pointId], nil, "duplicate anchor " .. slot.pointId)
-            points[slot.pointId] = true
-            expectEqual(slotIds[slot.id], nil, "duplicate slot " .. slot.id)
-            slotIds[slot.id] = true
-            slotIdsPerObjective = slotIdsPerObjective + 1
+        if objective.completion.kind == "SLOTS" then
+            for _, slot in ipairs(objective.completion.slots) do
+                expectEqual(points[slot.pointId], nil, "duplicate anchor " .. slot.pointId)
+                points[slot.pointId] = true
+                expectEqual(slotIds[slot.id], nil, "duplicate slot " .. slot.id)
+                slotIds[slot.id] = true
+                slotIdsPerObjective = slotIdsPerObjective + 1
+            end
         end
     end
     expectEqual(slotIdsPerObjective, 6)
@@ -164,8 +166,10 @@ test("texts respect the documented limits", function()
     for _, objective in ipairs(content.objectives) do
         expectTrue(#objective.title <= ObjectiveGraph.Limits.MaxTitleBytes, objective.id)
         expectTrue(#objective.description <= ObjectiveGraph.Limits.MaxDescriptionBytes, objective.id)
-        for _, slot in ipairs(objective.completion.slots) do
-            expectTrue(#slot.label <= ObjectiveGraph.Limits.MaxLabelBytes, slot.id)
+        if objective.completion.kind == "SLOTS" then
+            for _, slot in ipairs(objective.completion.slots) do
+                expectTrue(#slot.label <= ObjectiveGraph.Limits.MaxLabelBytes, slot.id)
+            end
         end
     end
 end)
