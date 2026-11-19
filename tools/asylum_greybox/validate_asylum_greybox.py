@@ -625,8 +625,14 @@ def validate(root, report=None):
             cx, cz = (x0 + x1) / 2, (z0 + z1) / 2
             if expected and region_of(cx, cz) != expected[1]: report.fail(f"evidence source {source_id}: expected room {expected[1]}")
             if nav.nearest_reachable_distance(cx, cz, reach_limit) is None: report.fail(f"evidence source {source_id}: no reachable interaction position")
-    for evidence_id, required in required_counts.items():
-        if counts_by_evidence.get(evidence_id, 0) < required: report.fail(f"evidence {evidence_id} needs {required} distinct authored sources but only {counts_by_evidence.get(evidence_id, 0)} exist")
+    mapping_text = read_text(os.path.join(root, "src", "mission", "server", "Evidence", "EvidenceObjectiveContent.lua"))
+    mapped_evidence_ids = set(re.findall(r'evidenceId\s*=\s*"([A-Z0-9_]+)"', mapping_text))
+    for evidence_id in sorted(mapped_evidence_ids):
+        required = required_counts.get(evidence_id)
+        if required is None:
+            report.fail(f"evidence mapping references unknown catalog id {evidence_id}")
+        elif counts_by_evidence.get(evidence_id, 0) < required:
+            report.fail(f"evidence {evidence_id} needs {required} distinct authored sources but only {counts_by_evidence.get(evidence_id, 0)} exist")
     if set(L.EVIDENCE_SOURCES) != seen_source_ids: report.fail("asylum_layout.EVIDENCE_SOURCES does not match authored evidence SourceIds")
     report.info["evidence sources"] = len(sources)
 
