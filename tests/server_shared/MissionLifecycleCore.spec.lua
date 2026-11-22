@@ -34,6 +34,26 @@ local function context(overrides: { [string]: any }?): { [string]: any }
     for key, value in pairs(overrides or {}) do
         data[key] = if value == "__nil__" then nil else value -- "__nil__" removes the field
     end
+    if overrides == nil or overrides.presentUserIds == nil then
+        local expectedSet: { [any]: boolean } = {}
+        if type(data.expectedUserIds) == "table" then
+            for _, userId in pairs(data.expectedUserIds) do
+                expectedSet[userId] = true
+            end
+        end
+        local source = if type(data.arrivedUserIds) == "table" then data.arrivedUserIds else data.expectedUserIds
+        local present: { any } = {}
+        local seen: { [any]: boolean } = {}
+        if type(source) == "table" then
+            for _, userId in ipairs(source) do
+                if expectedSet[userId] and not seen[userId] then
+                    seen[userId] = true
+                    table.insert(present, userId)
+                end
+            end
+        end
+        data.presentUserIds = present
+    end
     return data
 end
 
@@ -213,6 +233,73 @@ test("arrival order does not affect acceptance; 1 and 8 members are valid", func
     expectTrue(eight:submitContext(context({ leaderUserId = 1, expectedUserIds = ids, arrivedUserIds = { 8, 7, 6, 5, 4, 3, 2, 1 } }), "DEFAULT", 5).ok)
 end)
 
+
+test("partial READY_PARTIAL context starts with present participants and preserves expected members", function()
+    local store = waiting()
+    local partial = context({
+        state = "READY_PARTIAL",
+        arrivedUserIds = { 10, 12 },
+        presentUserIds = { 12 },
+        missingUserIds = { 11 },
+    })
+    local result = store:submitContext(partial, "DEFAULT", 2000)
+    expectTrue(result.ok)
+    expectEqual(result.to, S.INITIALIZING)
+    local session = store:getSession()
+    expectEqual(table.concat(session.expectedUserIds, ","), "10,11,12")
+    expectEqual(table.concat(session.presentUserIds, ","), "12")
+    check(store)
+end)
+
+test("partial context rejects empty present roster", function()
+    local store = waiting()
+    local result = store:submitContext(context({
+        state = "READY_PARTIAL",
+        arrivedUserIds = { 10 },
+        presentUserIds = {},
+        missingUserIds = { 11, 12 },
+    }), "DEFAULT", 2000)
+    expectFalse(result.ok)
+    expectEqual(result.detail, "nobody_present")
+    expectEqual(store:getSession(), nil)
+end)
+
+test("partial context rejects a present participant who never arrived", function()
+    local store = waiting()
+    local result = store:submitContext(context({
+        state = "READY_PARTIAL",
+        arrivedUserIds = { 10 },
+        presentUserIds = { 11 },
+        missingUserIds = { 11, 12 },
+    }), "DEFAULT", 2000)
+    expectFalse(result.ok)
+    expectEqual(result.detail, "invalid_present_members")
+end)
+
+test("partial context requires exact arrived and missing partition", function()
+    local store = waiting()
+    local result = store:submitContext(context({
+        state = "READY_PARTIAL",
+        arrivedUserIds = { 10 },
+        presentUserIds = { 10 },
+        missingUserIds = { 12 },
+    }), "DEFAULT", 2000)
+    expectFalse(result.ok)
+    expectEqual(result.detail, "incomplete_arrivals")
+end)
+
+test("full READY context stores only currently present users in the session snapshot", function()
+    local store = waiting()
+    local result = store:submitContext(context({
+        state = "READY",
+        arrivedUserIds = { 10, 11, 12 },
+        presentUserIds = { 10, 12 },
+        missingUserIds = {},
+    }), "DEFAULT", 2000)
+    expectTrue(result.ok)
+    expectEqual(table.concat(store:getSession().presentUserIds, ","), "10,12")
+end)
+
 test("startedAt must be a finite number", function()
     for _, invalid in ipairs({ "1000", math.huge, -math.huge, 0 / 0 }) do
         local store = waiting()
@@ -339,6 +426,9 @@ test("session snapshots are copies and hold lifecycle data only", function()
     local fresh = store:getSession()
     expectEqual(fresh.missionId, "mission-1")
     expectEqual(#fresh.expectedUserIds, 3)
+    expectEqual(#fresh.presentUserIds, 3)
+    table.insert(session.presentUserIds, 99)
+    expectEqual(#store:getSession().presentUserIds, 3)
     for key in pairs(fresh) do
         expectFalse(string.lower(key):find("reserved") ~= nil or string.lower(key):find("secret") ~= nil, key)
     end
