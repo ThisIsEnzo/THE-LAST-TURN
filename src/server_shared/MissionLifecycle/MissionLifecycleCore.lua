@@ -124,19 +124,6 @@ function MissionLifecycleCore.validateContext(context: any, expectedMissionType:
         return false, "invalid_leader"
     end
 
-    local present = context.presentUserIds
-    local presentArrayOk, presentCount = isDenseArray(present, MissionLifecycleCore.MaxMembers)
-    if not presentArrayOk or presentCount < 1 then
-        return false, "nobody_present"
-    end
-    local presentSet: { [number]: boolean } = {}
-    for _, userId in ipairs(present) do
-        if not expectedSet[userId] or presentSet[userId] then
-            return false, "invalid_present_members"
-        end
-        presentSet[userId] = true
-    end
-
     local arrived = context.arrivedUserIds
     local arrivedArrayOk, arrivedCount = isDenseArray(arrived, MissionLifecycleCore.MaxMembers)
     if not arrivedArrayOk or arrivedCount < 1 or arrivedCount > count then
@@ -148,6 +135,18 @@ function MissionLifecycleCore.validateContext(context: any, expectedMissionType:
             return false, "incomplete_arrivals"
         end
         arrivedSet[userId] = true
+    end
+    local present = context.presentUserIds
+    local presentArrayOk, presentCount = isDenseArray(present, MissionLifecycleCore.MaxMembers)
+    if not presentArrayOk or presentCount < 1 then
+        return false, "nobody_present"
+    end
+    local presentSet: { [number]: boolean } = {}
+    for _, userId in ipairs(present) do
+        if not expectedSet[userId] or presentSet[userId] then
+            return false, "invalid_present_members"
+        end
+        presentSet[userId] = true
     end
     for userId in pairs(presentSet) do
         if not arrivedSet[userId] then
