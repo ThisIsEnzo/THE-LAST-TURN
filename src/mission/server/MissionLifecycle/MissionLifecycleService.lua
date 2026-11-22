@@ -12,6 +12,7 @@ local ServerStorage = game:GetService("ServerStorage")
 local TeleportService = game:GetService("TeleportService")
 
 local MissionLifecycleCore = require(ServerStorage.ServerShared.MissionLifecycle.MissionLifecycleCore)
+local ArrivalCore = require(ServerStorage.ServerShared.MissionTeleport.ArrivalCore)
 local MissionPlaces = require(ServerStorage.ServerShared.MissionTeleport.MissionPlaces)
 local PlayerStateService = require(ServerStorage.ServerShared.Player.PlayerStateService)
 local MissionContextService = require(script.Parent.Parent.MissionContext.MissionContextService)
@@ -78,7 +79,7 @@ local function connectedParticipants(): { number }
     local candidates: { number } = {}
     local session = active and active:getSession()
     if session then
-        candidates = session.expectedUserIds
+        candidates = session.presentUserIds
     else
         local context = MissionContextService.getContext()
         candidates = context and context.presentUserIds or {}
@@ -485,7 +486,7 @@ local function evaluateContext()
     if not initialized or active == nil or active:getState() ~= States.WAITING_FOR_PLAYERS then
         return
     end
-    if MissionContextService.getState() ~= "READY" then
+    if not ArrivalCore.isStartable(MissionContextService.getState()) then
         return -- NO_CONTEXT / WAITING / INCOMPLETE never start a mission
     end
     local submitted = active:submitContext(MissionContextService.getContext(), Config.expectedMissionType, os.time())

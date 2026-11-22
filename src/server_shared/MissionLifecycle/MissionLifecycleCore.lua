@@ -94,9 +94,10 @@ function MissionLifecycleCore.validateContext(context: any, expectedMissionType:
     if type(context) ~= "table" then
         return false, "context_missing"
     end
-    if context.state ~= "READY" then
+    if context.state ~= "READY" and context.state ~= "READY_PARTIAL" then
         return false, "context_not_ready"
     end
+    local partial = context.state == "READY_PARTIAL"
     if not isToken(context.missionId, 64, "^[%w%-]+$") then
         return false, "invalid_mission_id"
     end
@@ -123,12 +124,9 @@ function MissionLifecycleCore.validateContext(context: any, expectedMissionType:
         return false, "invalid_leader"
     end
 
-    if type(context.missingUserIds) ~= "table" or next(context.missingUserIds) ~= nil then
-        return false, "incomplete_arrivals"
-    end
     local arrived = context.arrivedUserIds
     local arrivedArrayOk, arrivedCount = isDenseArray(arrived, MissionLifecycleCore.MaxMembers)
-    if not arrivedArrayOk or arrivedCount ~= count then
+    if not arrivedArrayOk or arrivedCount < 1 or arrivedCount > count then
         return false, "incomplete_arrivals"
     end
     local arrivedSet: { [number]: boolean } = {}
@@ -137,6 +135,48 @@ function MissionLifecycleCore.validateContext(context: any, expectedMissionType:
             return false, "incomplete_arrivals"
         end
         arrivedSet[userId] = true
+    end
+    local present = context.presentUserIds
+    local presentArrayOk, presentCount = isDenseArray(present, MissionLifecycleCore.MaxMembers)
+    if not presentArrayOk or presentCount < 1 then
+        return false, "nobody_present"
+    end
+    local presentSet: { [number]: boolean } = {}
+    for _, userId in ipairs(present) do
+        if not expectedSet[userId] or presentSet[userId] then
+            return false, "invalid_present_members"
+        end
+        presentSet[userId] = true
+    end
+    for userId in pairs(presentSet) do
+        if not arrivedSet[userId] then
+            return false, "invalid_present_members"
+        end
+    end
+
+    local missing = context.missingUserIds
+    local missingArrayOk, missingCount = isDenseArray(missing, MissionLifecycleCore.MaxMembers)
+    if not missingArrayOk then
+        return false, "incomplete_arrivals"
+    end
+    local missingSet: { [number]: boolean } = {}
+    for _, userId in ipairs(missing) do
+        if not expectedSet[userId] or arrivedSet[userId] or missingSet[userId] then
+            return false, "incomplete_arrivals"
+        end
+        missingSet[userId] = true
+    end
+    for _, userId in ipairs(expected) do
+        if (arrivedSet[userId] == true) == (missingSet[userId] == true) then
+            return false, "incomplete_arrivals"
+        end
+    end
+    if partial then
+        if arrivedCount >= count or missingCount == 0 then
+            return false, "incomplete_arrivals"
+        end
+    elseif arrivedCount ~= count or missingCount ~= 0 then
+        return false, "incomplete_arrivals"
     end
     return true, nil
 end
@@ -171,6 +211,7 @@ type Session = {
     leader: number,
     missionType: string,
     expected: { number },
+    present: { number },
     startedAt: number,
 }
 
@@ -248,6 +289,7 @@ function Store.submitContext(self: Store, context: any, expectedMissionType: str
         leader = context.leaderUserId,
         missionType = context.missionType,
         expected = table.clone(context.expectedUserIds),
+        present = table.clone(context.presentUserIds),
         startedAt = startedAt,
     }
     return move(self, States.INITIALIZING)
@@ -319,6 +361,7 @@ function Store.getSession(self: Store): any?
         leaderUserId = session.leader,
         missionType = session.missionType,
         expectedUserIds = table.clone(session.expected),
+        presentUserIds = table.clone(session.present),
         startedAt = session.startedAt,
         outcome = self._outcome,
         reason = self._reason,
@@ -366,6 +409,16 @@ function Store.validateInvariants(self: Store): (boolean, string?)
         end
         if #session.expected < 1 or #session.expected > MissionLifecycleCore.MaxMembers or not set[session.leader] then
             return false, "invalid session members"
+        end
+        local presentSet: { [number]: boolean } = {}
+        if #session.present < 1 or #session.present > #session.expected then
+            return false, "invalid session present members"
+        end
+        for _, userId in ipairs(session.present) do
+            if not set[userId] or presentSet[userId] then
+                return false, "invalid session present members"
+            end
+            presentSet[userId] = true
         end
     end
     return true, nil
