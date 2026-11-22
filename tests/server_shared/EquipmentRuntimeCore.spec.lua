@@ -1,129 +1,87 @@
 --!strict
-local Harness = require("../Harness")
-local Core = require("../../src/server_shared/Equipment/EquipmentRuntimeCore")
-local test, eq, yes, no = Harness.test, Harness.expectEqual, Harness.expectTrue, Harness.expectFalse
+local Harness=require("../Harness")
+local Core=require("../../src/server_shared/Equipment/EquipmentRuntimeCore")
+local test,eq,yes,no,expectError=Harness.test,Harness.expectEqual,Harness.expectTrue,Harness.expectFalse,Harness.expectError
+local R=Core.Reasons
+local C=Core.CaptureResults
 
-local Reason = Core.Reason
-local Result = Core.CaptureResult
-
-test("scanner bands use inclusive upper boundaries and no-target band one", function()
-    eq(Core.bandForDistance(nil), 1)
-    eq(Core.bandForDistance(0), 5)
-    eq(Core.bandForDistance(6), 5)
-    eq(Core.bandForDistance(6.001), 4)
-    eq(Core.bandForDistance(10), 4)
-    eq(Core.bandForDistance(10.001), 3)
-    eq(Core.bandForDistance(16), 3)
-    eq(Core.bandForDistance(16.001), 2)
-    eq(Core.bandForDistance(24), 2)
-    eq(Core.bandForDistance(24.001), 1)
+test("scanner bands include exact boundaries and no-target band one",function()
+    eq(Core.bandForDistance(nil),1); eq(Core.bandForDistance(0),5); eq(Core.bandForDistance(6),5)
+    eq(Core.bandForDistance(6.0001),4); eq(Core.bandForDistance(10),4); eq(Core.bandForDistance(10.0001),3)
+    eq(Core.bandForDistance(16),3); eq(Core.bandForDistance(16.0001),2); eq(Core.bandForDistance(24),2)
+    eq(Core.bandForDistance(24.0001),1); eq(Core.bandForDistance(1000),1)
 end)
-
-test("scanner bands reject negative and non-finite distances", function()
-    local band, reason = Core.bandForDistance(-0.1)
-    eq(band, nil); eq(reason, Reason.INVALID_DISTANCE)
-    band, reason = Core.bandForDistance(math.huge)
-    eq(band, nil); eq(reason, Reason.INVALID_DISTANCE)
-    band, reason = Core.bandForDistance(0 / 0)
-    eq(band, nil); eq(reason, Reason.INVALID_DISTANCE)
-    band, reason = Core.bandForDistance("6")
-    eq(band, nil); eq(reason, Reason.INVALID_DISTANCE)
+test("invalid distances are rejected",function()
+    local values={-1,-0.001,0/0,math.huge,-math.huge,"6",true,false,{},function() end}
+    for _,v in ipairs(values) do local band,code=Core.bandForDistance(v); eq(band,nil); eq(code,R.INVALID_DISTANCE) end
 end)
-
-test("cooldowns are defined only for known equipment", function()
-    eq(Core.cooldownFor("EMF_READER"), 6)
-    eq(Core.cooldownFor("THERMOMETER"), 6)
-    eq(Core.cooldownFor("FIELD_CAMERA"), 8)
-    eq(Core.cooldownFor("SPIRIT_BOX"), 10)
-    eq(Core.cooldownFor("UTILITY_FLASHLIGHT"), 0.5)
-    local cooldown, reason = Core.cooldownFor("UNKNOWN")
-    eq(cooldown, nil); eq(reason, Reason.UNKNOWN_ITEM)
+test("cooldowns are configured and unknown items rejected",function()
+    eq(Core.cooldownFor("EMF_READER"),6); eq(Core.cooldownFor("THERMOMETER"),6)
+    eq(Core.cooldownFor("FIELD_CAMERA"),8); eq(Core.cooldownFor("SPIRIT_BOX"),10)
+    eq(Core.cooldownFor("UTILITY_FLASHLIGHT"),0.5)
+    local value,code=Core.cooldownFor("UNKNOWN"); eq(value,nil); eq(code,R.UNKNOWN_ITEM)
 end)
-
-test("cooldown readiness accepts exact boundary and fractional timestamps", function()
-    yes(Core.isReady("EMF_READER", nil, 0))
-    no(Core.isReady("EMF_READER", 10.25, 16.249999))
-    yes(Core.isReady("EMF_READER", 10.25, 16.25))
-    no(Core.isReady("UTILITY_FLASHLIGHT", 10.125, 10.624999))
-    yes(Core.isReady("UTILITY_FLASHLIGHT", 10.125, 10.625))
-    local ready, reason = Core.isReady("EMF_READER", -1, 20)
-    no(ready); eq(reason, Reason.INVALID_TIMESTAMP)
-    ready, reason = Core.isReady("EMF_READER", nil, math.huge)
-    no(ready); eq(reason, Reason.INVALID_TIMESTAMP)
+test("cooldown exact and fractional boundaries",function()
+    eq(Core.isReady("EMF_READER",nil,0),true); eq(Core.cooldownEndsAt("EMF_READER",nil),0)
+    eq(Core.isReady("EMF_READER",10.25,16.2499),false); eq(Core.isReady("EMF_READER",10.25,16.25),true)
+    eq(Core.isReady("UTILITY_FLASHLIGHT",10.125,10.6249),false)
+    eq(Core.isReady("UTILITY_FLASHLIGHT",10.125,10.625),true)
+    local ready,code=Core.isReady("EMF_READER",-1,20); eq(ready,nil); eq(code,R.INVALID_TIMESTAMP)
+    ready,code=Core.isReady("EMF_READER",nil,math.huge); eq(ready,nil); eq(code,R.INVALID_TIMESTAMP)
 end)
-
-test("camera starts with three charges and immutable state", function()
-    local state = Core.newCameraState()
-    eq(state.charges, 3)
-    eq(state.lastUsedAt, nil)
-    yes(table.isfrozen(state))
+test("camera starts immutable with three charges",function()
+    local state=Core.newCameraState(); eq(state.charges,3); eq(state.lastUsedAt,nil); yes(table.isfrozen(state))
+    expectError(function() (state :: any).charges=0 end)
+    expectError(function() (Core.Cooldowns :: any).EMF_READER=0 end)
 end)
-
-test("PRESENT consumes one charge and sets cooldown timestamp", function()
-    local initial = Core.newCameraState()
-    local nextState, reason = Core.applyCapture(initial, Result.PRESENT, 12.25)
-    yes(nextState ~= nil); eq(reason, nil)
-    eq(nextState.charges, 2)
-    eq(nextState.lastUsedAt, 12.25)
-    eq(initial.charges, 3)
-    yes(table.isfrozen(nextState))
+test("PRESENT consumes one charge and starts cooldown without mutating input",function()
+    local state=Core.newCameraState()
+    local nextState,code=Core.applyCapture(state,C.PRESENT,20)
+    yes(nextState~=nil); eq(code,nil); eq(nextState.charges,2); eq(nextState.lastUsedAt,20)
+    eq(state.charges,3); eq(state.lastUsedAt,nil); yes(table.isfrozen(nextState))
 end)
-
-test("ABSENT consumes no charge but sets cooldown timestamp", function()
-    local nextState, reason = Core.applyCapture(Core.newCameraState(), Result.ABSENT, 4.5)
-    yes(nextState ~= nil); eq(reason, nil)
-    eq(nextState.charges, 3)
-    eq(nextState.lastUsedAt, 4.5)
+test("ABSENT does not consume charge but starts cooldown",function()
+    local nextState,code=Core.applyCapture(Core.newCameraState(),C.ABSENT,20)
+    yes(nextState~=nil); eq(code,nil); eq(nextState.charges,3); eq(nextState.lastUsedAt,20)
 end)
-
-test("camera enforces cooldown inside the capture transition", function()
-    local state = Core.newCameraState()
-    local first = Core.applyCapture(state, Result.PRESENT, 10.25)
-    yes(first ~= nil)
-    local blocked, reason = Core.applyCapture(first, Result.PRESENT, 18.249999)
-    eq(blocked, nil); eq(reason, Reason.COOLDOWN_ACTIVE)
-    blocked, reason = Core.applyCapture(first, Result.ABSENT, 18.249999)
-    eq(blocked, nil); eq(reason, Reason.COOLDOWN_ACTIVE)
-    local ready, readyReason = Core.applyCapture(first, Result.ABSENT, 18.25)
-    yes(ready ~= nil); eq(readyReason, nil)
-    eq(ready.charges, 2)
+test("capture transition enforces cooldown for both results",function()
+    local state=Core.applyCapture(Core.newCameraState(),C.PRESENT,10.25); yes(state~=nil)
+    local blocked,code=Core.applyCapture(state,C.PRESENT,18.2499); eq(blocked,nil); eq(code,R.COOLDOWN_ACTIVE)
+    blocked,code=Core.applyCapture(state,C.ABSENT,18.2499); eq(blocked,nil); eq(code,R.COOLDOWN_ACTIVE)
+    local allowed,allowedCode=Core.applyCapture(state,C.ABSENT,18.25)
+    yes(allowed~=nil); eq(allowedCode,nil); eq(allowed.charges,2)
 end)
-
-test("camera rejects capture after charges are exhausted", function()
-    local state = Core.newCameraState()
-    state = Core.applyCapture(state, Result.PRESENT, 0)
-    state = Core.applyCapture(state, Result.PRESENT, 8)
-    state = Core.applyCapture(state, Result.PRESENT, 16)
-    eq(state.charges, 0)
-    local nextState, reason = Core.applyCapture(state, Result.PRESENT, 24)
-    eq(nextState, nil); eq(reason, Reason.NO_CHARGES)
-end)
-
-test("camera rejects invalid state including nil explicitly", function()
-    local nextState, reason = Core.applyCapture(nil, Result.PRESENT, 0)
-    eq(nextState, nil); eq(reason, Reason.INVALID_CAMERA_STATE)
-
-    local invalidStates = {
-        {},
-        { charges = 3 },
-        { charges = 3, lastUsedAt = nil, extra = true },
-        { charges = -1, lastUsedAt = nil },
-        { charges = 1.5, lastUsedAt = nil },
-        { charges = 4, lastUsedAt = nil },
-        { charges = 2, lastUsedAt = -1 },
-        { charges = 2, lastUsedAt = math.huge },
-    }
-    for _, invalidState in ipairs(invalidStates) do
-        nextState, reason = Core.applyCapture(invalidState, Result.PRESENT, 0)
-        eq(nextState, nil); eq(reason, Reason.INVALID_CAMERA_STATE)
+test("three PRESENT captures require separate cooldown windows",function()
+    local state=Core.newCameraState()
+    for i=0,2 do
+        local nextState,code=Core.applyCapture(state,C.PRESENT,100+i*8)
+        yes(nextState~=nil); eq(code,nil); state=nextState; eq(state.charges,2-i)
     end
+    local rejected,code=Core.applyCapture(state,C.PRESENT,124)
+    eq(rejected,nil); eq(code,R.NO_CHARGES); eq(state.charges,0); eq(state.lastUsedAt,116)
 end)
-
-test("camera rejects invalid result and timestamp", function()
-    local nextState, reason = Core.applyCapture(Core.newCameraState(), "UNKNOWN", 0)
-    eq(nextState, nil); eq(reason, Reason.INVALID_CAPTURE_RESULT)
-    nextState, reason = Core.applyCapture(Core.newCameraState(), Result.PRESENT, -1)
-    eq(nextState, nil); eq(reason, Reason.INVALID_TIMESTAMP)
-    nextState, reason = Core.applyCapture(Core.newCameraState(), Result.PRESENT, math.huge)
-    eq(nextState, nil); eq(reason, Reason.INVALID_TIMESTAMP)
+test("ABSENT is allowed at zero charges",function()
+    local empty=table.freeze({charges=0,lastUsedAt=10})
+    local nextState,code=Core.applyCapture(empty,C.ABSENT,18)
+    yes(nextState~=nil); eq(code,nil); eq(nextState.charges,0); eq(nextState.lastUsedAt,18)
+end)
+test("nil and malformed camera states are rejected",function()
+    local nextState,code=Core.applyCapture(nil,C.PRESENT,10); eq(nextState,nil); eq(code,R.INVALID_CAMERA_STATE)
+    local values={5,"state",true,{charges=-1,lastUsedAt=nil},{charges=4,lastUsedAt=nil},
+        {charges=1.5,lastUsedAt=nil},{charges=0/0,lastUsedAt=nil},{charges="3",lastUsedAt=nil},
+        {charges=3,lastUsedAt=-1},{charges=3,lastUsedAt="10"},{charges=3,lastUsedAt=nil,extra=true},{}}
+    for _,v in ipairs(values) do nextState,code=Core.applyCapture(v,C.PRESENT,10); eq(nextState,nil); eq(code,R.INVALID_CAMERA_STATE) end
+end)
+test("invalid capture result and timestamp are rejected",function()
+    local state=Core.newCameraState()
+    local nextState,code=Core.applyCapture(state,"present",10); eq(nextState,nil); eq(code,R.INVALID_CAPTURE_RESULT)
+    nextState,code=Core.applyCapture(state,C.PRESENT,-1); eq(nextState,nil); eq(code,R.INVALID_TIMESTAMP)
+    nextState,code=Core.applyCapture(state,C.PRESENT,math.huge); eq(nextState,nil); eq(code,R.INVALID_TIMESTAMP)
+    eq(state.charges,3); eq(state.lastUsedAt,nil)
+end)
+test("same inputs produce deterministic results",function()
+    local a=Core.applyCapture(Core.newCameraState(),C.PRESENT,7)
+    local b=Core.applyCapture(Core.newCameraState(),C.PRESENT,7)
+    eq(a.charges,b.charges); eq(a.lastUsedAt,b.lastUsedAt)
+    eq(Core.bandForDistance(9.5),4); eq(Core.isReady("SPIRIT_BOX",3,13),true)
 end)
