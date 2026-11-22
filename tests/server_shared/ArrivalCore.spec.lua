@@ -245,4 +245,4 @@ test("disconnect after timeout removes the last present participant from readine
     expectEqual(core:getState(), States.INCOMPLETE)
     expectFalse(ArrivalCore.isStartable(core:getState()))
 end)
-\nreturn {}
+return {}
