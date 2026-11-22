@@ -15,8 +15,14 @@ ArrivalCore.States = table.freeze({
     NO_CONTEXT = "NO_CONTEXT",
     WAITING = "WAITING",
     READY = "READY",
+    READY_PARTIAL = "READY_PARTIAL",
     INCOMPLETE = "INCOMPLETE",
 })
+
+-- Only these states may initialize a mission; both require a connected expected participant.
+function ArrivalCore.isStartable(state: string): boolean
+    return state == ArrivalCore.States.READY or state == ArrivalCore.States.READY_PARTIAL
+end
 
 function ArrivalCore.checkJoinSource(sourcePlaceId: number?, sourceGameId: number?, expectedHubPlaceId: number, expectedGameId: number): (boolean, string?)
     if type(expectedHubPlaceId) ~= "number" or expectedHubPlaceId <= 0 or expectedHubPlaceId % 1 ~= 0 then
@@ -88,16 +94,22 @@ local function computeState(context: Context?): string
         return ArrivalCore.States.NO_CONTEXT
     end
     local missing = false
+    local presentCount = 0
     for _, userId in ipairs(context.expected) do
         if not context.arrivedEver[userId] then
             missing = true
-            break
         end
+        if context.present[userId] then
+            presentCount += 1
+        end
+    end
+    if presentCount == 0 then
+        return if context.timedOut then ArrivalCore.States.INCOMPLETE else ArrivalCore.States.WAITING
     end
     if not missing then
         return ArrivalCore.States.READY
     end
-    return if context.timedOut then ArrivalCore.States.INCOMPLETE else ArrivalCore.States.WAITING
+    return if context.timedOut then ArrivalCore.States.READY_PARTIAL else ArrivalCore.States.WAITING
 end
 
 function Store.getState(self: Store): string
